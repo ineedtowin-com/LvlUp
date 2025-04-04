@@ -14,17 +14,37 @@
 
   <section id="contact">
     <h2>Contact Form</h2>
-    <form action="#" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Submit</button>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSelngkNAbr5L48XwHfhrQW1Mnj8nBt7Cq5cSGH0b9Fpmb9feg/viewform?embedded=true" width="640" height="917" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </form>
-  </section>
+   <!-- contact.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - LevelUp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+  </header>
+
+  <!-- Contact Form -->
+  <form action="https://formspree.io/f/yourformid" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <button type="submit">Send</button>
+  </form>
 
   <footer>
     <p>&copy; 2025 LevelUp. All rights reserved.</p>
   </footer>
 </body>
 </html>
+
