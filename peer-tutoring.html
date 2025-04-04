@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Peer Tutoring - LevelUp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>LevelUp - Peer Tutoring</h1>
+    <p>Connect with fellow students to learn and teach!</p>
+    <a href="index.html" class="btn">Back to Home</a>
+  </header>
+
+  <section id="peer-tutoring">
+    <h2>Become a Tutor or Find a Tutor</h2>
+    
+    <!-- Tutor Sign Up Form -->
+    <div class="form-container">
+      <h3>Become a Tutor</h3>
+      <form id="tutor-form">
+        <label for="tutor-name">Your Name:</label>
+        <input type="text" id="tutor-name" name="tutor-name" required />
+        
+        <label for="tutor-subject">Subject you can tutor:</label>
+        <select id="tutor-subject" name="tutor-subject" required>
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="english">English</option>
+        </select>
+        
+        <label for="tutor-description">Short Description (Optional):</label>
+        <textarea id="tutor-description" name="tutor-description" rows="4"></textarea>
+        
+        <button type="submit" class="btn">Become a Tutor</button>
+      </form>
+    </div>
+    
+    <!-- Student Sign Up Form -->
+    <div class="form-container">
+      <h3>Find a Tutor</h3>
+      <form id="student-form">
+        <label for="student-name">Your Name:</label>
+        <input type="text" id="student-name" name="student-name" required />
+        
+        <label for="student-subject">Subject you need help with:</label>
+        <select id="student-subject" name="student-subject" required>
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="english">English</option>
+        </select>
+        
+        <button type="submit" class="btn">Find a Tutor</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 LevelUp. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
