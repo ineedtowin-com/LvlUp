@@ -1,4 +1,3 @@
-// Function to toggle the visibility of the feature description
 function toggleDescription(featureId) {
   var feature = document.getElementById(featureId);
   if (feature.style.display === "none") {
@@ -8,9 +7,7 @@ function toggleDescription(featureId) {
   }
 }
 
-// Function to handle the "Learn More" button functionality on Study Topics
 document.addEventListener("DOMContentLoaded", function() {
-  // Get all the buttons to toggle the visibility of the description on study topics page
   const expandButtons = document.querySelectorAll(".expand-btn");
 
   expandButtons.forEach(button => {
@@ -18,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
       const topicCard = button.closest(".topic-card");
       const moreInfo = topicCard.querySelector(".more-info");
 
-      // Toggle the visibility of the more-info section for Study Topics
       if (moreInfo.style.display === "none" || moreInfo.style.display === "") {
         moreInfo.style.display = "block";
         button.textContent = "Learn Less";
@@ -27,5 +23,24 @@ document.addEventListener("DOMContentLoaded", function() {
         button.textContent = "Learn More";
       }
     });
+  });
+
+  document.getElementById('tutor-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let tutorName = document.getElementById('tutor-name').value;
+    let subject = document.getElementById('tutor-subject').value;
+    let description = document.getElementById('tutor-description').value;
+    alert(`Thank you, ${tutorName}. You've signed up as a tutor for ${subject}.`);
+    localStorage.setItem('tutor', JSON.stringify({ tutorName, subject, description }));
+    document.getElementById('tutor-form').reset();
+  });
+
+  document.getElementById('student-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let studentName = document.getElementById('student-name').value;
+    let subject = document.getElementById('student-subject').value;
+    alert(`${studentName}, you're looking for a tutor in ${subject}. We will connect you with a tutor soon!`);
+    localStorage.setItem('student', JSON.stringify({ studentName, subject }));
+    document.getElementById('student-form').reset();
   });
 });
