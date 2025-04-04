@@ -1,4 +1,4 @@
-/* General Body Styling */
+/* General Styling */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -7,7 +7,7 @@ body {
 }
 
 /* Logo Styling */
-logo {
+.logo {
   width: 150px;
   height: auto;
   display: block;
@@ -16,7 +16,7 @@ logo {
 
 /* Header Styling */
 header {
-  background: #2575fc;
+  background: #3fb5a2;
   color: white;
   padding: 20px 0;
   text-align: center;
@@ -36,16 +36,16 @@ header .btn {
   display: inline-block;
   padding: 10px 20px;
   background: white;
-  color: #2575fc;
+  color: #3fb5a2;
   border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
-  margin-top: 20px;
+  margin: 15px 10px 0;
   transition: background 0.3s ease;
 }
 
 header .btn:hover {
-  background-color: #3d8efc;
+  background-color: #6fd7c5;
 }
 
 /* Section Styling */
@@ -55,7 +55,7 @@ section {
   margin: auto;
 }
 
-/* Feature Grid for Features Section */
+/* Feature Grid */
 .feature-grid {
   display: flex;
   gap: 20px;
@@ -94,7 +94,7 @@ footer {
   color: white;
 }
 
-/* Contact Section Styling */
+/* Contact Section */
 #contact {
   padding: 50px 20px;
   max-width: 1000px;
@@ -124,7 +124,7 @@ textarea {
 }
 
 button {
-  background-color: #2575fc;
+  background-color: #3fb5a2;
   color: white;
   padding: 10px;
   border: none;
@@ -134,10 +134,10 @@ button {
 }
 
 button:hover {
-  background-color: #3d8efc;
+  background-color: #66d4c1;
 }
 
-/* Contact Form - Success Message */
+/* Success and Error Messages */
 #contact-success {
   margin-top: 20px;
   background-color: #28a745;
@@ -156,7 +156,7 @@ button:hover {
   border-radius: 8px;
 }
 
-/* Peer Tutoring Page */
+/* Peer Tutoring */
 #peer-tutoring {
   padding: 50px 20px;
   background-color: #fff;
@@ -171,58 +171,7 @@ button:hover {
 }
 
 .tutoring-form input,
-.tutoring-form textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.tutoring-form button {
-  background-color: #2575fc;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.tutoring-form button:hover {
-  background-color: #3d8efc;
-}
-
-.tutoring-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.tutoring-card h3 {
-  font-size: 1.5rem;
-}
-
-.tutoring-card p {
-  font-size: 1rem;
-  color: #666;
-}
-
-.tutoring-card .btn {
-  background-color: #2575fc;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-.tutoring-card .btn:hover {
-  background-color: #3d8efc;
-}
+.t
 
 
 
