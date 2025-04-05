@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,23 +7,56 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <img src="lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo" />
-    <p>Your gateway to equal, quality education.</p>
-    <a href="#features" class="btn">Explore Features</a>
-    <a href="contact.html" class="btn">Contact Us</a>
-    <a href="peer-tutoring.html" class="btn">Peer Tutoring</a>
-  </header>
 
-  <section id="features">
-    <h2>Features</h2>
-    <div class="feature-grid">
-      <div class="card">
-        <h3>Personalised Learning</h3>
-        <p>Smart quizzes and recommendations tailored to each student.</p>
+  <!-- Loading Animation -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" style="display: none;">
+    <header>
+      <img src="lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo" />
+      <p>Your gateway to equal, quality education.</p>
+      <a href="#features" class="btn">Explore Features</a>
+      <a href="contact.html" class="btn">Contact Us</a>
+      <a href="peer-tutoring.html" class="btn">Peer Tutoring</a>
+    </header>
+
+    <section id="features">
+      <h2>Features</h2>
+      <div class="feature-grid">
+        <div class="card animated fade-in-up">
+          <h3>🎯 Personalised Learning</h3>
+          <p>Smart quizzes and recommendations tailored to each student.</p>
+        </div>
+        <div class="card animated fade-in-up delay-1">
+          <h3>📥 Offline Access</h3>
+          <p>Download content and keep learning even without internet.</p>
+        </div>
+        <div class="card animated fade-in-up delay-2">
+          <h3>👥 Community Support</h3>
+          <p>Ask questions, get answers, and learn together.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Offline Access</h3>
-        <p>Download content and keep learning even without internet.</p>
-      </div>
-      <div
+    </section>
+
+    <footer>
+      <p>&copy; 2025 LevelUp. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Simulate loading effect
+    window.addEventListener("load", function () {
+      const loader = document.getElementById("loader");
+      const mainContent = document.getElementById("main-content");
+
+      loader.style.display = "none";
+      mainContent.style.display = "block";
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+
