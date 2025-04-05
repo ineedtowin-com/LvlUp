@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Press Start 2P', sans-serif;
-  background: #1e1e3f;
+  font-family: 'Arial', sans-serif;
+  background: #1a1a2e;
   color: #fff;
 }
 
@@ -14,9 +14,9 @@ body {
 }
 
 header {
-  background: #00d0ff;
+  background: #0d0d29;
   color: white;
-  padding: 20px 0;
+  padding: 40px 0;
   text-align: center;
 }
 
@@ -32,18 +32,19 @@ header p {
 
 header .btn {
   display: inline-block;
-  padding: 10px 20px;
-  background: white;
-  color: #00d0ff;
-  border-radius: 25px;
+  padding: 12px 25px;
+  background: #00aaff;
+  color: white;
+  border-radius: 30px;
   text-decoration: none;
   font-weight: bold;
   margin: 15px 10px 0;
   transition: background 0.3s ease;
+  font-size: 1.1rem;
 }
 
 header .btn:hover {
-  background-color: #00a8cc;
+  background-color: #0077b3;
 }
 
 section {
@@ -60,13 +61,14 @@ section {
 }
 
 .card {
-  background: #2a2b55;
+  background: #33344d;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   padding: 20px;
   flex: 1 1 250px;
   max-width: 300px;
   transition: transform 0.3s ease;
+  font-size: 1rem;
 }
 
 .card:hover {
@@ -74,7 +76,8 @@ section {
 }
 
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+  color: #00aaff;
 }
 
 .card p {
@@ -118,17 +121,17 @@ textarea {
 }
 
 button {
-  background-color: #00d0ff;
+  background-color: #00aaff;
   color: white;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #00a8cc;
+  background-color: #0077b3;
 }
 
 #contact-success {
@@ -171,15 +174,15 @@ button:hover {
 }
 
 .tutoring-form button {
-  background-color: #00d0ff;
+  background-color: #00aaff;
   color: white;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .tutoring-form button:hover {
-  background-color: #00a8cc;
+  background-color: #0077b3;
 }
