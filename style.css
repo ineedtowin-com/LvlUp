@@ -1,23 +1,23 @@
 /* General Styling */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f4ff; /* Light blue background */
-  color: #333;
+  font-family: 'Press Start 2P', sans-serif; /* 16-bit styled font */
+  background: #1c1c3c; /* Darker background for a more electric feel */
+  color: #fff;
 }
 
 /* Logo Styling */
 .logo-title {
-  width: 150px;
+  width: 200px;
   height: auto;
   display: block;
   margin: 0 auto;
-  font-family: 'Press Start 2P', sans-serif; /* 16-bit styled font */
+  font-family: 'Press Start 2P', sans-serif; /* Ensure the 16-bit font is applied */
 }
 
 /* Header Styling */
 header {
-  background: #007BFF; /* Blue background */
+  background: #00b7ff; /* Electric blue background */
   color: white;
   padding: 20px 0;
   text-align: center;
@@ -37,7 +37,7 @@ header .btn {
   display: inline-block;
   padding: 10px 20px;
   background: white;
-  color: #007BFF;
+  color: #00b7ff; /* Electric blue buttons */
   border-radius: 25px;
   text-decoration: none;
   font-weight: bold;
@@ -46,7 +46,7 @@ header .btn {
 }
 
 header .btn:hover {
-  background-color: #5A9BF7;
+  background-color: #0099cc; /* Darker blue hover effect */
 }
 
 /* Section Styling */
@@ -65,9 +65,9 @@ section {
 }
 
 .card {
-  background: white;
+  background: #1e2a47; /* Dark background for cards */
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   padding: 20px;
   flex: 1 1 250px;
   max-width: 300px;
@@ -84,7 +84,7 @@ section {
 
 .card p {
   font-size: 1rem;
-  color: #666;
+  color: #ccc;
 }
 
 /* Footer Styling */
@@ -125,7 +125,7 @@ textarea {
 }
 
 button {
-  background-color: #007BFF;
+  background-color: #00b7ff;
   color: white;
   padding: 10px;
   border: none;
@@ -135,7 +135,7 @@ button {
 }
 
 button:hover {
-  background-color: #5A9BF7;
+  background-color: #0099cc;
 }
 
 /* Success and Error Messages */
@@ -180,7 +180,7 @@ button:hover {
 }
 
 .tutoring-form button {
-  background-color: #007BFF;
+  background-color: #00b7ff;
   color: white;
   padding: 10px;
   border: none;
@@ -190,5 +190,5 @@ button:hover {
 }
 
 .tutoring-form button:hover {
-  background-color: #5A9BF7;
+  background-color: #0099cc;
 }
