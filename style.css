@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: #1a1a2e;
+  font-family: 'Arial', sans-serif; /* Body text in a clean font */
+  background: #1a1a2e; /* Dark background */
   color: #fff;
 }
 
@@ -10,11 +10,11 @@ body {
   height: auto;
   display: block;
   margin: 0 auto;
-  font-family: 'Press Start 2P', sans-serif;
+  font-family: 'Press Start 2P', cursive; /* 16-bit font for the logo */
 }
 
 header {
-  background: #0d0d29;
+  background: #0d0d29; /* Darker blue background */
   color: white;
   padding: 40px 0;
   text-align: center;
@@ -33,7 +33,7 @@ header p {
 header .btn {
   display: inline-block;
   padding: 12px 25px;
-  background: #00aaff;
+  background: #00aaff; /* Electric blue for buttons */
   color: white;
   border-radius: 30px;
   text-decoration: none;
@@ -44,7 +44,7 @@ header .btn {
 }
 
 header .btn:hover {
-  background-color: #0077b3;
+  background-color: #0077b3; /* Hover effect */
 }
 
 section {
@@ -61,7 +61,7 @@ section {
 }
 
 .card {
-  background: #33344d;
+  background: #33344d; /* Dark card background */
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   padding: 20px;
@@ -77,18 +77,18 @@ section {
 
 .card h3 {
   font-size: 1.7rem;
-  color: #00aaff;
+  color: #00aaff; /* Electric blue for card headers */
 }
 
 .card p {
   font-size: 1rem;
-  color: #ccc;
+  color: #ccc; /* Lighter text for card content */
 }
 
 footer {
   text-align: center;
   padding: 20px;
-  background: #111;
+  background: #111; /* Dark footer background */
   color: white;
 }
 
@@ -186,3 +186,7 @@ button:hover {
 .tutoring-form button:hover {
   background-color: #0077b3;
 }
+
+
+
+
