@@ -39,7 +39,20 @@
       <p>&copy; 2025 LevelUp. All rights reserved.</p>
     </footer>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.fade-in').style.opacity = '1';
+      const cards = document.querySelectorAll('.fade-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
+    });
+  </script>
 </body>
 </html>
+
 
