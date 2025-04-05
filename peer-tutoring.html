@@ -3,65 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Peer Tutoring - LevelUp</title>
+  <title>Peer Tutoring</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>LevelUp - Peer Tutoring</h1>
-    <p>Connect with fellow students to learn and teach!</p>
-    <a href="index.html" class="btn">Back to Home</a>
-  </header>
+  <div class="fade-in">
+    <header>
+      <img src="images/lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <p>Become a Tutor for LevelUp!</p>
+    </header>
 
-  <section id="peer-tutoring">
-    <h2>Become a Tutor or Find a Tutor</h2>
-    
-    <!-- Tutor Sign Up Form -->
-    <div class="form-container">
-      <h3>Become a Tutor</h3>
-      <form id="tutor-form">
-        <label for="tutor-name">Your Name:</label>
-        <input type="text" id="tutor-name" name="tutor-name" required />
+    <section id="peer-tutoring">
+      <h2>Sign Up to Be a Tutor</h2>
+      <form class="tutoring-form" action="https://formspree.io/f/mnnpgklq" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
         
-        <label for="tutor-subject">Subject you can tutor:</label>
-        <select id="tutor-subject" name="tutor-subject" required>
-          <option value="math">Math</option>
-          <option value="science">Science</option>
-          <option value="history">History</option>
-          <option value="english">English</option>
+        <label for="subject">Choose a Subject:</label>
+        <select name="subject" id="subject" required>
+          <option value="Math">Math</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+          <option value="History">History</option>
+          <option value="Geography">Geography</option>
+          <option value="Other">Other</option>
         </select>
-        
-        <label for="tutor-description">Short Description (Optional):</label>
-        <textarea id="tutor-description" name="tutor-description" rows="4"></textarea>
-        
-        <button type="submit" class="btn">Become a Tutor</button>
-      </form>
-    </div>
-    
-    <!-- Student Sign Up Form -->
-    <div class="form-container">
-      <h3>Find a Tutor</h3>
-      <form id="student-form">
-        <label for="student-name">Your Name:</label>
-        <input type="text" id="student-name" name="student-name" required />
-        
-        <label for="student-subject">Subject you need help with:</label>
-        <select id="student-subject" name="student-subject" required>
-          <option value="math">Math</option>
-          <option value="science">Science</option>
-          <option value="history">History</option>
-          <option value="english">English</option>
-        </select>
-        
-        <button type="submit" class="btn">Find a Tutor</button>
-      </form>
-    </div>
-  </section>
 
-  <footer>
-    <p>&copy; 2025 LevelUp. All rights reserved.</p>
-  </footer>
+        <textarea name="message" placeholder="Tell us why you want to be a tutor" required></textarea>
+        <button type="submit">Sign Up</button>
+      </form>
+    </section>
 
+    <footer>
+      <p>&copy; 2025 LevelUp. All rights reserved.</p>
+    </footer>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
