@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #1e2a47; /* Dark blue background */
+  background: #1e2a47;
   color: #fff;
   animation: fadeInBody 1.5s ease-in;
 }
@@ -14,7 +14,7 @@ body {
 
 /* Header Styling */
 header {
-  background: #0d1c36; /* Darker blue */
+  background: #0d1c36;
   color: white;
   padding: 50px 0;
   text-align: center;
@@ -79,6 +79,7 @@ section {
 
 .card h3 {
   font-size: 1.5rem;
+  color: #1e2a47;
 }
 
 .card p {
@@ -210,6 +211,7 @@ button:hover {
   0% { opacity: 0; transform: scale(0.9); }
   100% { opacity: 1; transform: scale(1); }
 }
+
 .site-description {
   text-align: center;
   color: #f0f0f0;
@@ -220,8 +222,8 @@ button:hover {
   line-height: 1.6;
 }
 
-
-
-
-
-
+/* ✅ Fix label text visibility */
+form label {
+  color: #1e2a47;
+  font-weight: bold;
+}
