@@ -3,57 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LevelUp Games</title>
+  <title>LevelUp - Games</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    .game-card {
+      background-color: #3fb5a2;
+      padding: 20px;
+      margin: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+    }
+
+    .difficulty-options {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .difficulty-options button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="fade-in">
-    <header>
-      <img src="images/lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
-      <h1>🎮 Learning Games</h1>
-      <p>Choose a subject and level to begin!</p>
-    </header>
+  <div class="game-container fade-in">
+    <h1>Select a Subject</h1>
 
-    <section class="game-selection">
-      <div class="game-category">
-        <h2>English: Types of Sentences</h2>
-        <button onclick="startGame('english', 'easy')">Easy</button>
-        <button onclick="startGame('english', 'medium')">Medium</button>
-        <button onclick="startGame('english', 'hard')">Hard</button>
+    <div class="game-card" onclick="toggleDifficulty('English')">
+      English
+      <div class="difficulty-options" id="English-options">
+        <button onclick="startGame('English', 'Easy')">Easy</button>
+        <button onclick="startGame('English', 'Medium')">Medium</button>
+        <button onclick="startGame('English', 'Hard')">Hard</button>
       </div>
+    </div>
 
-      <div class="game-category">
-        <h2>Maths: Equations & Multiplication</h2>
-        <button onclick="startGame('maths', 'easy')">Easy</button>
-        <button onclick="startGame('maths', 'medium')">Medium</button>
-        <button onclick="startGame('maths', 'hard')">Hard</button>
+    <div class="game-card" onclick="toggleDifficulty('Maths')">
+      Maths
+      <div class="difficulty-options" id="Maths-options">
+        <button onclick="startGame('Maths', 'Easy')">Easy</button>
+        <button onclick="startGame('Maths', 'Medium')">Medium</button>
+        <button onclick="startGame('Maths', 'Hard')">Hard</button>
       </div>
+    </div>
 
-      <div class="game-category">
-        <h2>Science: Biology</h2>
-        <button onclick="startGame('science', 'easy')">Easy</button>
-        <button onclick="startGame('science', 'medium')">Medium</button>
-        <button onclick="startGame('science', 'hard')">Hard</button>
+    <div class="game-card" onclick="toggleDifficulty('Science')">
+      Science
+      <div class="difficulty-options" id="Science-options">
+        <button onclick="startGame('Science', 'Easy')">Easy</button>
+        <button onclick="startGame('Science', 'Medium')">Medium</button>
+        <button onclick="startGame('Science', 'Hard')">Hard</button>
       </div>
+    </div>
 
-      <div class="game-category">
-        <h2>History: Dates & Events</h2>
-        <button onclick="startGame('history', 'easy')">Easy</button>
-        <button onclick="startGame('history', 'medium')">Medium</button>
-        <button onclick="startGame('history', 'hard')">Hard</button>
+    <div class="game-card" onclick="toggleDifficulty('History')">
+      History
+      <div class="difficulty-options" id="History-options">
+        <button onclick="startGame('History', 'Easy')">Easy</button>
+        <button onclick="startGame('History', 'Medium')">Medium</button>
+        <button onclick="startGame('History', 'Hard')">Hard</button>
       </div>
-    </section>
-
-    <footer>
-      <p>&copy; 2025 LevelUp. All rights reserved.</p>
-    </footer>
+    </div>
   </div>
 
   <script>
-    function startGame(subject, difficulty) {
-      window.location.href = `gameplay.html?subject=${subject}&difficulty=${difficulty}`;
+    function toggleDifficulty(subject) {
+      const allOptions = document.querySelectorAll('.difficulty-options');
+      allOptions.forEach(opt => opt.style.display = 'none');
+      document.getElementById(`${subject}-options`).style.display = 'block';
+    }
+
+    function startGame(subject, level) {
+      window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
     }
   </script>
 </body>
 </html>
+
