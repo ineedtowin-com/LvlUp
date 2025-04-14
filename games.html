@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LevelUp - Gamified Learning & Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="fade-in">
+    <header>
+      <img src="images/lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <p>Your gateway to equal, quality education.</p>
+      <a href="index.html" class="btn">Back to Home</a>
+    </header>
+
+    <!-- Gamified Learning Section -->
+    <section id="learning-games">
+      <h2>Gamified Learning</h2>
+      <p>Complete challenges and unlock achievements as you progress!</p>
+      
+      <!-- Game 1: Math Quiz -->
+      <div class="game-card" id="math-quiz">
+        <h3>Math Quiz</h3>
+        <p>Solve the questions to earn points!</p>
+        <button class="game-btn" onclick="startMathQuiz()">Start Math Quiz</button>
+        <p>Score: <span id="math-quiz-score">0</span></p>
+      </div>
+      
+      <!-- Game 2: Science Challenge -->
+      <div class="game-card" id="science-challenge">
+        <h3>Science Challenge</h3>
+        <p>Answer the questions to score points.</p>
+        <button class="game-btn" onclick="startScienceChallenge()">Start Science Challenge</button>
+        <p>Score: <span id="science-challenge-score">0</span></p>
+      </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <p>See how you rank among other learners!</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>JohnDoe</td>
+            <td>1500</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>AliceSmith</td>
+            <td>1200</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>BobJohnson</td>
+            <td>1100</td>
+          </tr>
+          <!-- More leaderboard entries -->
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 LevelUp. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Math Quiz Questions and Logic
+    const mathQuizQuestions = [
+      { question: "5 + 3 =", answer: "8" },
+      { question: "12 - 4 =", answer: "8" },
+      { question: "3 x 7 =", answer: "21" },
+      { question: "9 / 3 =", answer: "3" },
+    ];
+    
+    let mathScore = 0;
+
+    function startMathQuiz() {
+      let userScore = 0;
+
+      mathQuizQuestions.forEach((item, index) => {
+        let userAnswer = prompt(`${item.question}`);
+        if (userAnswer === item.answer) {
+          userScore += 100;  // Earn 100 points for correct answer
+        }
+      });
+      
+      mathScore = userScore;
+      document.getElementById("math-quiz-score").textContent = mathScore;
+    }
+
+    // Science Challenge Questions and Logic
+    const scienceChallengeQuestions = [
+      { question: "What is the chemical symbol for water?", answer: "H2O" },
+      { question: "What planet is known as the Red Planet?", answer: "Mars" },
+      { question: "How many states of matter are there?", answer: "4" },
+      { question: "What is the powerhouse of the cell?", answer: "Mitochondria" },
+    ];
+
+    let scienceScore = 0;
+
+    function startScienceChallenge() {
+      let userScore = 0;
+
+      scienceChallengeQuestions.forEach((item, index) => {
+        let userAnswer = prompt(`${item.question}`);
+        if (userAnswer.toLowerCase() === item.answer.toLowerCase()) {
+          userScore += 100;  // Earn 100 points for correct answer
+        }
+      });
+      
+      scienceScore = userScore;
+      document.getElementById("science-challenge-score").textContent = scienceScore;
+    }
+  </script>
+</body>
+</html>
