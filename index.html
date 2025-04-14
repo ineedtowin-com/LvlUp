@@ -15,8 +15,14 @@
     <header>
       <img src="images/lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
       <p>Your gateway to equal, quality education.</p>
+      
+      <!-- Existing Buttons -->
       <a href="contact.html" class="btn">Contact Us</a>
       <a href="peer-tutoring.html" class="btn">Peer Tutoring</a>
+
+      <!-- 🎮 New Buttons -->
+      <a href="games.html" class="btn">🎮 Play Learning Games</a>
+      <a href="leaderboard.html" class="btn">🏆 View Leaderboard</a>
     </header>
 
     <section class="site-description">
@@ -50,12 +56,11 @@
     </footer>
   </div>
 
-  <!-- JavaScript for Theme Toggle -->
+  <!-- JavaScript for Theme Toggle and Animations -->
   <script>
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Load saved theme from localStorage
     if (localStorage.getItem('theme') === 'light') {
       body.setAttribute('data-theme', 'light');
       toggle.textContent = '🌙 Dark Mode';
