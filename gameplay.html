@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LevelUp - Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-container fade-in">
+    <h2 id="game-title"></h2>
+    <div id="question-box">
+      <p id="question-text"></p>
+      <div id="options"></div>
+    </div>
+    <p id="score-display">Score: 0</p>
+  </div>
+
+  <script>
+    const questions = {
+      English: {
+        Easy: [
+          { q: "Which is an interrogative sentence?", options: ["She is a doctor.", "Where are you going?", "I love cats."], answer: "Where are you going?" },
+          { q: "Which is a declarative sentence?", options: ["What a beautiful flower!", "I enjoy reading.", "Close the door!"], answer: "I enjoy reading." }
+        ],
+        Medium: [
+          { q: "Which is an exclamatory sentence?", options: ["Watch your step.", "How amazing this is!", "I went to school."], answer: "How amazing this is!" }
+        ],
+        Hard: [
+          { q: "Which is an imperative sentence?", options: ["Run faster!", "She danced beautifully.", "How cold is it today?"], answer: "Run faster!" }
+        ]
+      },
+      Maths: {
+        Easy: [
+          { q: "5 + 7 =", options: ["12", "13", "10"], answer: "12" },
+          { q: "4 × 2 =", options: ["6", "8", "10"], answer: "8" }
+        ],
+        Medium: [
+          { q: "12 ÷ 3 =", options: ["4", "5", "3"], answer: "4" }
+        ],
+        Hard: [
+          { q: "Solve: 3x = 12", options: ["x = 4", "x = 6", "x = 3"], answer: "x = 4" }
+        ]
+      },
+      Science: {
+        Easy: [
+          { q: "What organ pumps blood?", options: ["Lungs", "Heart", "Brain"], answer: "Heart" }
+        ],
+        Medium: [
+          { q: "Where does photosynthesis occur?", options: ["Chloroplast", "Nucleus", "Cytoplasm"], answer: "Chloroplast" }
+        ],
+        Hard: [
+          { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" }
+        ]
+      },
+      History: {
+        Easy: [
+          { q: "When did WW2 end?", options: ["1945", "1942", "1939"], answer: "1945" }
+        ],
+        Medium: [
+          { q: "Who was the first president of the USA?", options: ["Abraham Lincoln", "George Washington", "John Adams"], answer: "George Washington" }
+        ],
+        Hard: [
+          { q: "When was the French Revolution?", options: ["1789", "1804", "1776"], answer: "1789" }
+        ]
+      }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const subject = urlParams.get('subject') || "English";
+    const level = urlParams.get('level') || "Easy";
+
+    const quiz = questions[subject][level];
+    let current = 0;
+    let score = 0;
+
+    document.getElementById("game-title").textContent = `${subject} - ${level}`;
+    const questionText = document.getElementById("question-text");
+    const optionsBox = document.getElementById("options");
+    const scoreDisplay = document.getElementById("score-display");
+
+    function loadQuestion() {
+      const q = quiz[current];
+      questionText.textContent = q.q;
+      optionsBox.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (opt === q.answer) score += 10;
+          current++;
+          if (current < quiz.length) {
+            loadQuestion();
+          } else {
+            saveScore();
+            alert(`Game Over! Your score: ${score}`);
+            window.location.href = "leaderboard.html";
+          }
+        };
+        optionsBox.appendChild(btn);
+      });
+      scoreDisplay.textContent = `Score: ${score}`;
+    }
+
+    function saveScore() {
+      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+      const name = prompt("Enter your name for the leaderboard:");
+      leaderboard.push({ name: name || "Anonymous", score, subject, level });
+      leaderboard.sort((a, b) => b.score - a.score);
+      localStorage.setItem("levelup-leaderboard", JSON.stringify(leaderboard.slice(0, 10)));
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
