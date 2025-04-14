@@ -80,11 +80,21 @@
     const optionsBox = document.getElementById("options");
     const scoreDisplay = document.getElementById("score-display");
 
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
     function loadQuestion() {
       const q = quiz[current];
       questionText.textContent = q.q;
       optionsBox.innerHTML = "";
-      q.options.forEach(opt => {
+      const shuffledOptions = shuffle([...q.options]);
+
+      shuffledOptions.forEach(opt => {
         const btn = document.createElement("button");
         btn.textContent = opt;
         btn.onclick = () => {
@@ -94,12 +104,13 @@
             loadQuestion();
           } else {
             saveScore();
-            alert(`Game Over! Your score: ${score}`);
+            alert(`🎉 Game Over! Your score: ${score}`);
             window.location.href = "leaderboard.html";
           }
         };
         optionsBox.appendChild(btn);
       });
+
       scoreDisplay.textContent = `Score: ${score}`;
     }
 
@@ -115,3 +126,5 @@
   </script>
 </body>
 </html>
+
+
