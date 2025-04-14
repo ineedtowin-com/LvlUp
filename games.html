@@ -3,23 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LevelUp Learning Games</title>
+  <title>LevelUp Games</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="fade-in">
     <header>
-      <h1>🎮 Learning Game</h1>
-      <p>Answer questions correctly to earn points!</p>
-      <a href="index.html" class="btn">← Back to Home</a>
+      <img src="images/lvluptextlogo-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <h1>🎮 Learning Games</h1>
+      <p>Choose a subject and level to begin!</p>
     </header>
 
-    <section id="game-section" style="text-align: center; padding: 20px;">
-      <div id="question-box">
-        <h2 id="question">Loading...</h2>
-        <div id="answers"></div>
+    <section class="game-selection">
+      <div class="game-category">
+        <h2>English: Types of Sentences</h2>
+        <button onclick="startGame('english', 'easy')">Easy</button>
+        <button onclick="startGame('english', 'medium')">Medium</button>
+        <button onclick="startGame('english', 'hard')">Hard</button>
       </div>
-      <p>Score: <span id="score">0</span></p>
+
+      <div class="game-category">
+        <h2>Maths: Equations & Multiplication</h2>
+        <button onclick="startGame('maths', 'easy')">Easy</button>
+        <button onclick="startGame('maths', 'medium')">Medium</button>
+        <button onclick="startGame('maths', 'hard')">Hard</button>
+      </div>
+
+      <div class="game-category">
+        <h2>Science: Biology</h2>
+        <button onclick="startGame('science', 'easy')">Easy</button>
+        <button onclick="startGame('science', 'medium')">Medium</button>
+        <button onclick="startGame('science', 'hard')">Hard</button>
+      </div>
+
+      <div class="game-category">
+        <h2>History: Dates & Events</h2>
+        <button onclick="startGame('history', 'easy')">Easy</button>
+        <button onclick="startGame('history', 'medium')">Medium</button>
+        <button onclick="startGame('history', 'hard')">Hard</button>
+      </div>
     </section>
 
     <footer>
@@ -28,81 +51,9 @@
   </div>
 
   <script>
-    const questions = [
-      {
-        question: "What is the capital of France?",
-        answers: ["Paris", "Berlin", "Madrid", "Rome"],
-        correct: "Paris"
-      },
-      {
-        question: "5 + 7 = ?",
-        answers: ["10", "12", "14", "11"],
-        correct: "12"
-      },
-      {
-        question: "Which planet is known as the Red Planet?",
-        answers: ["Venus", "Mars", "Jupiter", "Saturn"],
-        correct: "Mars"
-      }
-    ];
-
-    let current = 0;
-    let score = 0;
-    let username = localStorage.getItem("lvlupUsername");
-
-    if (!username) {
-      username = prompt("Enter your username:");
-      localStorage.setItem("lvlupUsername", username);
+    function startGame(subject, difficulty) {
+      window.location.href = `gameplay.html?subject=${subject}&difficulty=${difficulty}`;
     }
-
-    const questionEl = document.getElementById("question");
-    const answersEl = document.getElementById("answers");
-    const scoreEl = document.getElementById("score");
-
-    function showQuestion() {
-      if (current >= questions.length) {
-        finishGame();
-        return;
-      }
-
-      const q = questions[current];
-      questionEl.textContent = q.question;
-      answersEl.innerHTML = "";
-
-      q.answers.forEach(answer => {
-        const btn = document.createElement("button");
-        btn.textContent = answer;
-        btn.className = "btn";
-        btn.style.margin = "10px";
-        btn.onclick = () => {
-          if (answer === q.correct) {
-            score += 10;
-            scoreEl.textContent = score;
-          }
-          current++;
-          showQuestion();
-        };
-        answersEl.appendChild(btn);
-      });
-    }
-
-    function finishGame() {
-      questionEl.textContent = "Game Over!";
-      answersEl.innerHTML = `<p>Final Score: ${score}</p><a href="leaderboard.html" class="btn">View Leaderboard</a>`;
-      
-      const leaderboard = JSON.parse(localStorage.getItem("lvlupLeaderboard")) || [];
-      const existing = leaderboard.find(u => u.username === username);
-
-      if (existing) {
-        existing.score += score;
-      } else {
-        leaderboard.push({ username, score });
-      }
-
-      localStorage.setItem("lvlupLeaderboard", JSON.stringify(leaderboard));
-    }
-
-    showQuestion();
   </script>
 </body>
 </html>
