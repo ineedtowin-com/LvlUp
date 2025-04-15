@@ -68,6 +68,42 @@
       border-radius: 10px;
       text-decoration: none;
     }
+
+    .game-info {
+      margin-top: 40px;
+      font-size: 10px;
+    }
+
+    #loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 9999;
+      font-size: 16px;
+      color: #13293d;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .dot-flash span {
+      animation: blink 1s infinite;
+    }
+
+    .dot-flash span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot-flash span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -110,20 +146,32 @@
     </div>
   </div>
 
+  <div class="game-info">
+    <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
+  </div>
+
+  <div id="loading-overlay">
+    <div>Loading<span class="dot-flash"><span>.</span><span>.</span><span>.</span></span></div>
+  </div>
+
   <script>
     function toggleDifficulty(subject) {
       const allOptions = document.querySelectorAll('.difficulty-options');
       allOptions.forEach(opt => opt.style.display = 'none');
-      document.getElementById(${subject}-options).style.display = 'block';
+      document.getElementById(`${subject}-options`).style.display = 'block';
     }
 
     function startGame(subject, level) {
-      const button = document.getElementById(${subject}-${level});
+      const button = document.getElementById(`${subject}-${level}`);
       if (button.classList.contains("locked")) {
         alert("This level is locked. Score higher to unlock it!");
         return;
       }
-      window.location.href = gameplay.html?subject=${subject}&level=${level};
+      // Show loading animation
+      document.getElementById("loading-overlay").style.display = "flex";
+      setTimeout(() => {
+        window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
+      }, 1000); // wait 1 second
     }
 
     function unlockLevels() {
@@ -131,18 +179,15 @@
 
       leaderboard.forEach(entry => {
         if (entry.score >= 10) {
-          document.getElementById(${entry.subject}-Medium)?.classList.remove("locked");
+          document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
         }
         if (entry.score >= 20) {
-          document.getElementById(${entry.subject}-Hard)?.classList.remove("locked");
+          document.getElementById(`${entry.subject}-Hard`)?.classList.remove("locked");
         }
       });
     }
 
     unlockLevels();
   </script>
-  <div class="game-info">
-  <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
-</div>
 </body>
 </html>
