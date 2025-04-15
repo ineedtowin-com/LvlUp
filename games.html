@@ -109,18 +109,6 @@
       margin-top: 50px;
       font-size: 10px;
     }
-
-    /* Responsive Design */
-    @media (max-width: 600px) {
-      .game-card {
-        width: 90%;
-        padding: 15px;
-      }
-
-      h1 {
-        font-size: 14px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -137,9 +125,9 @@
     <img src="icons/english.png" alt="English" class="game-icon"/>
     English
     <div class="difficulty-options" id="English-options">
-      <button onclick="startGame('English', 'Easy', event)">Easy</button>
-      <button id="English-Medium" class="locked" onclick="startGame('English', 'Medium', event)">Medium</button>
-      <button id="English-Hard" class="locked" onclick="startGame('English', 'Hard', event)">Hard</button>
+      <button onclick="startGame('English', 'Easy')">Easy</button>
+      <button id="English-Medium" class="locked">Medium</button>
+      <button id="English-Hard" class="locked">Hard</button>
     </div>
   </div>
 
@@ -147,9 +135,9 @@
     <img src="icons/maths.png" alt="Maths" class="game-icon"/>
     Maths
     <div class="difficulty-options" id="Maths-options">
-      <button onclick="startGame('Maths', 'Easy', event)">Easy</button>
-      <button id="Maths-Medium" class="locked" onclick="startGame('Maths', 'Medium', event)">Medium</button>
-      <button id="Maths-Hard" class="locked" onclick="startGame('Maths', 'Hard', event)">Hard</button>
+      <button onclick="startGame('Maths', 'Easy')">Easy</button>
+      <button id="Maths-Medium" class="locked">Medium</button>
+      <button id="Maths-Hard" class="locked">Hard</button>
     </div>
   </div>
 
@@ -157,9 +145,9 @@
     <img src="icons/science.png" alt="Science" class="game-icon"/>
     Science
     <div class="difficulty-options" id="Science-options">
-      <button onclick="startGame('Science', 'Easy', event)">Easy</button>
-      <button id="Science-Medium" class="locked" onclick="startGame('Science', 'Medium', event)">Medium</button>
-      <button id="Science-Hard" class="locked" onclick="startGame('Science', 'Hard', event)">Hard</button>
+      <button onclick="startGame('Science', 'Easy')">Easy</button>
+      <button id="Science-Medium" class="locked">Medium</button>
+      <button id="Science-Hard" class="locked">Hard</button>
     </div>
   </div>
 
@@ -167,9 +155,9 @@
     <img src="icons/history.png" alt="History" class="game-icon"/>
     History
     <div class="difficulty-options" id="History-options">
-      <button onclick="startGame('History', 'Easy', event)">Easy</button>
-      <button id="History-Medium" class="locked" onclick="startGame('History', 'Medium', event)">Medium</button>
-      <button id="History-Hard" class="locked" onclick="startGame('History', 'Hard', event)">Hard</button>
+      <button onclick="startGame('History', 'Easy')">Easy</button>
+      <button id="History-Medium" class="locked">Medium</button>
+      <button id="History-Hard" class="locked">Hard</button>
     </div>
   </div>
 
@@ -184,10 +172,9 @@
       document.getElementById(`${subject}-options`).style.display = 'block';
     }
 
-    function startGame(subject, level, event) {
-      event.stopPropagation(); // Prevent the card's onclick from firing
+    function startGame(subject, level) {
       const button = document.getElementById(`${subject}-${level}`);
-      if (button && button.classList.contains("locked")) {
+      if (button.classList.contains("locked")) {
         alert("This level is locked. Score higher to unlock it!");
         return;
       }
@@ -196,6 +183,7 @@
 
     function unlockLevels() {
       const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+
       leaderboard.forEach(entry => {
         if (entry.score >= 10) {
           document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
@@ -210,3 +198,4 @@
   </script>
 </body>
 </html>
+
