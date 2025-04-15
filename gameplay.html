@@ -1,604 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LevelUp: Educational Games</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .game-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #328f81;
+    }
+    .question-container {
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .options {
+      list-style-type: none;
+      padding: 0;
+    }
+    .options li {
+      margin: 10px 0;
+    }
+    .options input {
+      margin-right: 10px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #328f81;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #3fb5a2;
+    }
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 20px;
+      color: #328f81;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-container">
+  <h1>LevelUp Quiz Game</h1>
+  
+  <div class="question-container">
+    <div class="question" id="question"></div>
+    <ul class="options" id="options"></ul>
+  </div>
+
+  <button class="btn" id="nextButton">Next Question</button>
+  <div class="result" id="result"></div>
+</div>
+
 <script>
   const questions = {
     Math: {
       Easy: [
-        {
-          question: "What is 5 + 3?",
-          options: ["6", "7", "8", "9"],
-          answer: "8"
-        },
-        {
-          question: "What is 12 ÷ 4?",
-          options: ["3", "4", "5", "6"],
-          answer: "3"
-        },
-        {
-          question: "What is 7 × 6?",
-          options: ["42", "48", "36", "56"],
-          answer: "42"
-        },
-        {
-          question: "What is 10 - 4?",
-          options: ["4", "5", "6", "7"],
-          answer: "6"
-        },
-        {
-          question: "What is 15 ÷ 5?",
-          options: ["3", "4", "2", "1"],
-          answer: "3"
-        },
-        {
-          question: "What is 3 × 9?",
-          options: ["27", "24", "21", "30"],
-          answer: "27"
-        },
-        {
-          question: "What is 9 + 5?",
-          options: ["10", "13", "14", "12"],
-          answer: "14"
-        },
-        {
-          question: "What is 8 × 3?",
-          options: ["24", "23", "25", "22"],
-          answer: "24"
-        },
-        {
-          question: "What is 18 ÷ 3?",
-          options: ["6", "5", "7", "8"],
-          answer: "6"
-        },
-        {
-          question: "What is 6 + 7?",
-          options: ["12", "13", "14", "15"],
-          answer: "13"
-        }
+        { question: "What is 5 + 3?", options: ["6", "7", "8", "9"], answer: "8" },
+        { question: "What is 12 ÷ 4?", options: ["3", "4", "5", "6"], answer: "3" },
+        { question: "What is 7 × 6?", options: ["42", "48", "36", "56"], answer: "42" },
+        { question: "What is 10 - 4?", options: ["4", "5", "6", "7"], answer: "6" },
+        { question: "What is 15 ÷ 5?", options: ["3", "4", "2", "1"], answer: "3" }
       ],
       Medium: [
-        {
-          question: "What is 15 × 6?",
-          options: ["90", "96", "75", "105"],
-          answer: "90"
-        },
-        {
-          question: "What is 225 ÷ 15?",
-          options: ["12", "15", "16", "18"],
-          answer: "15"
-        },
-        {
-          question: "What is 19 + 17?",
-          options: ["35", "36", "37", "38"],
-          answer: "36"
-        },
-        {
-          question: "What is 42 ÷ 7?",
-          options: ["5", "6", "7", "8"],
-          answer: "6"
-        },
-        {
-          question: "What is 8 × 12?",
-          options: ["96", "104", "88", "92"],
-          answer: "96"
-        },
-        {
-          question: "What is 58 - 28?",
-          options: ["30", "31", "32", "33"],
-          answer: "30"
-        },
-        {
-          question: "What is 27 + 45?",
-          options: ["72", "73", "74", "71"],
-          answer: "72"
-        },
-        {
-          question: "What is 36 ÷ 6?",
-          options: ["6", "7", "5", "8"],
-          answer: "6"
-        },
-        {
-          question: "What is 25 × 8?",
-          options: ["200", "225", "210", "240"],
-          answer: "200"
-        },
-        {
-          question: "What is 100 ÷ 5?",
-          options: ["20", "25", "30", "35"],
-          answer: "20"
-        }
+        { question: "What is 15 × 6?", options: ["90", "96", "75", "105"], answer: "90" },
+        { question: "What is 225 ÷ 15?", options: ["12", "15", "16", "18"], answer: "15" },
+        { question: "What is 19 + 17?", options: ["35", "36", "37", "38"], answer: "36" },
+        { question: "What is 42 ÷ 7?", options: ["5", "6", "7", "8"], answer: "6" },
+        { question: "What is 8 × 12?", options: ["96", "104", "88", "92"], answer: "96" }
       ],
       Hard: [
-        {
-          question: "What is 256 ÷ 16?",
-          options: ["15", "16", "17", "18"],
-          answer: "16"
-        },
-        {
-          question: "What is the square root of 144?",
-          options: ["12", "14", "10", "16"],
-          answer: "12"
-        },
-        {
-          question: "What is 9 × 13?",
-          options: ["117", "119", "120", "121"],
-          answer: "117"
-        },
-        {
-          question: "What is 189 ÷ 9?",
-          options: ["19", "20", "21", "22"],
-          answer: "21"
-        },
-        {
-          question: "What is 25 × 14?",
-          options: ["350", "375", "300", "320"],
-          answer: "350"
-        },
-        {
-          question: "What is 12 × 14?",
-          options: ["168", "154", "180", "190"],
-          answer: "168"
-        },
-        {
-          question: "What is 252 ÷ 7?",
-          options: ["36", "35", "38", "34"],
-          answer: "36"
-        },
-        {
-          question: "What is 500 ÷ 25?",
-          options: ["20", "25", "22", "18"],
-          answer: "20"
-        },
-        {
-          question: "What is the square root of 625?",
-          options: ["25", "35", "30", "40"],
-          answer: "25"
-        },
-        {
-          question: "What is 17 × 19?",
-          options: ["323", "340", "305", "310"],
-          answer: "323"
-        }
+        { question: "What is 256 ÷ 16?", options: ["15", "16", "17", "18"], answer: "16" },
+        { question: "What is the square root of 144?", options: ["12", "14", "10", "16"], answer: "12" },
+        { question: "What is 9 × 13?", options: ["117", "119", "120", "121"], answer: "117" },
+        { question: "What is 189 ÷ 9?", options: ["19", "20", "21", "22"], answer: "21" },
+        { question: "What is 25 × 14?", options: ["350", "375", "300", "320"], answer: "350" }
       ]
     },
     English: {
       Easy: [
-        {
-          question: "What is the opposite of 'hot'?",
-          options: ["Cold", "Warm", "Cool", "Burning"],
-          answer: "Cold"
-        },
-        {
-          question: "Which word is a noun?",
-          options: ["Run", "Quickly", "Dog", "Happily"],
-          answer: "Dog"
-        },
-        {
-          question: "Which sentence is correct?",
-          options: ["She go to school", "She goes to school", "She going to school", "She gone to school"],
-          answer: "She goes to school"
-        },
-        {
-          question: "What is the plural of 'child'?",
-          options: ["Childs", "Children", "Childes", "Childern"],
-          answer: "Children"
-        },
-        {
-          question: "Which is a verb?",
-          options: ["Running", "Quick", "Book", "House"],
-          answer: "Running"
-        },
-        {
-          question: "Which of the following is a synonym for 'happy'?",
-          options: ["Sad", "Joyful", "Angry", "Tired"],
-          answer: "Joyful"
-        },
-        {
-          question: "What is the antonym of 'easy'?",
-          options: ["Hard", "Soft", "Quick", "Small"],
-          answer: "Hard"
-        },
-        {
-          question: "What type of word is 'quickly'?",
-          options: ["Noun", "Adverb", "Adjective", "Verb"],
-          answer: "Adverb"
-        },
-        {
-          question: "Which of the following is a sentence?",
-          options: ["Running fast", "The dog runs fast", "Fast running", "Run fast dog"],
-          answer: "The dog runs fast"
-        },
-        {
-          question: "Which word is an adjective?",
-          options: ["Quick", "Run", "Jump", "Happily"],
-          answer: "Quick"
-        }
+        { question: "What is the opposite of 'hot'?", options: ["Cold", "Warm", "Cool", "Burning"], answer: "Cold" },
+        { question: "Which word is a noun?", options: ["Run", "Quickly", "Dog", "Happily"], answer: "Dog" },
+        { question: "Which sentence is correct?", options: ["She go to school", "She goes to school", "She going to school", "She gone to school"], answer: "She goes to school" },
+        { question: "What is the plural of 'child'?", options: ["Childs", "Children", "Childes", "Childern"], answer: "Children" },
+        { question: "Which is a verb?", options: ["Running", "Quick", "Book", "House"], answer: "Running" }
       ],
       Medium: [
-        {
-          question: "What is the past tense of 'run'?",
-          options: ["Ran", "Runned", "Rans", "Runed"],
-          answer: "Ran"
-        },
-        {
-          question: "Which of the following is a complex sentence?",
-          options: ["I am going to the store.", "I am going to the store because I need food.", "The dog barked.", "She smiled."],
-          answer: "I am going to the store because I need food."
-        },
-        {
-          question: "What is the opposite of 'strong'?",
-          options: ["Weak", "Soft", "Hard", "Firm"],
-          answer: "Weak"
-        },
-        {
-          question: "What is a synonym for 'angry'?",
-          options: ["Mad", "Sad", "Happy", "Excited"],
-          answer: "Mad"
-        },
-        {
-          question: "Which sentence contains an adverb?",
-          options: ["She runs quickly.", "She is quick.", "She runs fast.", "She is slow."],
-          answer: "She runs quickly."
-        },
-        {
-          question: "What is the comparative form of 'good'?",
-          options: ["Better", "Best", "Gooder", "Gooder"],
-          answer: "Better"
-        },
-        {
-          question: "Which sentence is in the future tense?",
-          options: ["I will go to the park.", "I went to the park.", "I am going to the park.", "I go to the park."],
-          answer: "I will go to the park."
-        },
-        {
-          question: "What is the opposite of 'always'?",
-          options: ["Never", "Sometimes", "Rarely", "Often"],
-          answer: "Never"
-        },
-        {
-          question: "What type of punctuation is used at the end of an exclamatory sentence?",
-          options: ["Period", "Exclamation mark", "Question mark", "Comma"],
-          answer: "Exclamation mark"
-        },
-        {
-          question: "Which word is a preposition?",
-          options: ["Under", "Run", "Jump", "Sleep"],
-          answer: "Under"
-        }
+        { question: "What is the past tense of 'run'?", options: ["Ran", "Runned", "Rans", "Runed"], answer: "Ran" },
+        { question: "Which of the following is a complex sentence?", options: ["I am going to the store.", "I am going to the store because I need food.", "The dog barked.", "She smiled."], answer: "I am going to the store because I need food." },
+        { question: "What is the opposite of 'strong'?", options: ["Weak", "Soft", "Hard", "Firm"], answer: "Weak" },
+        { question: "What is a synonym for 'angry'?", options: ["Mad", "Sad", "Happy", "Excited"], answer: "Mad" },
+        { question: "Which sentence contains an adverb?", options: ["She runs quickly.", "She is quick.", "She runs fast.", "She is slow."], answer: "She runs quickly." }
       ],
       Hard: [
-        {
-          question: "Which sentence is in passive voice?",
-          options: ["The cake was eaten by her.", "She ate the cake.", "The dog runs fast.", "The cake is eaten."],
-          answer: "The cake was eaten by her."
-        },
-        {
-          question: "What is the correct way to write the following sentence in the past perfect tense? 'I see the movie.'",
-          options: ["I had seen the movie.", "I will have seen the movie.", "I see the movie.", "I am seeing the movie."],
-          answer: "I had seen the movie."
-        },
-        {
-          question: "Which sentence contains a conditional clause?",
-          options: ["If I study, I will pass the exam.", "I will pass the exam.", "I study every day.", "I am studying for the exam."],
-          answer: "If I study, I will pass the exam."
-        },
-        {
-          question: "Which sentence is in the subjunctive mood?",
-          options: ["If I were you, I would study.", "I am studying.", "I will study.", "I studied."],
-          answer: "If I were you, I would study."
-        },
-        {
-          question: "Which sentence uses the word 'whose' correctly?",
-          options: ["The man whose car is red is my friend.", "The man who car is red is my friend.", "The man who is red is my friend.", "The man whose is red is my friend."],
-          answer: "The man whose car is red is my friend."
-        },
-        {
-          question: "Which of the following sentences contains an Oxford comma?",
-          options: ["I bought apples, oranges, and bananas.", "I bought apples, oranges and bananas.", "I bought apples, oranges and, bananas.", "I bought apples oranges bananas."],
-          answer: "I bought apples, oranges, and bananas."
-        },
-        {
-          question: "Which of the following is an example of a participial phrase?",
-          options: ["Running down the street, he tripped.", "He ran down the street.", "He is running down the street.", "He had run down the street."],
-          answer: "Running down the street, he tripped."
-        },
-        {
-          question: "Which sentence uses the semicolon correctly?",
-          options: ["I have a big test tomorrow; I can't go out tonight.", "I have a big test tomorrow, I can't go out tonight.", "I have a big test tomorrow I can't go out tonight.", "I have a big test tomorrow; I can't go out tonight"],
-          answer: "I have a big test tomorrow; I can't go out tonight."
-        },
-        {
-          question: "Which of the following is a compound sentence?",
-          options: ["I went to the store, and I bought some milk.", "I went to the store.", "I bought some milk.", "I went to the store but bought no milk."],
-          answer: "I went to the store, and I bought some milk."
-        },
-        {
-          question: "Which of the following is an example of an imperative sentence?",
-          options: ["Close the door.", "Where is the door?", "I closed the door.", "The door is closed."],
-          answer: "Close the door."
-        }
+        { question: "Which sentence is in passive voice?", options: ["The cake was eaten by her.", "She ate the cake.", "The dog runs fast.", "The cake is eaten."], answer: "The cake was eaten by her." },
+        { question: "What is the correct way to write the following sentence in the past perfect tense? 'I see the movie.'", options: ["I had seen the movie.", "I will have seen the movie.", "I see the movie.", "I am seeing the movie."], answer: "I had seen the movie." },
+        { question: "Which sentence contains a conditional clause?", options: ["If I study, I will pass the exam.", "I will pass the exam.", "I study every day.", "I am studying for the exam."], answer: "If I study, I will pass the exam." },
+        { question: "Which sentence is in the subjunctive mood?", options: ["If I were you, I would study.", "I am studying.", "I will study.", "I studied."], answer: "If I were you, I would study." },
+        { question: "Which sentence uses the word 'whose' correctly?", options: ["The man whose car is red is my friend.", "The man who car is red is my friend.", "The man who is red is my friend.", "The man whose is red is my friend."], answer: "The man whose car is red is my friend." }
       ]
     },
     Science: {
       Easy: [
-        {
-          question: "What is the symbol for water?",
-          options: ["H2O", "O2", "CO2", "H2"],
-          answer: "H2O"
-        },
-        {
-          question: "What is the chemical symbol for oxygen?",
-          options: ["O", "Ox", "O2", "O3"],
-          answer: "O"
-        },
-        {
-          question: "Which planet is closest to the Sun?",
-          options: ["Earth", "Mars", "Mercury", "Venus"],
-          answer: "Mercury"
-        },
-        {
-          question: "What is the process by which plants make food?",
-          options: ["Respiration", "Transpiration", "Photosynthesis", "Fermentation"],
-          answer: "Photosynthesis"
-        },
-        {
-          question: "Which gas do plants absorb from the air?",
-          options: ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"],
-          answer: "Carbon Dioxide"
-        },
-        {
-          question: "What part of the plant absorbs water?",
-          options: ["Leaf", "Stem", "Roots", "Flower"],
-          answer: "Roots"
-        },
-        {
-          question: "What do we call the force that pulls objects towards the Earth?",
-          options: ["Gravity", "Friction", "Magnetism", "Momentum"],
-          answer: "Gravity"
-        },
-        {
-          question: "What is the main source of energy for Earth?",
-          options: ["The Moon", "The Sun", "The Earth itself", "The Stars"],
-          answer: "The Sun"
-        },
-        {
-          question: "Which part of the human body pumps blood?",
-          options: ["Brain", "Stomach", "Lungs", "Heart"],
-          answer: "Heart"
-        },
-        {
-          question: "What do you call the liquid that is present inside the cell?",
-          options: ["Cytoplasm", "Chlorophyll", "Nucleus", "Mitochondria"],
-          answer: "Cytoplasm"
-        }
+        { question: "What is the symbol for water?", options: ["H2O", "O2", "CO2", "H2"], answer: "H2O" },
+        { question: "What is the chemical symbol for oxygen?", options: ["O", "Ox", "O2", "O3"], answer: "O" },
+        { question: "Which planet is closest to the Sun?", options: ["Earth", "Mars", "Mercury", "Venus"], answer: "Mercury" },
+        { question: "What is the process by which plants make food?", options: ["Respiration", "Transpiration", "Photosynthesis", "Fermentation"], answer: "Photosynthesis" },
+        { question: "Which gas do plants absorb from the air?", options: ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"], answer: "Carbon Dioxide" }
       ],
       Medium: [
-        {
-          question: "What is the atomic number of Carbon?",
-          options: ["6", "12", "8", "14"],
-          answer: "6"
-        },
-        {
-          question: "What is the process in which a liquid turns into a gas?",
-          options: ["Evaporation", "Condensation", "Freezing", "Melting"],
-          answer: "Evaporation"
-        },
-        {
-          question: "What is the chemical formula for methane?",
-          options: ["CH4", "C2H6", "CO2", "CH3OH"],
-          answer: "CH4"
-        },
-        {
-          question: "Which of these is not a state of matter?",
-          options: ["Solid", "Liquid", "Gaseous", "Magnetic"],
-          answer: "Magnetic"
-        },
-        {
-          question: "What is the process by which green plants use sunlight to synthesize foods?",
-          options: ["Respiration", "Photosynthesis", "Digestion", "Evaporation"],
-          answer: "Photosynthesis"
-        },
-        {
-          question: "What element do plants absorb from the air to produce food?",
-          options: ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"],
-          answer: "Carbon Dioxide"
-        },
-        {
-          question: "What is the atomic number of Hydrogen?",
-          options: ["1", "2", "3", "4"],
-          answer: "1"
-        },
-        {
-          question: "Which planet is known as the Red Planet?",
-          options: ["Earth", "Mars", "Jupiter", "Saturn"],
-          answer: "Mars"
-        },
-        {
-          question: "Which gas do we breathe in from the air?",
-          options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"],
-          answer: "Oxygen"
-        },
-        {
-          question: "What is the smallest unit of life?",
-          options: ["Atom", "Molecule", "Cell", "Organ"],
-          answer: "Cell"
-        }
+        { question: "What is the atomic number of Carbon?", options: ["6", "12", "8", "14"], answer: "6" },
+        { question: "What is the process in which a liquid turns into a gas?", options: ["Evaporation", "Condensation", "Sublimation", "Fusion"], answer: "Evaporation" },
+        { question: "Which type of rock is formed from lava?", options: ["Sedimentary", "Igneous", "Metamorphic", "Coal"], answer: "Igneous" },
+        { question: "What is the primary source of energy for the Earth?", options: ["The Moon", "The Sun", "The Earth itself", "The Stars"], answer: "The Sun" },
+        { question: "What part of the plant absorbs water?", options: ["Leaf", "Stem", "Roots", "Flower"], answer: "Roots" }
       ],
       Hard: [
-        {
-          question: "Which of the following is the most abundant gas in Earth's atmosphere?",
-          options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
-          answer: "Nitrogen"
-        },
-        {
-          question: "What is the process of nuclear fusion responsible for?",
-          options: ["Energy production in stars", "Photosynthesis", "Decay of radioactive materials", "Earth's gravitational pull"],
-          answer: "Energy production in stars"
-        },
-        {
-          question: "What element is the primary component of the Earth's core?",
-          options: ["Iron", "Oxygen", "Carbon", "Silicon"],
-          answer: "Iron"
-        },
-        {
-          question: "What is the term for the breakdown of organic matter by microorganisms?",
-          options: ["Fermentation", "Decomposition", "Oxidation", "Photosynthesis"],
-          answer: "Decomposition"
-        },
-        {
-          question: "Which of the following is a non-renewable resource?",
-          options: ["Solar energy", "Wind energy", "Coal", "Geothermal energy"],
-          answer: "Coal"
-        },
-        {
-          question: "What is the main component of natural gas?",
-          options: ["Methane", "Butane", "Ethane", "Propane"],
-          answer: "Methane"
-        },
-        {
-          question: "What is the unit of electrical resistance?",
-          options: ["Volt", "Ampere", "Ohm", "Watt"],
-          answer: "Ohm"
-        },
-        {
-          question: "What does DNA stand for?",
-          options: ["Deoxyribonucleic Acid", "Deoxyribonuclear Acid", "Dinucleic Acid", "Dynamically Nuclear Acid"],
-          answer: "Deoxyribonucleic Acid"
-        },
-        {
-          question: "What is the process by which plants release water vapor into the atmosphere?",
-          options: ["Evaporation", "Transpiration", "Condensation", "Precipitation"],
-          answer: "Transpiration"
-        },
-        {
-          question: "What is the most abundant element in the universe?",
-          options: ["Hydrogen", "Helium", "Oxygen", "Carbon"],
-          answer: "Hydrogen"
-        }
+        { question: "What is the atomic number of Oxygen?", options: ["6", "8", "16", "18"], answer: "8" },
+        { question: "What is the term for the change of a substance from a solid to a gas?", options: ["Evaporation", "Sublimation", "Condensation", "Freezing"], answer: "Sublimation" },
+        { question: "What is the term for the conversion of light energy into chemical energy?", options: ["Photosynthesis", "Respiration", "Fermentation", "Decomposition"], answer: "Photosynthesis" },
+        { question: "What do we call the energy stored in food?", options: ["Thermal energy", "Chemical energy", "Kinetic energy", "Potential energy"], answer: "Chemical energy" },
+        { question: "What is the boiling point of water in Celsius?", options: ["100", "90", "110", "200"], answer: "100" }
       ]
     },
     History: {
       Easy: [
-        {
-          question: "Who was the first president of the United States?",
-          options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
-          answer: "George Washington"
-        },
-        {
-          question: "In which year did World War I start?",
-          options: ["1914", "1912", "1939", "1945"],
-          answer: "1914"
-        },
-        {
-          question: "Who was the first woman to fly solo across the Atlantic Ocean?",
-          options: ["Amelia Earhart", "Harriet Tubman", "Marie Curie", "Eleanor Roosevelt"],
-          answer: "Amelia Earhart"
-        },
-        {
-          question: "Which country was led by Winston Churchill during World War II?",
-          options: ["United Kingdom", "Germany", "France", "Italy"],
-          answer: "United Kingdom"
-        },
-        {
-          question: "What was the main purpose of the Berlin Wall?",
-          options: ["To divide East and West Germany", "To protect from invaders", "To honor fallen soldiers", "To control trade routes"],
-          answer: "To divide East and West Germany"
-        },
-        {
-          question: "Which ancient civilization built the pyramids?",
-          options: ["Egyptians", "Romans", "Greeks", "Mayans"],
-          answer: "Egyptians"
-        },
-        {
-          question: "Who is known as the 'Father of India'?",
-          options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Indira Gandhi", "Sardar Patel"],
-          answer: "Mahatma Gandhi"
-        },
-        {
-          question: "What event triggered World War II?",
-          options: ["The invasion of Poland", "The assassination of Archduke Franz Ferdinand", "The attack on Pearl Harbor", "The signing of the Treaty of Versailles"],
-          answer: "The invasion of Poland"
-        },
-        {
-          question: "Who was the famous queen of ancient Egypt?",
-          options: ["Cleopatra", "Nefertiti", "Hatshepsut", "Sphinx"],
-          answer: "Cleopatra"
-        },
-        {
-          question: "In which year did the Titanic sink?",
-          options: ["1912", "1905", "1920", "1895"],
-          answer: "1912"
-        }
+        { question: "Who was the first President of the United States?", options: ["George Washington", "Thomas Jefferson", "Abraham Lincoln", "John Adams"], answer: "George Washington" },
+        { question: "In what year did World War I start?", options: ["1914", "1939", "1900", "1920"], answer: "1914" },
+        { question: "What empire was ruled by Julius Caesar?", options: ["Roman Empire", "Ottoman Empire", "British Empire", "Mongol Empire"], answer: "Roman Empire" },
+        { question: "Who discovered America?", options: ["Christopher Columbus", "Leif Erikson", "Ferdinand Magellan", "Marco Polo"], answer: "Christopher Columbus" },
+        { question: "What year did the Titanic sink?", options: ["1912", "1900", "1925", "1930"], answer: "1912" }
       ],
       Medium: [
-        {
-          question: "Which ancient civilization is credited with inventing the wheel?",
-          options: ["Sumerians", "Romans", "Egyptians", "Indus Valley"],
-          answer: "Sumerians"
-        },
-        {
-          question: "Which empire was ruled by Julius Caesar?",
-          options: ["Roman Empire", "Ottoman Empire", "Mongol Empire", "Byzantine Empire"],
-          answer: "Roman Empire"
-        },
-        {
-          question: "What was the cause of the American Civil War?",
-          options: ["Slavery", "State rights", "Economic differences", "All of the above"],
-          answer: "All of the above"
-        },
-        {
-          question: "Which empire controlled most of the Middle East during the 16th century?",
-          options: ["Ottoman Empire", "Persian Empire", "Roman Empire", "Byzantine Empire"],
-          answer: "Ottoman Empire"
-        },
-        {
-          question: "Who was the first emperor of China?",
-          options: ["Qin Shi Huang", "Confucius", "Wudi", "Liu Bang"],
-          answer: "Qin Shi Huang"
-        },
-        {
-          question: "Which event led to the United States' entry into World War II?",
-          options: ["Attack on Pearl Harbor", "Battle of the Bulge", "D-Day invasion", "The Holocaust"],
-          answer: "Attack on Pearl Harbor"
-        },
-        {
-          question: "Who was the leader of the Soviet Union during World War II?",
-          options: ["Joseph Stalin", "Vladimir Lenin", "Leon Trotsky", "Mikhail Gorbachev"],
-          answer: "Joseph Stalin"
-        },
-        {
-          question: "What year did the Berlin Wall fall?",
-          options: ["1989", "1991", "1979", "1965"],
-          answer: "1989"
-        },
-        {
-          question: "Which civilization built the Colosseum in Rome?",
-          options: ["Romans", "Greeks", "Egyptians", "Mayans"],
-          answer: "Romans"
-        },
-        {
-          question: "Which war was fought between the United States and Vietnam?",
-          options: ["Vietnam War", "Korean War", "World War I", "World War II"],
-          answer: "Vietnam War"
-        }
+        { question: "Who was the leader of the Soviet Union during World War II?", options: ["Joseph Stalin", "Vladimir Lenin", "Leon Trotsky", "Nikita Khrushchev"], answer: "Joseph Stalin" },
+        { question: "What was the name of the ship that brought the Pilgrims to America in 1620?", options: ["Mayflower", "Santa Maria", "Beagle", "Endeavour"], answer: "Mayflower" },
+        { question: "In which year did the Berlin Wall fall?", options: ["1989", "1991", "1987", "1990"], answer: "1989" },
+        { question: "Who was the first emperor of China?", options: ["Qin Shi Huang", "Han Wudi", "Emperor Wu", "Kublai Khan"], answer: "Qin Shi Huang" }
       ],
       Hard: [
-        {
-          question: "Who was the last Pharaoh of Egypt?",
-          options: ["Cleopatra", "Tutankhamun", "Nefertiti", "Ramses II"],
-          answer: "Cleopatra"
-        },
-        {
-          question: "What year did the French Revolution begin?",
-          options: ["1789", "1799", "1805", "1776"],
-          answer: "1789"
-        },
-        {
-          question: "Which country was involved in the Opium Wars with China?",
-          options: ["United Kingdom", "France", "Russia", "Germany"],
-          answer: "United Kingdom"
-        },
-        {
-          question: "Who was the leader of the Mongol Empire?",
-          options: ["Genghis Khan", "Kublai Khan", "Attila the Hun", "Alexander the Great"],
-          answer: "Genghis Khan"
-        },
-        {
-          question
+        { question: "What treaty ended World War I?", options: ["Treaty of Versailles", "Treaty of Paris", "Treaty of Ghent", "Treaty of Tordesillas"], answer: "Treaty of Versailles" },
+        { question: "Which famous battle took place in 1066?", options: ["Battle of Hastings", "Battle of Waterloo", "Battle of Trafalgar", "Battle of Agincourt"], answer: "Battle of Hastings" },
+        { question: "Who was the leader of the Mongol Empire?", options: ["Genghis Khan", "Kublai Khan", "Attila the Hun", "Alexander the Great"], answer: "Genghis Khan" },
+        { question: "Which civilization built the pyramids?", options: ["Ancient Egyptians", "Mesopotamians", "Mayans", "Greeks"], answer: "Ancient Egyptians" },
+        { question: "Which country was the first to grant women the right to vote?", options: ["New Zealand", "United States", "United Kingdom", "Australia"], answer: "New Zealand" }
+      ]
+    }
+  };
+
+  let currentSubject = 'Math'; // default subject
+  let currentDifficulty = 'Easy'; // default difficulty
+  let questionIndex = 0;
+  let correctAnswers = 0;
+
+  function loadQuestion() {
+    const questionObj = questions[currentSubject][currentDifficulty][questionIndex];
+    document.getElementById('question').textContent = questionObj.question;
+
+    const optionsList = document.getElementById('options');
+    optionsList.innerHTML = '';
+
+    questionObj.options.forEach(option => {
+      const li = document.createElement('li');
+      li.innerHTML = `<label><input type="radio" name="option" value="${option}"> ${option}</label>`;
+      optionsList.appendChild(li);
+    });
+
+    document.getElementById('nextButton').style.display = 'none';
+    document.getElementById('result').textContent = '';
+  }
+
+  function checkAnswer() {
+    const selectedOption = document.querySelector('input[name="option"]:checked');
+    if (selectedOption) {
+      const correctAnswer = questions[currentSubject][currentDifficulty][questionIndex].answer;
+      if (selectedOption.value === correctAnswer) {
+        correctAnswers++;
+      }
+      document.getElementById('result').textContent = selectedOption.value === correctAnswer ? 'Correct!' : `Incorrect! The correct answer was: ${correctAnswer}`;
+      document.getElementById('nextButton').style.display = 'block';
+    } else {
+      document.getElementById('result').textContent = 'Please select an option.';
+    }
+  }
+
+  document.getElementById('nextButton').addEventListener('click', () => {
+    if (questionIndex < 4) {
+      questionIndex++;
+      loadQuestion();
+    } else {
+      document.getElementById('result').textContent = `Game Over! You got ${correctAnswers} out of 5 questions correct.`;
+      document.getElementById('nextButton').style.display = 'none';
+    }
+  });
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
+
