@@ -13,7 +13,9 @@
       color: #13293d;
       text-align: center;
       padding: 40px;
+      transition: background-color 0.3s, color 0.3s;
     }
+
     .leaderboard-container {
       max-width: 800px;
       margin: 0 auto;
@@ -21,21 +23,26 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, color 0.3s;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
+
     th, td {
       padding: 12px;
       border-bottom: 1px solid #ccc;
       font-size: 12px;
     }
+
     th {
       background-color: #3fb5a2;
       color: white;
     }
+
     .btn {
       margin-top: 20px;
       background-color: #13293d;
@@ -45,6 +52,7 @@
       border-radius: 10px;
       display: inline-block;
     }
+
     .back-btn {
       position: fixed;
       bottom: 20px;
@@ -55,9 +63,11 @@
       border-radius: 10px;
       text-decoration: none;
     }
+
     .highlight-row {
       background-color: #e8f6f3;
     }
+
     select {
       margin-top: 10px;
       padding: 8px;
@@ -66,10 +76,36 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
+
+    /* ✅ Dark mode styles */
+    body[data-theme="light"] {
+      background-color: #13293d;
+      color: white;
+    }
+
+    body[data-theme="light"] .leaderboard-container {
+      background-color: #1e3a5f;
+      color: white;
+    }
+
+    body[data-theme="light"] th {
+      background-color: #3fb5a2;
+      color: black;
+    }
+
+    body[data-theme="light"] td {
+      border-color: #3fb5a2;
+    }
+
+    body[data-theme="light"] .btn,
+    body[data-theme="light"] .back-btn {
+      background-color: #3fb5a2;
+      color: black;
+    }
   </style>
 </head>
 <body>
-
+  <!-- ✅ NO TOGGLE BUTTON HERE -->
   <div class="fade-in leaderboard-container">
     <h2>Leaderboard</h2>
     <label for="subject-filter">Filter by Subject:</label>
@@ -115,7 +151,7 @@
       filtered.forEach((entry, index) => {
         const tr = document.createElement("tr");
         if (index === 0) tr.classList.add("highlight-row");
-        tr.innerHTML = ` 
+        tr.innerHTML = `
           <td>${index + 1}</td>
           <td>${entry.name}</td>
           <td>${entry.score}</td>
@@ -130,15 +166,14 @@
       populateLeaderboard(e.target.value);
     });
 
-    // Apply theme from localStorage
-    const body = document.body;
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-    } else {
-      body.setAttribute('data-theme', 'dark');
-    }
-  </script>
+    // ✅ Apply stored theme from localStorage
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+      }
 
+      populateLeaderboard();
+    });
+  </script>
 </body>
 </html>
-
