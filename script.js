@@ -44,3 +44,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('student-form').reset();
   });
 });
+
+// Added globally so it works with inline onclick in HTML
+function startGame(subject, difficulty) {
+  console.log('Starting game:', subject, difficulty); // for debugging
+  localStorage.setItem('subject', subject);
+  localStorage.setItem('difficulty', difficulty);
+  window.location.href = 'gameplay.html';
+}
