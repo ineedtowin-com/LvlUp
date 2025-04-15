@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LevelUp - Game</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f4f8;
+      color: #1e2a47;
+      padding: 20px;
+    }
     .game-container {
       max-width: 700px;
       margin: auto;
@@ -33,28 +37,30 @@
       border: none;
       border-radius: 8px;
       transition: background 0.3s ease;
+      cursor: pointer;
     }
     #options button:hover {
-      background: #2c786f;
+      background: #287066;
     }
     #score-display {
       margin-top: 30px;
       font-weight: bold;
     }
-    .back-btn {
-      display: inline-block;
-      text-decoration: none;
-      color: #328f81;
-      padding: 10px;
-      border: 2px solid #328f81;
-      border-radius: 5px;
+    #play-again {
       margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #328f81;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="game-container fade-in">
-    <h2 id="game-title"></h2>
+  <div class="game-container">
+    <h2 id="game-title">Loading...</h2>
     <p id="question-count"></p>
     <div id="question-box">
       <p id="question-text"></p>
@@ -65,30 +71,22 @@
   </div>
 
   <script>
+    const queryParams = new URLSearchParams(window.location.search);
+    const subject = queryParams.get("subject");
+    const difficulty = queryParams.get("difficulty");
+
+    const gameTitle = document.getElementById("game-title");
+    const questionText = document.getElementById("question-text");
+    const questionCount = document.getElementById("question-count");
+    const optionsContainer = document.getElementById("options");
+    const scoreDisplay = document.getElementById("score-display");
+    const playAgainButton = document.getElementById("play-again");
+
+    let score = 0;
+    let currentQuestion = 0;
+    let selectedQuestions = [];
+
     const questions = {
-      English: {
-        Easy: [
-          { q: "Which is an interrogative sentence?", options: ["She is a doctor.", "Where are you going?", "I love cats."], answer: "Where are you going?" },
-          { q: "Which is a declarative sentence?", options: ["What a beautiful flower!", "I enjoy reading.", "Close the door!"], answer: "I enjoy reading." },
-          { q: "Which one asks a question?", options: ["She likes tea.", "What time is it?", "Please be quiet."], answer: "What time is it?" },
-          { q: "Find the exclamatory sentence.", options: ["What a day!", "He works late.", "Is it raining?"], answer: "What a day!" },
-          { q: "Find the imperative sentence.", options: ["Go to your room!", "She is kind.", "Is that your dog?"], answer: "Go to your room!" }
-        ],
-        Medium: [
-          { q: "Identify the compound sentence.", options: ["I ran fast but missed the bus.", "Running fast.", "The fast bus."], answer: "I ran fast but missed the bus." },
-          { q: "Choose the passive voice sentence.", options: ["He kicked the ball.", "The ball was kicked.", "He was kicking."], answer: "The ball was kicked." },
-          { q: "Which is a complex sentence?", options: ["Although it rained, we played.", "It rained.", "Playtime was fun."], answer: "Although it rained, we played." },
-          { q: "Which word is an adjective?", options: ["Blue", "Run", "Swiftly"], answer: "Blue" },
-          { q: "Which is a proper noun?", options: ["London", "city", "bridge"], answer: "London" }
-        ],
-        Hard: [
-          { q: "Which is a metaphor?", options: ["Time is money.", "Like a lion.", "He runs fast."], answer: "Time is money." },
-          { q: "Which sentence is in the subjunctive mood?", options: ["If I were rich...", "He is rich.", "He was rich."], answer: "If I were rich..." },
-          { q: "Which shows irony?", options: ["The fire station burned down.", "She’s funny.", "He laughs."], answer: "The fire station burned down." },
-          { q: "Which is a gerund?", options: ["Running", "Run", "Ran"], answer: "Running" },
-          { q: "Which is an oxymoron?", options: ["Bittersweet", "Happy", "Large"], answer: "Bittersweet" }
-        ]
-      },
       Science: {
         Easy: [
           { q: "What is the boiling point of water?", options: ["0°C", "50°C", "100°C"], answer: "100°C" },
@@ -110,6 +108,29 @@
           { q: "What is the name of the theory describing the formation of the universe?", options: ["Big Bang Theory", "String Theory", "Evolution Theory"], answer: "Big Bang Theory" },
           { q: "What is the main element in the sun?", options: ["Hydrogen", "Helium", "Carbon"], answer: "Hydrogen" },
           { q: "Which part of the brain controls balance?", options: ["Cerebrum", "Cerebellum", "Medulla"], answer: "Cerebellum" }
+        ]
+      },
+      Maths: {
+        Easy: [
+          { q: "What is 5 + 3?", options: ["8", "6", "9"], answer: "8" },
+          { q: "What is 10 - 4?", options: ["6", "5", "3"], answer: "6" },
+          { q: "What is 6 × 2?", options: ["12", "10", "8"], answer: "12" },
+          { q: "What is 9 ÷ 3?", options: ["2", "3", "4"], answer: "3" },
+          { q: "What is 7 + 9?", options: ["16", "17", "15"], answer: "16" }
+        ],
+        Medium: [
+          { q: "What is 15 × 3?", options: ["45", "30", "50"], answer: "45" },
+          { q: "What is 25 ÷ 5?", options: ["5", "6", "7"], answer: "5" },
+          { q: "What is 12 × 12?", options: ["144", "122", "121"], answer: "144" },
+          { q: "What is 100 ÷ 25?", options: ["4", "5", "6"], answer: "4" },
+          { q: "What is 14 + 28?", options: ["42", "38", "36"], answer: "42" }
+        ],
+        Hard: [
+          { q: "What is 52 × 48?", options: ["2496", "2556", "2512"], answer: "2496" },
+          { q: "What is the square root of 144?", options: ["12", "14", "10"], answer: "12" },
+          { q: "What is 13²?", options: ["169", "156", "144"], answer: "169" },
+          { q: "What is 1000 ÷ 8?", options: ["125", "150", "200"], answer: "125" },
+          { q: "What is 15% of 60?", options: ["9", "8", "10"], answer: "9" }
         ]
       },
       History: {
@@ -134,104 +155,57 @@
           { q: "Who was the prime minister of the UK during WWII?", options: ["Winston Churchill", "Neville Chamberlain", "Clement Attlee"], answer: "Winston Churchill" },
           { q: "What was the name of the first man-made satellite?", options: ["Sputnik 1", "Apollo 11", "Explorer 1"], answer: "Sputnik 1" }
         ]
-      },
-      Maths: {
-        Easy: [
-          { q: "What is 5 + 3?", options: ["8", "6", "9"], answer: "8" },
-          { q: "What is 10 - 4?", options: ["6", "5", "3"], answer: "6" },
-          { q: "What is 6 × 2?", options: ["12", "10", "8"], answer: "12" },
-          { q: "What is 9 ÷ 3?", options: ["2", "3", "4"], answer: "3" },
-          { q: "What is 7 + 9?", options: ["16", "17", "15"], answer: "16" }
-        ],
-        Medium: [
-          { q: "What is 15 × 3?", options: ["45", "30", "50"], answer: "45" },
-          { q: "What is 25 ÷ 5?", options: ["5", "6", "7"], answer: "5" },
-          { q: "What is 12 × 12?", options: ["144", "122", "121"], answer: "144" },
-          { q: "What is 100 ÷ 25?", options: ["4", "5", "6"], answer: "4" },
-          { q: "What is 14 + 28?", options: ["42", "38", "36"], answer: "42" }
-        ],
-        Hard: [
-          { q: "What is 52 × 48?", options: ["2496", "2556", "2512"], answer: "2496" },
-          { q: "What is the square root of 144?", options: ["12", "14", "10"], answer: "12" },
-          { q: "What is 15 × 15?", options: ["225", "210", "220"], answer: "225" },
-          { q: "What is 84 ÷ 7?", options: ["12", "11", "14"], answer: "12" },
-          { q: "What is 49 ÷ 7?", options: ["7", "6", "8"], answer: "7" }
-        ]
       }
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const subject = urlParams.get('subject') || "English";
-    const level = urlParams.get('level') || "Easy";
-
-    const quiz = questions[subject][level];
-    let current = 0;
-    let score = 0;
-
-    const gameTitle = document.getElementById("game-title");
-    const questionText = document.getElementById("question-text");
-    const questionCount = document.getElementById("question-count");
-    const optionsBox = document.getElementById("options");
-    const scoreDisplay = document.getElementById("score-display");
-    const playAgainBtn = document.getElementById("play-again");
-
-    gameTitle.textContent = `${subject} - ${level}`;
-
     function loadQuestion() {
-      const q = quiz[current];
+      const q = selectedQuestions[currentQuestion];
       questionText.textContent = q.q;
-      questionCount.textContent = `Question ${current + 1} of ${quiz.length}`;
-      optionsBox.innerHTML = "";
+      questionCount.textContent = `Question ${currentQuestion + 1} of ${selectedQuestions.length}`;
+      optionsContainer.innerHTML = '';
       q.options.forEach(opt => {
-        const btn = document.createElement("button");
+        const btn = document.createElement('button');
         btn.textContent = opt;
-        btn.onclick = () => {
-          if (opt === q.answer) {
-            score += 10;
-            confettiEffect();
-          }
-          current++;
-          if (current < quiz.length) {
-            loadQuestion();
-          } else {
-            saveScore();
-            alert(`Game Over! Your score: ${score}`);
-            playAgainBtn.style.display = "block";
-          }
-        };
-        optionsBox.appendChild(btn);
+        btn.onclick = () => checkAnswer(opt);
+        optionsContainer.appendChild(btn);
       });
-      scoreDisplay.textContent = `Score: ${score}`;
     }
 
-    function saveScore() {
-      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
-      const name = prompt("Enter your name for the leaderboard:");
-      leaderboard.push({ name: name || "Anonymous", score, subject, level });
-      leaderboard.sort((a, b) => b.score - a.score);
-      localStorage.setItem("levelup-leaderboard", JSON.stringify(leaderboard.slice(0, 10)));
-    }
-
-    function confettiEffect() {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { x: 0.5, y: 0.5 }
-      });
+    function checkAnswer(selected) {
+      if (selected === selectedQuestions[currentQuestion].answer) {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+      }
+      currentQuestion++;
+      if (currentQuestion < selectedQuestions.length) {
+        loadQuestion();
+      } else {
+        questionText.textContent = "Well done! You've finished the quiz.";
+        optionsContainer.innerHTML = '';
+        questionCount.textContent = '';
+        playAgainButton.style.display = "block";
+      }
     }
 
     function startNewGame() {
-      current = 0;
-      score = 0;
-      loadQuestion();
-      playAgainBtn.style.display = "none";
+      location.reload();
     }
 
-    loadQuestion();
-  </script>
-  <script>
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
+    function startGame() {
+      gameTitle.textContent = `${subject} - ${difficulty} Level`;
+      selectedQuestions = questions[subject]?.[difficulty];
+      if (!selectedQuestions) {
+        questionText.textContent = "Invalid subject or difficulty!";
+        return;
+      }
+      score = 0;
+      currentQuestion = 0;
+      scoreDisplay.textContent = "Score: 0";
+      playAgainButton.style.display = "none";
+      loadQuestion();
+    }
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('
+    startGame();
+  </script>
+</body>
+</html>
