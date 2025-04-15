@@ -113,36 +113,36 @@
   <div class="game-card" onclick="toggleDifficulty('English')">
     English
     <div class="difficulty-options" id="English-options">
-      <button onclick="startGame('English', 'Easy')">Easy</button>
-      <button id="English-Medium" class="locked">Medium</button>
-      <button id="English-Hard" class="locked">Hard</button>
+      <button onclick="event.stopPropagation(); startGame('English', 'Easy')">Easy</button>
+      <button id="English-Medium" class="locked" onclick="event.stopPropagation(); startGame('English', 'Medium')">Medium</button>
+      <button id="English-Hard" class="locked" onclick="event.stopPropagation(); startGame('English', 'Hard')">Hard</button>
     </div>
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('Maths')">
     Maths
     <div class="difficulty-options" id="Maths-options">
-      <button onclick="startGame('Maths', 'Easy')">Easy</button>
-      <button id="Maths-Medium" class="locked">Medium</button>
-      <button id="Maths-Hard" class="locked">Hard</button>
+      <button onclick="event.stopPropagation(); startGame('Maths', 'Easy')">Easy</button>
+      <button id="Maths-Medium" class="locked" onclick="event.stopPropagation(); startGame('Maths', 'Medium')">Medium</button>
+      <button id="Maths-Hard" class="locked" onclick="event.stopPropagation(); startGame('Maths', 'Hard')">Hard</button>
     </div>
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('Science')">
     Science
     <div class="difficulty-options" id="Science-options">
-      <button onclick="startGame('Science', 'Easy')">Easy</button>
-      <button id="Science-Medium" class="locked">Medium</button>
-      <button id="Science-Hard" class="locked">Hard</button>
+      <button onclick="event.stopPropagation(); startGame('Science', 'Easy')">Easy</button>
+      <button id="Science-Medium" class="locked" onclick="event.stopPropagation(); startGame('Science', 'Medium')">Medium</button>
+      <button id="Science-Hard" class="locked" onclick="event.stopPropagation(); startGame('Science', 'Hard')">Hard</button>
     </div>
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('History')">
     History
     <div class="difficulty-options" id="History-options">
-      <button onclick="startGame('History', 'Easy')">Easy</button>
-      <button id="History-Medium" class="locked">Medium</button>
-      <button id="History-Hard" class="locked">Hard</button>
+      <button onclick="event.stopPropagation(); startGame('History', 'Easy')">Easy</button>
+      <button id="History-Medium" class="locked" onclick="event.stopPropagation(); startGame('History', 'Medium')">Medium</button>
+      <button id="History-Hard" class="locked" onclick="event.stopPropagation(); startGame('History', 'Hard')">Hard</button>
     </div>
   </div>
 
@@ -155,28 +155,26 @@
   </div>
 
   <script>
-    // Toggle difficulty options for each subject
     function toggleDifficulty(subject) {
       const allOptions = document.querySelectorAll('.difficulty-options');
       allOptions.forEach(opt => opt.style.display = 'none');
       document.getElementById(`${subject}-options`).style.display = 'block';
     }
 
-    // Start the game with subject and level
     function startGame(subject, level) {
       const button = document.getElementById(`${subject}-${level}`);
-      if (button.classList.contains("locked")) {
+      if (button && button.classList.contains("locked")) {
         alert("This level is locked. Score higher to unlock it!");
         return;
       }
-      // Show loading animation
+
       document.getElementById("loading-overlay").style.display = "flex";
+
       setTimeout(() => {
         window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
-      }, 1000); // wait 1 second before redirecting
+      }, 1000);
     }
 
-    // Unlock levels based on leaderboard data
     function unlockLevels() {
       const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
 
@@ -190,18 +188,10 @@
       });
     }
 
-    // Add sample leaderboard data if it doesn't exist
-    if (!localStorage.getItem("levelup-leaderboard")) {
-      localStorage.setItem("levelup-leaderboard", JSON.stringify([
-        { "subject": "English", "score": 0 },
-        { "subject": "Maths", "score": 0 },
-        { "subject": "Science", "score": 0 },
-        { "subject": "History", "score": 0 }
-      ]));
-    }
-
-    // Call the unlock levels function when the page loads
     window.addEventListener('DOMContentLoaded', unlockLevels);
   </script>
 </body>
 </html>
+
+
+
