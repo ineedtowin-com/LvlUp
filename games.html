@@ -84,17 +84,38 @@
     }
   </script>
   <script>
-  const toggleButton = document.getElementById('theme-toggle');
-  const body = document.body;
-  const currentTheme = localStorage.getItem('theme') || 'dark';
-  body.setAttribute('data-theme', currentTheme);
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
 
-  toggleButton.addEventListener('click', () => {
-    const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  });
-</script>
+    if (localStorage.getItem('theme') === 'light') {
+      body.setAttribute('data-theme', 'light');
+      toggle.textContent = '🌙 Dark Mode';
+    }
+
+    toggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.removeAttribute('data-theme');
+        toggle.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.fade-in').style.opacity = '1';
+      const cards = document.querySelectorAll('.fade-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
+    });
+  </script>
   <a href="index.html" class="back-btn">← Back to Home</a>
 </body>
 </html>
