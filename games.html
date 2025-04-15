@@ -7,68 +7,106 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    .game-card {
-      background-color: #3fb5a2;
-      padding: 20px;
-      margin: 15px;
-      border-radius: 10px;
-      cursor: pointer;
+    body {
       font-family: 'Press Start 2P', cursive;
+      background-color: #f0f4f8;
+      color: #13293d;
       text-align: center;
+      padding: 40px;
+    }
+
+    .game-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .game-card:hover {
+      background-color: #e8f6f3;
     }
 
     .difficulty-options {
       display: none;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .difficulty-options button {
       margin: 5px;
-      padding: 10px 20px;
+      padding: 10px 16px;
       font-family: 'Press Start 2P', cursive;
       font-size: 10px;
       cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: #3fb5a2;
+      color: white;
+    }
+
+    .locked {
+      background-color: #cccccc !important;
+      cursor: not-allowed;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #13293d;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="game-container fade-in">
-    <h1>Select a Subject</h1>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <h1>Select a Subject</h1>
 
-    <div class="game-card" onclick="toggleDifficulty('English')">
-      English
-      <div class="difficulty-options" id="English-options">
-        <button onclick="startGame('English', 'Easy')">Easy</button>
-        <button onclick="startGame('English', 'Medium')">Medium</button>
-        <button onclick="startGame('English', 'Hard')">Hard</button>
-      </div>
+  <div class="game-card" onclick="toggleDifficulty('English')">
+    English
+    <div class="difficulty-options" id="English-options">
+      <button onclick="startGame('English', 'Easy')">Easy</button>
+      <button id="English-Medium" class="locked">Medium</button>
+      <button id="English-Hard" class="locked">Hard</button>
     </div>
+  </div>
 
-    <div class="game-card" onclick="toggleDifficulty('Maths')">
-      Maths
-      <div class="difficulty-options" id="Maths-options">
-        <button onclick="startGame('Maths', 'Easy')">Easy</button>
-        <button onclick="startGame('Maths', 'Medium')">Medium</button>
-        <button onclick="startGame('Maths', 'Hard')">Hard</button>
-      </div>
+  <div class="game-card" onclick="toggleDifficulty('Maths')">
+    Maths
+    <div class="difficulty-options" id="Maths-options">
+      <button onclick="startGame('Maths', 'Easy')">Easy</button>
+      <button id="Maths-Medium" class="locked">Medium</button>
+      <button id="Maths-Hard" class="locked">Hard</button>
     </div>
+  </div>
 
-    <div class="game-card" onclick="toggleDifficulty('Science')">
-      Science
-      <div class="difficulty-options" id="Science-options">
-        <button onclick="startGame('Science', 'Easy')">Easy</button>
-        <button onclick="startGame('Science', 'Medium')">Medium</button>
-        <button onclick="startGame('Science', 'Hard')">Hard</button>
-      </div>
+  <div class="game-card" onclick="toggleDifficulty('Science')">
+    Science
+    <div class="difficulty-options" id="Science-options">
+      <button onclick="startGame('Science', 'Easy')">Easy</button>
+      <button id="Science-Medium" class="locked">Medium</button>
+      <button id="Science-Hard" class="locked">Hard</button>
     </div>
+  </div>
 
-    <div class="game-card" onclick="toggleDifficulty('History')">
-      History
-      <div class="difficulty-options" id="History-options">
-        <button onclick="startGame('History', 'Easy')">Easy</button>
-        <button onclick="startGame('History', 'Medium')">Medium</button>
-        <button onclick="startGame('History', 'Hard')">Hard</button>
-      </div>
+  <div class="game-card" onclick="toggleDifficulty('History')">
+    History
+    <div class="difficulty-options" id="History-options">
+      <button onclick="startGame('History', 'Easy')">Easy</button>
+      <button id="History-Medium" class="locked">Medium</button>
+      <button id="History-Hard" class="locked">Hard</button>
     </div>
   </div>
 
@@ -80,43 +118,28 @@
     }
 
     function startGame(subject, level) {
+      const button = document.getElementById(`${subject}-${level}`);
+      if (button.classList.contains("locked")) {
+        alert("This level is locked. Score higher to unlock it!");
+        return;
+      }
       window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
     }
-  </script>
-  <script>
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
+    function unlockLevels() {
+      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+
+      leaderboard.forEach(entry => {
+        if (entry.score >= 10) {
+          document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
+        }
+        if (entry.score >= 20) {
+          document.getElementById(`${entry.subject}-Hard`)?.classList.remove("locked");
+        }
+      });
     }
 
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.fade-in').style.opacity = '1';
-      const cards = document.querySelectorAll('.fade-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 200 * i);
-      });
-    });
+    unlockLevels();
   </script>
-  <a href="index.html" class="back-btn">← Back to Home</a>
 </body>
 </html>
-
