@@ -371,5 +371,9 @@ body[data-theme="light"] #theme-toggle {
 .answer-buttons button:hover {
   background-color: #1e2a47;
 }
+body[data-theme="light"] .site-description {
+  color: #1e2a47;
+}
+
 
 
