@@ -190,6 +190,16 @@
       });
     }
 
+    // Add sample leaderboard data if it doesn't exist
+    if (!localStorage.getItem("levelup-leaderboard")) {
+      localStorage.setItem("levelup-leaderboard", JSON.stringify([
+        { "subject": "English", "score": 0 },
+        { "subject": "Maths", "score": 0 },
+        { "subject": "Science", "score": 0 },
+        { "subject": "History", "score": 0 }
+      ]));
+    }
+
     // Call the unlock levels function when the page loads
     window.addEventListener('DOMContentLoaded', unlockLevels);
   </script>
