@@ -13,58 +13,22 @@
       color: #13293d;
       text-align: center;
       padding: 40px;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .floating-square {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: rgba(63, 181, 162, 0.1);
-      animation: float 12s infinite;
-      border-radius: 4px;
-    }
-
-    .floating-square:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-    .floating-square:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
-    .floating-square:nth-child(3) { top: 70%; left: 30%; animation-delay: 4s; }
-    .floating-square:nth-child(4) { top: 25%; left: 60%; animation-delay: 6s; }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 0.5; }
-      50% { transform: translateY(-30px); opacity: 1; }
-      100% { transform: translateY(0); opacity: 0.5; }
-    }
-
-    h1 {
-      font-size: 16px;
-      margin-bottom: 40px;
     }
 
     .game-card {
       background-color: #ffffff;
-      border-radius: 16px;
-      padding: 25px 20px;
+      border-radius: 10px;
+      padding: 20px;
       margin: 20px auto;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      transition: 0.3s ease-in-out;
-      position: relative;
-      transform: scale(1);
+      transition: 0.3s;
     }
 
     .game-card:hover {
       background-color: #e8f6f3;
-      transform: scale(1.03);
-    }
-
-    .game-icon {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 10px;
     }
 
     .difficulty-options {
@@ -82,16 +46,16 @@
       border: none;
       background-color: #3fb5a2;
       color: white;
-      transition: background-color 0.2s;
-    }
-
-    .difficulty-options button:hover:not(.locked) {
-      background-color: #328f81;
     }
 
     .locked {
       background-color: #cccccc !important;
       cursor: not-allowed;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin-bottom: 40px;
     }
 
     .back-btn {
@@ -104,25 +68,13 @@
       border-radius: 10px;
       text-decoration: none;
     }
-
-    .game-info {
-      margin-top: 50px;
-      font-size: 10px;
-    }
   </style>
 </head>
 <body>
-  <!-- Floating Visual Elements -->
-  <div class="floating-square"></div>
-  <div class="floating-square"></div>
-  <div class="floating-square"></div>
-  <div class="floating-square"></div>
-
   <a href="index.html" class="back-btn">← Back to Home</a>
   <h1>Select a Subject</h1>
 
   <div class="game-card" onclick="toggleDifficulty('English')">
-    <img src="icons/english.png" alt="English" class="game-icon"/>
     English
     <div class="difficulty-options" id="English-options">
       <button onclick="startGame('English', 'Easy')">Easy</button>
@@ -132,7 +84,6 @@
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('Maths')">
-    <img src="icons/maths.png" alt="Maths" class="game-icon"/>
     Maths
     <div class="difficulty-options" id="Maths-options">
       <button onclick="startGame('Maths', 'Easy')">Easy</button>
@@ -142,7 +93,6 @@
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('Science')">
-    <img src="icons/science.png" alt="Science" class="game-icon"/>
     Science
     <div class="difficulty-options" id="Science-options">
       <button onclick="startGame('Science', 'Easy')">Easy</button>
@@ -152,7 +102,6 @@
   </div>
 
   <div class="game-card" onclick="toggleDifficulty('History')">
-    <img src="icons/history.png" alt="History" class="game-icon"/>
     History
     <div class="difficulty-options" id="History-options">
       <button onclick="startGame('History', 'Easy')">Easy</button>
@@ -161,24 +110,20 @@
     </div>
   </div>
 
-  <div class="game-info">
-    <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
-  </div>
-
   <script>
     function toggleDifficulty(subject) {
       const allOptions = document.querySelectorAll('.difficulty-options');
       allOptions.forEach(opt => opt.style.display = 'none');
-      document.getElementById(`${subject}-options`).style.display = 'block';
+      document.getElementById(${subject}-options).style.display = 'block';
     }
 
     function startGame(subject, level) {
-      const button = document.getElementById(`${subject}-${level}`);
+      const button = document.getElementById(${subject}-${level});
       if (button.classList.contains("locked")) {
         alert("This level is locked. Score higher to unlock it!");
         return;
       }
-      window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
+      window.location.href = gameplay.html?subject=${subject}&level=${level};
     }
 
     function unlockLevels() {
@@ -186,16 +131,18 @@
 
       leaderboard.forEach(entry => {
         if (entry.score >= 10) {
-          document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
+          document.getElementById(${entry.subject}-Medium)?.classList.remove("locked");
         }
         if (entry.score >= 20) {
-          document.getElementById(`${entry.subject}-Hard`)?.classList.remove("locked");
+          document.getElementById(${entry.subject}-Hard)?.classList.remove("locked");
         }
       });
     }
 
     unlockLevels();
   </script>
+  <div class="game-info">
+  <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
+</div>
 </body>
 </html>
-
