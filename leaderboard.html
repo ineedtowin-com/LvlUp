@@ -8,6 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- ✅ THEME TOGGLE BUTTON -->
+  <button id="theme-toggle" class="btn theme-toggle">🌙 Dark Mode</button>
+
   <div class="fade-in leaderboard-container">
     <h2>Leaderboard</h2>
     <table>
@@ -25,7 +28,11 @@
     <a href="games.html" class="btn">Play More</a>
   </div>
 
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
+  <!-- ✅ ALL SCRIPTS GO HERE -->
   <script>
+    // Populate leaderboard
     const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
     const tbody = document.getElementById("leaderboard-body");
 
@@ -40,30 +47,37 @@
       `;
       tbody.appendChild(tr);
     });
-  </script
- <script>
+
+    // Theme toggle
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
+    function setThemeFromStorage() {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'light') {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '🌙 Dark Mode';
+      } else {
+        body.removeAttribute('data-theme');
+        toggle.textContent = '☀️ Light Mode';
+      }
     }
 
     toggle.addEventListener('click', () => {
       const currentTheme = body.getAttribute('data-theme');
       if (currentTheme === 'light') {
         body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
+        toggle.textContent = '☀️ Light Mode';
         localStorage.setItem('theme', 'dark');
       } else {
         body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
+        toggle.textContent = '🌙 Dark Mode';
         localStorage.setItem('theme', 'light');
       }
     });
 
-    window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
+      setThemeFromStorage();
       document.querySelector('.fade-in').style.opacity = '1';
       const cards = document.querySelectorAll('.fade-card');
       cards.forEach((card, i) => {
@@ -74,6 +88,5 @@
       });
     });
   </script>
-  <a href="index.html" class="back-btn">← Back to Home</a>
 </body>
 </html>
