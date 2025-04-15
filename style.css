@@ -285,6 +285,18 @@ body[data-theme="light"] #theme-toggle {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
+.game-info {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 600px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed #ffaa00;
+  color: #ffaa00;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
 
 
 
