@@ -104,8 +104,8 @@
         ],
         Hard: [
           { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Pb"], answer: "Au" },
-          { q: "What type of bond forms between two water molecules?", options: ["Ionic", "Covalent", "Hydrogen"], answer: "Hydrogen" },
-          { q: "What is the name of the theory describing the formation of the universe?", options: ["Big Bang Theory", "String Theory", "Evolution Theory"], answer: "Big Bang Theory" },
+          { q: "What type of bond forms between water molecules?", options: ["Ionic", "Covalent", "Hydrogen"], answer: "Hydrogen" },
+          { q: "What theory describes the formation of the universe?", options: ["Big Bang Theory", "String Theory", "Evolution Theory"], answer: "Big Bang Theory" },
           { q: "What is the main element in the sun?", options: ["Hydrogen", "Helium", "Carbon"], answer: "Hydrogen" },
           { q: "Which part of the brain controls balance?", options: ["Cerebrum", "Cerebellum", "Medulla"], answer: "Cerebellum" }
         ]
@@ -158,6 +158,14 @@
       }
     };
 
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
     function loadQuestion() {
       const q = selectedQuestions[currentQuestion];
       questionText.textContent = q.q;
@@ -192,17 +200,20 @@
     }
 
     function startGame() {
-      gameTitle.textContent = `${subject} - ${difficulty} Level`;
-      selectedQuestions = questions[subject]?.[difficulty];
-      if (!selectedQuestions) {
-        questionText.textContent = "Invalid subject or difficulty!";
-        return;
+      if (questions[subject] && questions[subject][difficulty]) {
+        gameTitle.textContent = `${subject} - ${difficulty} Level`;
+        selectedQuestions = shuffleArray([...questions[subject][difficulty]]);
+        score = 0;
+        currentQuestion = 0;
+        scoreDisplay.textContent = "Score: 0";
+        playAgainButton.style.display = "none";
+        loadQuestion();
+      } else {
+        gameTitle.textContent = "Oops!";
+        questionText.textContent = "Invalid subject or difficulty level selected.";
+        questionCount.textContent = "";
+        optionsContainer.innerHTML = "";
       }
-      score = 0;
-      currentQuestion = 0;
-      scoreDisplay.textContent = "Score: 0";
-      playAgainButton.style.display = "none";
-      loadQuestion();
     }
 
     startGame();
