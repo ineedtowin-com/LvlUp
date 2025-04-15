@@ -52,3 +52,10 @@ function startGame(subject, difficulty) {
   localStorage.setItem('difficulty', difficulty);
   window.location.href = 'gameplay.html';
 }
+localStorage.setItem("levelup-leaderboard", JSON.stringify([
+  { subject: "English", score: 10 },
+  { subject: "Maths", score: 15 },
+  { subject: "Science", score: 25 },
+  { subject: "History", score: 30 }
+]));
+
