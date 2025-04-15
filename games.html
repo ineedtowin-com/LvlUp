@@ -110,7 +110,6 @@
       font-size: 10px;
     }
 
-    /* Responsive Design */
     @media (max-width: 600px) {
       .game-card {
         width: 90%;
@@ -124,7 +123,6 @@
   </style>
 </head>
 <body>
-  <!-- Floating Visual Elements -->
   <div class="floating-square"></div>
   <div class="floating-square"></div>
   <div class="floating-square"></div>
@@ -137,7 +135,7 @@
     <img src="icons/english.png" alt="English" class="game-icon"/>
     English
     <div class="difficulty-options" id="English-options">
-      <button onclick="startGame('English', 'Easy')">Easy</button>
+      <button id="English-Easy" onclick="startGame('English', 'Easy')">Easy</button>
       <button id="English-Medium" class="locked">Medium</button>
       <button id="English-Hard" class="locked">Hard</button>
     </div>
@@ -147,7 +145,7 @@
     <img src="icons/maths.png" alt="Maths" class="game-icon"/>
     Maths
     <div class="difficulty-options" id="Maths-options">
-      <button onclick="startGame('Maths', 'Easy')">Easy</button>
+      <button id="Maths-Easy" onclick="startGame('Maths', 'Easy')">Easy</button>
       <button id="Maths-Medium" class="locked">Medium</button>
       <button id="Maths-Hard" class="locked">Hard</button>
     </div>
@@ -157,7 +155,7 @@
     <img src="icons/science.png" alt="Science" class="game-icon"/>
     Science
     <div class="difficulty-options" id="Science-options">
-      <button onclick="startGame('Science', 'Easy')">Easy</button>
+      <button id="Science-Easy" onclick="startGame('Science', 'Easy')">Easy</button>
       <button id="Science-Medium" class="locked">Medium</button>
       <button id="Science-Hard" class="locked">Hard</button>
     </div>
@@ -167,7 +165,7 @@
     <img src="icons/history.png" alt="History" class="game-icon"/>
     History
     <div class="difficulty-options" id="History-options">
-      <button onclick="startGame('History', 'Easy')">Easy</button>
+      <button id="History-Easy" onclick="startGame('History', 'Easy')">Easy</button>
       <button id="History-Medium" class="locked">Medium</button>
       <button id="History-Hard" class="locked">Hard</button>
     </div>
@@ -186,7 +184,7 @@
 
     function startGame(subject, level) {
       const button = document.getElementById(`${subject}-${level}`);
-      if (button.classList.contains("locked")) {
+      if (!button || button.classList.contains("locked")) {
         alert("This level is locked. Score higher to unlock it!");
         return;
       }
