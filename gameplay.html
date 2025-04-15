@@ -89,7 +89,75 @@
           { q: "Which is an oxymoron?", options: ["Bittersweet", "Happy", "Large"], answer: "Bittersweet" }
         ]
       },
-      // Add other subjects (Maths, Science, History, etc.) here...
+      Science: {
+        Easy: [
+          { q: "What is the boiling point of water?", options: ["0°C", "50°C", "100°C"], answer: "100°C" },
+          { q: "What is H2O?", options: ["Oxygen", "Water", "Hydrogen"], answer: "Water" },
+          { q: "What gas do plants absorb for photosynthesis?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide"], answer: "Carbon Dioxide" },
+          { q: "Which organ pumps blood?", options: ["Brain", "Heart", "Lungs"], answer: "Heart" },
+          { q: "What is the largest planet in our solar system?", options: ["Earth", "Mars", "Jupiter"], answer: "Jupiter" }
+        ],
+        Medium: [
+          { q: "What is the chemical formula for table salt?", options: ["NaCl", "H2O", "CO2"], answer: "NaCl" },
+          { q: "Which part of the cell contains the genetic material?", options: ["Mitochondria", "Nucleus", "Cytoplasm"], answer: "Nucleus" },
+          { q: "What is the most common element in the Earth's crust?", options: ["Oxygen", "Silicon", "Iron"], answer: "Oxygen" },
+          { q: "What is the primary source of energy for the Earth?", options: ["The Moon", "The Sun", "Volcanoes"], answer: "The Sun" },
+          { q: "Which planet is closest to the Sun?", options: ["Venus", "Earth", "Mercury"], answer: "Mercury" }
+        ],
+        Hard: [
+          { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Pb"], answer: "Au" },
+          { q: "What type of bond forms between two water molecules?", options: ["Ionic", "Covalent", "Hydrogen"], answer: "Hydrogen" },
+          { q: "What is the name of the theory describing the formation of the universe?", options: ["Big Bang Theory", "String Theory", "Evolution Theory"], answer: "Big Bang Theory" },
+          { q: "What is the main element in the sun?", options: ["Hydrogen", "Helium", "Carbon"], answer: "Hydrogen" },
+          { q: "Which part of the brain controls balance?", options: ["Cerebrum", "Cerebellum", "Medulla"], answer: "Cerebellum" }
+        ]
+      },
+      History: {
+        Easy: [
+          { q: "Who was the first president of the United States?", options: ["Abraham Lincoln", "George Washington", "Thomas Jefferson"], answer: "George Washington" },
+          { q: "In which year did World War I begin?", options: ["1914", "1939", "1945"], answer: "1914" },
+          { q: "Who discovered America?", options: ["Christopher Columbus", "Vasco da Gama", "Marco Polo"], answer: "Christopher Columbus" },
+          { q: "Which ancient civilization built the pyramids?", options: ["Egyptians", "Romans", "Greeks"], answer: "Egyptians" },
+          { q: "What was the name of the ship that brought the Pilgrims to America?", options: ["Mayflower", "Titanic", "Santa Maria"], answer: "Mayflower" }
+        ],
+        Medium: [
+          { q: "Which battle marked the turning point of the Civil War?", options: ["Battle of Gettysburg", "Battle of Lexington", "Battle of Saratoga"], answer: "Battle of Gettysburg" },
+          { q: "Who was the leader of the Soviet Union during WWII?", options: ["Joseph Stalin", "Vladimir Lenin", "Leon Trotsky"], answer: "Joseph Stalin" },
+          { q: "When did the French Revolution begin?", options: ["1789", "1776", "1812"], answer: "1789" },
+          { q: "Which empire was ruled by Julius Caesar?", options: ["Roman Empire", "Ottoman Empire", "British Empire"], answer: "Roman Empire" },
+          { q: "Who was the first woman to fly solo across the Atlantic?", options: ["Amelia Earhart", "Harriet Quimby", "Bessie Coleman"], answer: "Amelia Earhart" }
+        ],
+        Hard: [
+          { q: "What was the name of the ancient Mesopotamian writing system?", options: ["Cuneiform", "Hieroglyphics", "Alphabet"], answer: "Cuneiform" },
+          { q: "Who was the last Tsar of Russia?", options: ["Nicholas II", "Ivan the Terrible", "Peter the Great"], answer: "Nicholas II" },
+          { q: "In which year was the Magna Carta signed?", options: ["1215", "1066", "1492"], answer: "1215" },
+          { q: "Who was the prime minister of the UK during WWII?", options: ["Winston Churchill", "Neville Chamberlain", "Clement Attlee"], answer: "Winston Churchill" },
+          { q: "What was the name of the first man-made satellite?", options: ["Sputnik 1", "Apollo 11", "Explorer 1"], answer: "Sputnik 1" }
+        ]
+      },
+      Maths: {
+        Easy: [
+          { q: "What is 5 + 3?", options: ["8", "6", "9"], answer: "8" },
+          { q: "What is 10 - 4?", options: ["6", "5", "3"], answer: "6" },
+          { q: "What is 6 × 2?", options: ["12", "10", "8"], answer: "12" },
+          { q: "What is 9 ÷ 3?", options: ["2", "3", "4"], answer: "3" },
+          { q: "What is 7 + 9?", options: ["16", "17", "15"], answer: "16" }
+        ],
+        Medium: [
+          { q: "What is 15 × 3?", options: ["45", "30", "50"], answer: "45" },
+          { q: "What is 25 ÷ 5?", options: ["5", "6", "7"], answer: "5" },
+          { q: "What is 12 × 12?", options: ["144", "122", "121"], answer: "144" },
+          { q: "What is 100 ÷ 25?", options: ["4", "5", "6"], answer: "4" },
+          { q: "What is 14 + 28?", options: ["42", "38", "36"], answer: "42" }
+        ],
+        Hard: [
+          { q: "What is 52 × 48?", options: ["2496", "2556", "2512"], answer: "2496" },
+          { q: "What is the square root of 144?", options: ["12", "14", "10"], answer: "12" },
+          { q: "What is 15 × 15?", options: ["225", "210", "220"], answer: "225" },
+          { q: "What is 84 ÷ 7?", options: ["12", "11", "14"], answer: "12" },
+          { q: "What is 49 ÷ 7?", options: ["7", "6", "8"], answer: "7" }
+        ]
+      }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -121,9 +189,6 @@
           if (opt === q.answer) {
             score += 10;
             confettiEffect();
-            playSound('correct');
-          } else {
-            playSound('wrong');
           }
           current++;
           if (current < quiz.length) {
@@ -155,11 +220,6 @@
       });
     }
 
-    function playSound(type) {
-      const audio = new Audio(type === 'correct' ? 'correct-sound.mp3' : 'wrong-sound.mp3');
-      audio.play();
-    }
-
     function startNewGame() {
       current = 0;
       score = 0;
@@ -174,27 +234,4 @@
     const body = document.body;
 
     if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
-    }
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.fade-in').style.opacity = '1';
-    });
-  </script>
-  <a href="index.html" class="back-btn">← Back to Home</a>
-</body>
-</html>
+      body.setAttribute('
