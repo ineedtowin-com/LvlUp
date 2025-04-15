@@ -40,6 +40,18 @@
       `;
       tbody.appendChild(tr);
     });
-  </script>
+  </script
+<script>
+  const toggleButton = document.getElementById('theme-toggle');
+  const body = document.body;
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  body.setAttribute('data-theme', currentTheme);
+
+  toggleButton.addEventListener('click', () => {
+    const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+</script>
 </body>
 </html>
