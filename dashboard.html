@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LevelUp - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #f0f4f8;
+      color: #13293d;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .progress-bar {
+      height: 14px;
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #3fb5a2;
+      transition: width 0.5s;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #13293d;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 10px;
+    }
+
+    .dashboard-summary {
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <h1>🎮 Your Learning Dashboard</h1>
+
+  <div class="card">
+    <h2>Total Points</h2>
+    <p id="total-score" class="dashboard-summary">Calculating...</p>
+  </div>
+
+  <div id="dashboard-container"></div>
+
+  <script>
+    const dashboardContainer = document.getElementById("dashboard-container");
+    const totalScoreEl = document.getElementById("total-score");
+
+    const subjects = ["English", "Maths", "Science", "History"];
+    const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+
+    let totalScore = 0;
+
+    subjects.forEach(subject => {
+      const subjectEntries = leaderboard.filter(entry => entry.subject === subject);
+      const subjectScore = subjectEntries.reduce((acc, curr) => acc + (curr.score || 0), 0);
+      totalScore += subjectScore;
+
+      // Calculate progress
+      let levelUnlocked = "Easy";
+      if (subjectScore >= 20) {
+        levelUnlocked = "Hard";
+      } else if (subjectScore >= 10) {
+        levelUnlocked = "Medium";
+      }
+
+      const percent = Math.min(subjectScore, 30) / 30 * 100;
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h2>${subject}</h2>
+        <p class="dashboard-summary">Score: ${subjectScore} | Level Unlocked: ${levelUnlocked}</p>
+        <div class="progress-bar">
+          <div class="progress" style="width: ${percent}%"></div>
+        </div>
+      `;
+
+      dashboardContainer.appendChild(card);
+    });
+
+    totalScoreEl.innerText = `${totalScore} points`;
+  </script>
+</body>
+</html>
