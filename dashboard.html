@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -60,6 +60,35 @@
       font-size: 12px;
       margin-top: 10px;
     }
+
+    /* Add toggle button style */
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3fb5a2;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Dark mode styles */
+    body[data-theme="dark"] {
+      background-color: #13293d;
+      color: white;
+    }
+
+    body[data-theme="dark"] .card {
+      background-color: #1e3a5f;
+    }
+
+    body[data-theme="dark"] #theme-toggle {
+      background-color: #1e3a5f;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -72,6 +101,9 @@
   </div>
 
   <div id="dashboard-container"></div>
+
+  <!-- Theme toggle button -->
+  <button id="theme-toggle">☀️ Light Mode</button>
 
   <script>
     const dashboardContainer = document.getElementById("dashboard-container");
@@ -99,7 +131,7 @@
 
       const card = document.createElement("div");
       card.className = "card";
-      card.innerHTML = `
+      card.innerHTML = ` 
         <h2>${subject}</h2>
         <p class="dashboard-summary">Score: ${subjectScore} | Level Unlocked: ${levelUnlocked}</p>
         <div class="progress-bar">
@@ -109,26 +141,30 @@
 
       dashboardContainer.appendChild(card);
     });
+
     totalScoreEl.innerText = `${totalScore} points`;
-  </script>
- <script>
+
+    // Theme toggle functionality
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
+    if (localStorage.getItem('theme') === 'dark') {
+      body.setAttribute('data-theme', 'dark');
       toggle.textContent = '🌙 Dark Mode';
+    } else {
+      body.setAttribute('data-theme', 'light');
+      toggle.textContent = '☀️ Light Mode';
     }
 
     toggle.addEventListener('click', () => {
       const currentTheme = body.getAttribute('data-theme');
       if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
+        body.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀️ Light Mode';
         localStorage.setItem('theme', 'dark');
       } else {
         body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
+        toggle.textContent = '🌙 Dark Mode';
         localStorage.setItem('theme', 'light');
       }
     });
@@ -146,3 +182,4 @@
   </script>
 </body>
 </html>
+
