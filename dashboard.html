@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -133,18 +133,18 @@
 
       const card = document.createElement("div");
       card.className = "card";
-      card.innerHTML =  
+      card.innerHTML = ` 
         <h2>${subject}</h2>
         <p class="dashboard-summary">Score: ${subjectScore} | Level Unlocked: ${levelUnlocked}</p>
         <div class="progress-bar">
           <div class="progress" style="width: ${percent}%"></div>
         </div>
-      ;
+      `;
 
       dashboardContainer.appendChild(card);
     });
 
-    totalScoreEl.innerText = ${totalScore} points;
+    totalScoreEl.innerText = `${totalScore} points`;
 
     // Debugging: Log the theme stored in localStorage
     console.log("Stored Theme: ", localStorage.getItem('theme'));
