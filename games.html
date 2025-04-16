@@ -211,37 +211,31 @@
 
     window.addEventListener('DOMContentLoaded', unlockLevels);
   </script>
+
   <script>
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
+    // Set initial theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      body.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀️ Light Mode';
+    } else {
       toggle.textContent = '🌙 Dark Mode';
     }
 
+    // Toggle theme on click
     toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
         body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
         localStorage.setItem('theme', 'light');
+        toggle.textContent = '🌙 Dark Mode';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        toggle.textContent = '☀️ Light Mode';
       }
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.fade-in').style.opacity = '1';
-      const cards = document.querySelectorAll('.fade-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 200 * i);
-      });
     });
   </script>
 </body>
