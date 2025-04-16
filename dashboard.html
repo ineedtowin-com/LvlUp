@@ -13,6 +13,7 @@
       color: #13293d;
       padding: 30px;
       text-align: center;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     h1 {
@@ -28,6 +29,7 @@
       padding: 20px;
       width: 90%;
       max-width: 500px;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     .progress-bar {
@@ -148,12 +150,15 @@
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'dark') {
-      body.setAttribute('data-theme', 'dark');
-      toggle.textContent = '🌙 Dark Mode';
+    // Check localStorage and apply theme
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      body.setAttribute('data-theme', storedTheme);
+      toggle.textContent = storedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
     } else {
+      // Default theme is light
       body.setAttribute('data-theme', 'light');
-      toggle.textContent = '☀️ Light Mode';
+      toggle.textContent = '🌙 Dark Mode';
     }
 
     toggle.addEventListener('click', () => {
@@ -182,4 +187,6 @@
   </script>
 </body>
 </html>
+
+
 
