@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -72,25 +72,18 @@
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
-    }
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
+    // Load saved theme on first visit
     window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      if (savedTheme === "light") {
+        body.setAttribute("data-theme", "light");
+        toggle.textContent = "☀️ Light Mode";
+      } else {
+        body.setAttribute("data-theme", "dark");
+        toggle.textContent = "🌙 Dark Mode";
+      }
+
+      // Fade in animation
       document.querySelector('.fade-in').style.opacity = '1';
       const cards = document.querySelectorAll('.fade-card');
       cards.forEach((card, i) => {
@@ -99,6 +92,20 @@
           card.style.transform = 'translateY(0)';
         }, 200 * i);
       });
+    });
+
+    // Theme toggle behavior
+    toggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.setAttribute('data-theme', 'dark');
+        toggle.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme', 'light');
+      }
     });
   </script>
 </body>
