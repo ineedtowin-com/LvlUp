@@ -184,11 +184,16 @@ form, .tutoring-form {
 }
 
 input, textarea, select {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #6fd7c5;
 }
 
 /* Success/Error */
@@ -418,4 +423,3 @@ body[data-theme="light"] .dashboard-btn:hover {
   margin-right: 8px;
   vertical-align: middle;
 }
-
