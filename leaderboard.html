@@ -3,176 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LevelUp - Leaderboard</title>
+  <title>LevelUp - Empowering Education</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #f0f4f8;
-      color: #13293d;
-      text-align: center;
-      padding: 40px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .leaderboard-container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ccc;
-      font-size: 12px;
-    }
-
-    th {
-      background-color: #3fb5a2;
-      color: white;
-    }
-
-    .btn {
-      margin-top: 20px;
-      background-color: #13293d;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 10px;
-      display: inline-block;
-    }
-
-    .back-btn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #13293d;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-    }
-
-    .highlight-row {
-      background-color: #e8f6f3;
-    }
-
-    select {
-      margin-top: 10px;
-      padding: 8px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    /* ✅ Dark mode styles */
-    body[data-theme="light"] {
-      background-color: #13293d;
-      color: white;
-    }
-
-    body[data-theme="light"] .leaderboard-container {
-      background-color: #1e3a5f;
-      color: white;
-    }
-
-    body[data-theme="light"] th {
-      background-color: #3fb5a2;
-      color: black;
-    }
-
-    body[data-theme="light"] td {
-      border-color: #3fb5a2;
-    }
-
-    body[data-theme="light"] .btn,
-    body[data-theme="light"] .back-btn {
-      background-color: #3fb5a2;
-      color: black;
-    }
-  </style>
 </head>
 <body>
-  <!-- ✅ NO TOGGLE BUTTON HERE -->
-  <div class="fade-in leaderboard-container">
-    <h2>Leaderboard</h2>
-    <label for="subject-filter">Filter by Subject:</label>
-    <select id="subject-filter">
-      <option value="all">All</option>
-      <option value="English">English</option>
-      <option value="Maths">Maths</option>
-      <option value="Science">Science</option>
-      <option value="History">History</option>
-    </select>
-    <table>
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Score</th>
-          <th>Subject</th>
-          <th>Level</th>
-        </tr>
-      </thead>
-      <tbody id="leaderboard-body"></tbody>
-    </table>
-    <a href="games.html" class="btn">Play More</a>
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">🌙 Dark Mode</button>
+
+  <div class="fade-in">
+    <header>
+      <img src="images/lvluptextlogo-removebg-preview-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <h1>Your Gateway to Equal, Quality Education</h1>
+      <p class="subheading">Bridging the gap through gamified learning and community-driven support.</p>
+      
+      <!-- Buttons -->
+      <div class="btn-container">
+        <a href="contact.html" class="btn">Contact Us</a>
+        <a href="peer-tutoring.html" class="btn">Peer Tutoring</a>
+        <a href="games.html" class="btn">🎮 Play Learning Games</a>
+        <a href="leaderboard.html" class="btn">🏆 View Leaderboard</a>
+        <a href="dashboard.html" class="btn">📊 View Dashboard</a>
+      </div>
+    </header>
+
+    <section class="site-description">
+      <p>
+        LevelUp is more than just a learning platform – it’s a movement to make quality education accessible to all. 
+        Whether you're a student, a tutor, or a parent, LevelUp brings the tools, resources, and community to help you succeed. 
+        Together, we can empower students everywhere to level up their future.
+      </p>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h2>Why Education Equality Matters</h2>
+      <p>
+        Over 260 million children worldwide are out of school, and millions more face barriers to quality education. 
+        LevelUp is here to change that. With personalized learning and community support, we’re creating opportunities for all.
+      </p>
+    </section>
+
+    <section id="features">
+      <h2>Key Features</h2>
+      <div class="feature-grid">
+        <div class="card fade-card">
+          <h3>Personalized Learning</h3>
+          <p>Smart quizzes and recommendations tailored to each student’s pace and needs.</p>
+        </div>
+        <div class="card fade-card">
+          <h3>Offline Access</h3>
+          <p>Download content and keep learning even without an internet connection.</p>
+        </div>
+        <div class="card fade-card">
+          <h3>Community Support</h3>
+          <p>Ask questions, get answers, and collaborate with peers and mentors.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 LevelUp. All rights reserved.</p>
+    </footer>
   </div>
 
-  <a href="index.html" class="back-btn">← Back to Home</a>
-
+  <!-- JavaScript for Theme Toggle and Animations -->
   <script>
-    const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
-    const tbody = document.getElementById("leaderboard-body");
-    const filter = document.getElementById("subject-filter");
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
 
-    function populateLeaderboard(filterValue = 'all') {
-      tbody.innerHTML = "";
-      let filtered = leaderboard;
-
-      if (filterValue !== 'all') {
-        filtered = leaderboard.filter(entry => entry.subject === filterValue);
-      }
-
-      filtered.sort((a, b) => b.score - a.score);
-
-      filtered.forEach((entry, index) => {
-        const tr = document.createElement("tr");
-        if (index === 0) tr.classList.add("highlight-row");
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${entry.name}</td>
-          <td>${entry.score}</td>
-          <td>${entry.subject}</td>
-          <td>${entry.level}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+    if (localStorage.getItem('theme') === 'light') {
+      body.setAttribute('data-theme', 'light');
+      toggle.textContent = '🌙 Dark Mode';
     }
 
-    filter.addEventListener("change", (e) => {
-      populateLeaderboard(e.target.value);
+    toggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.removeAttribute('data-theme');
+        toggle.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme', 'light');
+      }
     });
 
-    // ✅ Apply stored theme from localStorage
     window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.setAttribute('data-theme', 'light');
-      }
-
-      populateLeaderboard();
+      document.querySelector('.fade-in').style.opacity = '1';
+      const cards = document.querySelectorAll('.fade-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
     });
   </script>
 </body>
