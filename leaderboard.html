@@ -115,6 +115,12 @@
       <option value="Science">Science</option>
       <option value="History">History</option>
     </select>
+    <label for="sort-by">Sort By:</label>
+    <select id="sort-by">
+      <option value="score">Score</option>
+      <option value="name">Name</option>
+      <option value="level">Level</option>
+    </select>
     <table>
       <thead>
         <tr>
@@ -135,9 +141,10 @@
   <script>
     const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
     const tbody = document.getElementById("leaderboard-body");
-    const filter = document.getElementById("subject-filter");
+    const subjectFilter = document.getElementById("subject-filter");
+    const sortBy = document.getElementById("sort-by");
 
-    function populateLeaderboard(filterValue = 'all') {
+    function populateLeaderboard(filterValue = 'all', sortByValue = 'score') {
       tbody.innerHTML = "";
       let filtered = leaderboard;
 
@@ -145,7 +152,14 @@
         filtered = leaderboard.filter(entry => entry.subject === filterValue);
       }
 
-      filtered.sort((a, b) => b.score - a.score);
+      // Sorting based on selected criteria
+      if (sortByValue === 'score') {
+        filtered.sort((a, b) => b.score - a.score);
+      } else if (sortByValue === 'name') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sortByValue === 'level') {
+        filtered.sort((a, b) => a.level.localeCompare(b.level));
+      }
 
       filtered.forEach((entry, index) => {
         const tr = document.createElement("tr");
@@ -161,13 +175,22 @@
       });
     }
 
-    // ✅ Apply stored theme from localStorage
+    // Apply stored theme from localStorage
     window.addEventListener("DOMContentLoaded", () => {
       const theme = localStorage.getItem('theme');
       if (theme === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
       }
       populateLeaderboard();
+
+      // Add event listener for filter and sort changes
+      subjectFilter.addEventListener("change", () => {
+        populateLeaderboard(subjectFilter.value, sortBy.value);
+      });
+
+      sortBy.addEventListener("change", () => {
+        populateLeaderboard(subjectFilter.value, sortBy.value);
+      });
     });
   </script>
 </body>
