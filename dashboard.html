@@ -63,20 +63,6 @@
       margin-top: 10px;
     }
 
-    /* Add toggle button style */
-    #theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #3fb5a2;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-    }
-
     /* Dark mode styles */
     body[data-theme="dark"] {
       background-color: #13293d;
@@ -85,11 +71,6 @@
 
     body[data-theme="dark"] .card {
       background-color: #1e3a5f;
-    }
-
-    body[data-theme="dark"] #theme-toggle {
-      background-color: #1e3a5f;
-      color: white;
     }
   </style>
 </head>
@@ -103,9 +84,6 @@
   </div>
 
   <div id="dashboard-container"></div>
-
-  <!-- Theme toggle button -->
-  <button id="theme-toggle">☀️ Light Mode</button>
 
   <script>
     const dashboardContainer = document.getElementById("dashboard-container");
@@ -146,33 +124,8 @@
 
     totalScoreEl.innerText = `${totalScore} points`;
 
-    // Theme toggle functionality
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // Check localStorage and apply theme
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      body.setAttribute('data-theme', storedTheme);
-      toggle.textContent = storedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
-    } else {
-      // Default theme is light
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
-    }
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.setAttribute('data-theme', 'dark');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
+    // Debugging: Log the theme stored in localStorage
+    console.log("Stored Theme: ", localStorage.getItem('theme'));
 
     window.addEventListener("DOMContentLoaded", () => {
       document.querySelector('.fade-in').style.opacity = '1';
@@ -187,6 +140,3 @@
   </script>
 </body>
 </html>
-
-
-
