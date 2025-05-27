@@ -1,74 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us - LevelUp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LevelUp - Contact Us</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Contact Us</h1>
-    <p>If you have any questions, feel free to reach out to us!</p>
-  </header>
+  <!-- Theme Toggle and Language Switcher (only theme toggle on index) -->
+  <select id="language-switcher" onchange="setLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="ar">العربية</option>
+  </select>
 
-  <section id="contact">
-    <h2>Contact Form</h2>
-    <form action="https://formspree.io/f/mgvanpon" method="POST">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required />
+  <div class="fade-in">
+    <header>
+      <img src="images/lvluptextlogo-removebg-preview-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <h1 id="contact-title">Contact Us</h1>
+      <p id="contact-subheading">We’d love to hear from you! Please fill out the form below and we’ll get back to you as soon as possible.</p>
+    </header>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
+    <section class="contact-form">
+      <form action="https://formspree.io/f/mgvanpon" method="POST">
+        <label for="name" id="name-label">Name:</label>
+        <input type="text" name="name" id="name" required>
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
+        <label for="email" id="email-label">Email:</label>
+        <input type="email" name="email" id="email" required>
 
-      <button type="submit">Send</button>
-    </form>
-  </section>
+        <label for="message" id="message-label">Message:</label>
+        <textarea name="message" id="message" rows="5" required></textarea>
 
-  <footer>
-    <p>&copy; 2025 LevelUp. All rights reserved.</p>
-  </footer>
+        <button type="submit" class="btn" id="submit-button">Send Message</button>
+      </form>
+    </section>
 
-  <div style="text-align: center; margin-top: 30px;">
-    <a href="index.html" class="btn">Back to Home</a>
+    <footer>
+      <p>&copy; 2025 LevelUp. All rights reserved.</p>
+    </footer>
   </div>
+
   <script>
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
+    // Language translations
+    const translations = {
+      en: fetch('en.json').then(res => res.json()),
+      fr: fetch('fr.json').then(res => res.json()),
+      ar: fetch('ar.json').then(res => res.json())
+    };
 
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
-    }
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
+    // Load default language
     window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.fade-in').style.opacity = '1';
-      const cards = document.querySelectorAll('.fade-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 200 * i);
-      });
+      setLanguage('en');
     });
+
+    // Language switcher
+    function setLanguage(lang) {
+      translations[lang].then(data => {
+        document.getElementById("contact-title").textContent = data["contact-title"];
+        document.getElementById("contact-subheading").textContent = data["contact-subheading"];
+        document.getElementById("name-label").textContent = data["name-label"];
+        document.getElementById("email-label").textContent = data["email-label"];
+        document.getElementById("message-label").textContent = data["message-label"];
+        document.getElementById("submit-button").textContent = data["submit-button"];
+      });
+    }
   </script>
 </body>
 </html>
-
-
