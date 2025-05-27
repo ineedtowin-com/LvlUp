@@ -53,17 +53,30 @@
     // Load default language
     window.addEventListener("DOMContentLoaded", () => {
       setLanguage('en');
+      document.getElementById('language-switcher').value = 'en';
     });
 
     // Language switcher
     function setLanguage(lang) {
+      console.log("Switching to language:", lang);
       translations[lang].then(data => {
-        document.getElementById("contact-title").textContent = data["contact-title"];
-        document.getElementById("contact-subheading").textContent = data["contact-subheading"];
-        document.getElementById("name-label").textContent = data["name-label"];
-        document.getElementById("email-label").textContent = data["email-label"];
-        document.getElementById("message-label").textContent = data["message-label"];
-        document.getElementById("submit-button").textContent = data["submit-button"];
+        console.log("Loaded translations:", data);
+        document.getElementById("contact-title").textContent = data["contact-title"] || "[Missing]";
+        document.getElementById("contact-subheading").textContent = data["contact-subheading"] || "[Missing]";
+        document.getElementById("name-label").textContent = data["name-label"] || "[Missing]";
+        document.getElementById("email-label").textContent = data["email-label"] || "[Missing]";
+        document.getElementById("message-label").textContent = data["message-label"] || "[Missing]";
+        document.getElementById("submit-button").textContent = data["submit-button"] || "[Missing]";
+
+        // Set text direction for Arabic
+        if(lang === 'ar') {
+          document.body.setAttribute('dir', 'rtl');
+        } else {
+          document.body.setAttribute('dir', 'ltr');
+        }
+      }).catch(e => {
+        console.error("Failed to load translations:", e);
+        // Optionally, reset to English or show an error message here
       });
     }
   </script>
