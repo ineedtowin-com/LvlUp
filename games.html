@@ -1,107 +1,242 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LevelUp - Games</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    /* Ensure toggle button is visible and nicely spaced */
-    #theme-toggle {
-      margin: 10px;
-      padding: 8px 15px;
+    body {
       font-family: 'Press Start 2P', cursive;
-      cursor: pointer;
-      /* fallback styling in case btn class not fully applied */
-      background-color: #328f81;
-      color: white;
-      border: none;
-      border-radius: 5px;
+      background-color: #f0f4f8;
+      color: #13293d;
+      text-align: center;
+      padding: 40px;
     }
 
-    /* Style the language dropdown to be inline with button */
-    #language-switcher {
-      margin: 10px;
-      padding: 6px 12px;
-      font-family: 'Press Start 2P', cursive;
-      border-radius: 5px;
-      border: 1px solid #328f81;
-      background-color: #f0f0f0;
+    body[data-theme="dark"] {
+      background-color: #13293d;
+      color: #f0f4f8;
+    }
+
+    .game-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    body[data-theme="dark"] .game-card {
+      background-color: #333;
+      color: #f0f4f8;
+    }
+
+    .game-card:hover {
+      background-color: #e8f6f3;
+    }
+
+    body[data-theme="dark"] .game-card:hover {
+      background-color: #444;
+    }
+
+    .difficulty-options {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .difficulty-options button {
+      margin: 5px;
+      padding: 10px 16px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: #3fb5a2;
+      color: white;
+    }
+
+    body[data-theme="dark"] .difficulty-options button {
+      background-color: #6abfa3;
+    }
+
+    .locked {
+      background-color: #cccccc !important;
+      cursor: not-allowed;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #13293d;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    .game-info {
+      margin-top: 40px;
+      font-size: 10px;
+    }
+
+    #loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 9999;
+      font-size: 16px;
+      color: #13293d;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .dot-flash span {
+      animation: blink 1s infinite;
+    }
+
+    .dot-flash span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot-flash span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <!-- Language Switcher -->
-  <select id="language-switcher" onchange="setLanguage(this.value)">
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="ar">العربية</option>
-  </select>
-
   <!-- Theme Toggle Button -->
-  <button id="theme-toggle" class="btn">Toggle Theme</button>
+  <button id="theme-toggle">🌙 Dark Mode</button>
 
-  <!-- Example Content -->
-  <header>
-    <h1 id="page-title">Games</h1>
-    <p id="page-description">Choose your subject and level to start playing!</p>
-  </header>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <h1>Select a Subject</h1>
 
-  <!-- Your games page content here -->
-  <section>
-    <!-- Game options go here -->
-  </section>
+  <div class="game-card" onclick="toggleDifficulty('English')">
+    English
+    <div class="difficulty-options" id="English-options">
+      <button onclick="event.stopPropagation(); startGame('English', 'Easy')">Easy</button>
+      <button id="English-Medium" class="locked" onclick="event.stopPropagation(); startGame('English', 'Medium')">Medium</button>
+      <button id="English-Hard" class="locked" onclick="event.stopPropagation(); startGame('English', 'Hard')">Hard</button>
+    </div>
+  </div>
 
-  <footer>
-    <p>&copy; 2025 LevelUp. All rights reserved.</p>
-  </footer>
+  <div class="game-card" onclick="toggleDifficulty('Maths')">
+    Maths
+    <div class="difficulty-options" id="Maths-options">
+      <button onclick="event.stopPropagation(); startGame('Maths', 'Easy')">Easy</button>
+      <button id="Maths-Medium" class="locked" onclick="event.stopPropagation(); startGame('Maths', 'Medium')">Medium</button>
+      <button id="Maths-Hard" class="locked" onclick="event.stopPropagation(); startGame('Maths', 'Hard')">Hard</button>
+    </div>
+  </div>
+
+  <div class="game-card" onclick="toggleDifficulty('Science')">
+    Science
+    <div class="difficulty-options" id="Science-options">
+      <button onclick="event.stopPropagation(); startGame('Science', 'Easy')">Easy</button>
+      <button id="Science-Medium" class="locked" onclick="event.stopPropagation(); startGame('Science', 'Medium')">Medium</button>
+      <button id="Science-Hard" class="locked" onclick="event.stopPropagation(); startGame('Science', 'Hard')">Hard</button>
+    </div>
+  </div>
+
+  <div class="game-card" onclick="toggleDifficulty('History')">
+    History
+    <div class="difficulty-options" id="History-options">
+      <button onclick="event.stopPropagation(); startGame('History', 'Easy')">Easy</button>
+      <button id="History-Medium" class="locked" onclick="event.stopPropagation(); startGame('History', 'Medium')">Medium</button>
+      <button id="History-Hard" class="locked" onclick="event.stopPropagation(); startGame('History', 'Hard')">Hard</button>
+    </div>
+  </div>
+
+  <div class="game-info">
+    <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
+  </div>
+
+  <div id="loading-overlay">
+    <div>Loading<span class="dot-flash"><span>.</span><span>.</span><span>.</span></span></div>
+  </div>
 
   <script>
-    // Load saved theme or default to dark
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
+    function toggleDifficulty(subject) {
+      const allOptions = document.querySelectorAll('.difficulty-options');
+      allOptions.forEach(opt => opt.style.display = 'none');
+      document.getElementById(`${subject}-options`).style.display = 'block';
+    }
 
-      const themeToggleBtn = document.getElementById('theme-toggle');
-      themeToggleBtn.textContent = savedTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+    function startGame(subject, level) {
+      const button = document.getElementById(`${subject}-${level}`);
+      if (button && button.classList.contains("locked")) {
+        alert("This level is locked. Score higher to unlock it!");
+        return;
+      }
 
-      themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        themeToggleBtn.textContent = newTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-      });
+      document.getElementById("loading-overlay").style.display = "flex";
 
-      // Load default language
-      setLanguage('en');
-      document.getElementById('language-switcher').value = 'en';
-    });
+      setTimeout(() => {
+        window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
+      }, 1000);
+    }
 
-    // Language JSON files (keep separate in your project directory)
-    const translations = {
-      en: fetch('en-games.json').then(res => res.json()),
-      fr: fetch('fr-games.json').then(res => res.json()),
-      ar: fetch('ar-games.json').then(res => res.json())
-    };
+    function unlockLevels() {
+      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
 
-    function setLanguage(lang) {
-      translations[lang].then(data => {
-        document.getElementById('page-title').textContent = data['page-title'] || '[Missing]';
-        document.getElementById('page-description').textContent = data['page-description'] || '[Missing]';
-
-        // RTL support for Arabic
-        if (lang === 'ar') {
-          document.body.setAttribute('dir', 'rtl');
-        } else {
-          document.body.setAttribute('dir', 'ltr');
+      leaderboard.forEach(entry => {
+        if (entry.score >= 10) {
+          document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
         }
-      }).catch(e => {
-        console.error("Failed to load translations:", e);
+        if (entry.score >= 20) {
+          document.getElementById(`${entry.subject}-Hard`)?.classList.remove("locked");
+        }
       });
     }
+
+    window.addEventListener('DOMContentLoaded', unlockLevels);
+  </script>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Set initial theme from localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      body.setAttribute('data-theme', 'dark');
+      toggle.textContent = '☀️ Light Mode';
+    } else {
+      toggle.textContent = '🌙 Dark Mode';
+    }
+
+    // Toggle theme on click
+    toggle.addEventListener('click', () => {
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        toggle.textContent = '🌙 Dark Mode';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        toggle.textContent = '☀️ Light Mode';
+      }
+    });
   </script>
 </body>
 </html>
