@@ -6,6 +6,31 @@
   <title>LevelUp - Games</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    /* Ensure toggle button is visible and nicely spaced */
+    #theme-toggle {
+      margin: 10px;
+      padding: 8px 15px;
+      font-family: 'Press Start 2P', cursive;
+      cursor: pointer;
+      /* fallback styling in case btn class not fully applied */
+      background-color: #328f81;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    /* Style the language dropdown to be inline with button */
+    #language-switcher {
+      margin: 10px;
+      padding: 6px 12px;
+      font-family: 'Press Start 2P', cursive;
+      border-radius: 5px;
+      border: 1px solid #328f81;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <!-- Language Switcher -->
@@ -66,8 +91,6 @@
       translations[lang].then(data => {
         document.getElementById('page-title').textContent = data['page-title'] || '[Missing]';
         document.getElementById('page-description').textContent = data['page-description'] || '[Missing]';
-
-        // Add more elements to translate here...
 
         // RTL support for Arabic
         if (lang === 'ar') {
