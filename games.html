@@ -192,11 +192,13 @@
   </div>
 
   <script>
+    // Show difficulty options for chosen subject, hide others
     function toggleDifficulty(subject) {
       document.querySelectorAll('.difficulty-options').forEach(opt => opt.style.display = 'none');
       document.getElementById(`${subject}-options`).style.display = 'block';
     }
 
+    // When user clicks a level button, check if locked or redirect to gameplay
     function startGame(subject, level) {
       const button = document.getElementById(`${subject}-${level}`);
       if (button && button.classList.contains('locked')) {
@@ -209,6 +211,7 @@
       }, 800);
     }
 
+    // Unlock levels by reading localStorage completion flags
     function unlockLevels() {
       const subjects = ['English', 'Maths', 'Science', 'History'];
       subjects.forEach(subject => {
@@ -216,13 +219,23 @@
         const mediumCompleted = localStorage.getItem(`${subject}-Medium-completed`) === 'true';
         const mediumBtn = document.getElementById(`${subject}-Medium`);
         const hardBtn = document.getElementById(`${subject}-Hard`);
-        if (easyCompleted && mediumBtn) mediumBtn.classList.remove('locked');
-        if (mediumCompleted && hardBtn) hardBtn.classList.remove('locked');
+
+        // Unlock Medium if Easy completed
+        if (easyCompleted && mediumBtn) {
+          mediumBtn.classList.remove('locked');
+        }
+
+        // Unlock Hard if Medium completed
+        if (mediumCompleted && hardBtn) {
+          hardBtn.classList.remove('locked');
+        }
       });
     }
 
+    // Dark/light theme toggle logic
     document.addEventListener('DOMContentLoaded', () => {
       unlockLevels();
+
       const toggle = document.getElementById('theme-toggle');
       const body = document.body;
       if (localStorage.getItem('theme') === 'dark') {
@@ -231,6 +244,7 @@
       } else {
         toggle.textContent = '🌙 Dark Mode';
       }
+
       toggle.addEventListener('click', () => {
         if (body.getAttribute('data-theme') === 'dark') {
           body.removeAttribute('data-theme');
@@ -246,3 +260,4 @@
   </script>
 </body>
 </html>
+
