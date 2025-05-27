@@ -60,6 +60,7 @@
       border: none;
       background-color: #3fb5a2;
       color: white;
+      transition: background-color 0.3s;
     }
 
     body[data-theme="dark"] .difficulty-options button {
@@ -68,7 +69,8 @@
 
     .locked {
       background-color: #cccccc !important;
-      cursor: not-allowed;
+      cursor: not-allowed !important;
+      color: #666666 !important;
     }
 
     h1 {
@@ -85,6 +87,8 @@
       padding: 10px 20px;
       border-radius: 10px;
       text-decoration: none;
+      font-size: 12px;
+      user-select: none;
     }
 
     .game-info {
@@ -168,7 +172,7 @@
   </div>
 
   <div class="game-info">
-    <p>🧠 Medium and Hard levels are locked until you complete the Easy level with a high enough score!</p>
+    <p>🧠 Medium and Hard levels are locked until you complete the previous difficulty with a high enough score!</p>
   </div>
 
   <div id="loading-overlay">
@@ -177,15 +181,17 @@
 
   <script>
     function toggleDifficulty(subject) {
+      // Hide all difficulty options first
       const allOptions = document.querySelectorAll('.difficulty-options');
       allOptions.forEach(opt => opt.style.display = 'none');
+      // Show the clicked subject's difficulty options
       document.getElementById(`${subject}-options`).style.display = 'block';
     }
 
     function startGame(subject, level) {
       const button = document.getElementById(`${subject}-${level}`);
       if (button && button.classList.contains("locked")) {
-        alert("This level is locked. Score higher to unlock it!");
+        alert("This level is locked. Complete the previous level first to unlock it!");
         return;
       }
 
@@ -193,26 +199,34 @@
 
       setTimeout(() => {
         window.location.href = `gameplay.html?subject=${subject}&level=${level}`;
-      }, 1000);
+      }, 800);
     }
 
     function unlockLevels() {
-      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+      const subjects = ['English', 'Maths', 'Science', 'History'];
 
-      leaderboard.forEach(entry => {
-        if (entry.score >= 10) {
-          document.getElementById(`${entry.subject}-Medium`)?.classList.remove("locked");
+      subjects.forEach(subject => {
+        const easyCompleted = localStorage.getItem(`${subject}-Easy-completed`) === 'true';
+        const mediumCompleted = localStorage.getItem(`${subject}-Medium-completed`) === 'true';
+
+        const mediumBtn = document.getElementById(`${subject}-Medium`);
+        const hardBtn = document.getElementById(`${subject}-Hard`);
+
+        if (easyCompleted && mediumBtn) {
+          mediumBtn.classList.remove('locked');
         }
-        if (entry.score >= 20) {
-          document.getElementById(`${entry.subject}-Hard`)?.classList.remove("locked");
+        if (mediumCompleted && hardBtn) {
+          hardBtn.classList.remove('locked');
         }
       });
     }
 
-    window.addEventListener('DOMContentLoaded', unlockLevels);
-  </script>
+    // Call unlockLevels when page loads to set button states
+    window.addEventListener('DOMContentLoaded', () => {
+      unlockLevels();
+    });
 
-  <script>
+    // THEME TOGGLE
     const toggle = document.getElementById('theme-toggle');
     const body = document.body;
 
