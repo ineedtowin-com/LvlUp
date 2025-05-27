@@ -1,238 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LevelUp - Game</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    .game-container {
-      max-width: 700px;
-      margin: auto;
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #fff;
-      color: #1e2a47;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    #question-text {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    #options button {
-      display: block;
-      width: 100%;
-      margin: 10px auto;
-      padding: 10px 15px;
-      font-size: 1rem;
-      background: #328f81;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-    #options button:hover {
-      background: #2c786f;
-    }
-    #score-display {
-      margin-top: 30px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <div class="game-container fade-in">
-    <h2 id="game-title"></h2>
-    <p id="question-count"></p>
-    <div id="question-box">
-      <p id="question-text"></p>
-      <div id="options"></div>
-    </div>
-    <p id="score-display">Score: 0</p>
-  </div>
+<script>
+const questions = {
+  English: {
+    Easy: [
+      { q: "What type of sentence is: 'The dog barked.'?", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Statement" },
+      { q: "What type of sentence is: 'Sit down!'?", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Command" },
+      { q: "What type of sentence is: 'Wow, that's amazing!'", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Exclamation" },
+      { q: "What type of sentence is: 'Are you ready?'", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Question" },
+      { q: "Which type of sentence states a fact?", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Statement" }
+    ],
+    Medium: [
+      { q: "What punctuation ends an exclamation?", options: [".", "!", "?", ","], answer: "!" },
+      { q: "Which type of sentence expresses a strong feeling?", options: ["Statement", "Exclamation", "Question", "Command"], answer: "Exclamation" },
+      { q: "Identify the question: 'Can you help me?'", options: ["Statement", "Question", "Command", "Exclamation"], answer: "Question" },
+      { q: "What type of sentence is: 'Please pass the salt.'?", options: ["Command", "Exclamation", "Statement", "Question"], answer: "Command" },
+      { q: "Choose the sentence type: 'The sun rises in the east.'", options: ["Statement", "Question", "Exclamation", "Command"], answer: "Statement" }
+    ],
+    Hard: [
+      { q: "What punctuation ends a command?", options: [".", "!", "?", ","], answer: "." },
+      { q: "Which type of sentence asks something?", options: ["Question", "Statement", "Command", "Exclamation"], answer: "Question" },
+      { q: "Choose the exclamation sentence: 'What a beautiful view!'", options: ["Statement", "Exclamation", "Question", "Command"], answer: "Exclamation" },
+      { q: "Choose the command sentence: 'Open the window.'", options: ["Statement", "Exclamation", "Question", "Command"], answer: "Command" },
+      { q: "Which type of sentence provides information?", options: ["Statement", "Exclamation", "Question", "Command"], answer: "Statement" }
+    ]
+  },
 
-  <script>
-    const questions = {
-      English: {
-        Easy: [
-          { q: "Which is an interrogative sentence?", options: ["She is a doctor.", "Where are you going?", "I love cats."], answer: "Where are you going?" },
-          { q: "Which is a declarative sentence?", options: ["What a beautiful flower!", "I enjoy reading.", "Close the door!"], answer: "I enjoy reading." },
-          { q: "Which one asks a question?", options: ["She likes tea.", "What time is it?", "Please be quiet."], answer: "What time is it?" },
-          { q: "Find the exclamatory sentence.", options: ["What a day!", "He works late.", "Is it raining?"], answer: "What a day!" },
-          { q: "Find the imperative sentence.", options: ["Go to your room!", "She is kind.", "Is that your dog?"], answer: "Go to your room!" }
-        ],
-        Medium: [
-          { q: "Identify the compound sentence.", options: ["I ran fast but missed the bus.", "Running fast.", "The fast bus."], answer: "I ran fast but missed the bus." },
-          { q: "Choose the passive voice sentence.", options: ["He kicked the ball.", "The ball was kicked.", "He was kicking."], answer: "The ball was kicked." },
-          { q: "Which is a complex sentence?", options: ["Although it rained, we played.", "It rained.", "Playtime was fun."], answer: "Although it rained, we played." },
-          { q: "Which word is an adjective?", options: ["Blue", "Run", "Swiftly"], answer: "Blue" },
-          { q: "Which is a proper noun?", options: ["London", "city", "bridge"], answer: "London" }
-        ],
-        Hard: [
-          { q: "Which is a metaphor?", options: ["Time is money.", "Like a lion.", "He runs fast."], answer: "Time is money." },
-          { q: "Which sentence is in the subjunctive mood?", options: ["If I were rich...", "He is rich.", "He was rich."], answer: "If I were rich..." },
-          { q: "Which shows irony?", options: ["The fire station burned down.", "She’s funny.", "He laughs."], answer: "The fire station burned down." },
-          { q: "Which is a gerund?", options: ["Running", "Run", "Ran"], answer: "Running" },
-          { q: "Which is an oxymoron?", options: ["Bittersweet", "Happy", "Large"], answer: "Bittersweet" }
-        ]
-      },
-      Maths: {
-        Easy: [
-          { q: "5 + 7 =", options: ["12", "13", "10"], answer: "12" },
-          { q: "4 × 2 =", options: ["6", "8", "10"], answer: "8" },
-          { q: "9 - 4 =", options: ["3", "5", "6"], answer: "5" },
-          { q: "10 ÷ 2 =", options: ["4", "5", "6"], answer: "5" },
-          { q: "3 + 6 =", options: ["9", "10", "8"], answer: "9" }
-        ],
-        Medium: [
-          { q: "12 ÷ 3 =", options: ["4", "5", "3"], answer: "4" },
-          { q: "7 × 6 =", options: ["42", "36", "48"], answer: "42" },
-          { q: "15 - 9 =", options: ["7", "6", "8"], answer: "6" },
-          { q: "What is 5²?", options: ["25", "10", "20"], answer: "25" },
-          { q: "Square root of 81?", options: ["9", "8", "7"], answer: "9" }
-        ],
-        Hard: [
-          { q: "Solve: 3x = 12", options: ["x = 4", "x = 6", "x = 3"], answer: "x = 4" },
-          { q: "Factor: x² - 9", options: ["(x+3)(x-3)", "x(x-9)", "x²-3"], answer: "(x+3)(x-3)" },
-          { q: "Solve: x² = 49", options: ["x=7 or -7", "x=6", "x=5"], answer: "x=7 or -7" },
-          { q: "Simplify: (2x)(3x)", options: ["6x²", "5x", "6x"], answer: "6x²" },
-          { q: "Solve: 2x - 3 = 7", options: ["x = 5", "x = 6", "x = 4"], answer: "x = 5" }
-        ]
-      },
-      Science: {
-        Easy: [
-          { q: "What organ pumps blood?", options: ["Lungs", "Heart", "Brain"], answer: "Heart" },
-          { q: "What do plants need to grow?", options: ["Sunlight", "Noise", "Darkness"], answer: "Sunlight" },
-          { q: "What gas do we breathe in?", options: ["Oxygen", "Carbon dioxide", "Nitrogen"], answer: "Oxygen" },
-          { q: "What do bees make?", options: ["Honey", "Milk", "Silk"], answer: "Honey" },
-          { q: "Which part of plant absorbs water?", options: ["Root", "Leaf", "Stem"], answer: "Root" }
-        ],
-        Medium: [
-          { q: "Where does photosynthesis occur?", options: ["Chloroplast", "Nucleus", "Cytoplasm"], answer: "Chloroplast" },
-          { q: "What is H2O?", options: ["Water", "Oxygen", "Salt"], answer: "Water" },
-          { q: "Which organ helps you breathe?", options: ["Lungs", "Liver", "Heart"], answer: "Lungs" },
-          { q: "What carries oxygen in the blood?", options: ["Red cells", "White cells", "Platelets"], answer: "Red cells" },
-          { q: "What force pulls objects down?", options: ["Gravity", "Friction", "Push"], answer: "Gravity" }
-        ],
-        Hard: [
-          { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" },
-          { q: "Which subatomic particle is negatively charged?", options: ["Electron", "Proton", "Neutron"], answer: "Electron" },
-          { q: "What is Newton's 2nd law?", options: ["F = ma", "E = mc²", "a² + b² = c²"], answer: "F = ma" },
-          { q: "Which gas is in highest % in air?", options: ["Nitrogen", "Oxygen", "CO2"], answer: "Nitrogen" },
-          { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Gd"], answer: "Au" }
-        ]
-      },
-      History: {
-        Easy: [
-          { q: "When did WW2 end?", options: ["1945", "1942", "1939"], answer: "1945" },
-          { q: "Who discovered America?", options: ["Columbus", "Newton", "Einstein"], answer: "Columbus" },
-          { q: "Where were the pyramids built?", options: ["Egypt", "India", "Greece"], answer: "Egypt" },
-          { q: "Who was Julius Caesar?", options: ["Roman leader", "Greek god", "French king"], answer: "Roman leader" },
-          { q: "What ship sank in 1912?", options: ["Titanic", "Mayflower", "Santa Maria"], answer: "Titanic" }
-        ],
-        Medium: [
-          { q: "Who was the first president of the USA?", options: ["George Washington", "Lincoln", "Adams"], answer: "George Washington" },
-          { q: "When did the Berlin Wall fall?", options: ["1989", "1975", "1999"], answer: "1989" },
-          { q: "What year did WW1 start?", options: ["1914", "1918", "1920"], answer: "1914" },
-          { q: "Where did the Renaissance begin?", options: ["Italy", "France", "Spain"], answer: "Italy" },
-          { q: "Who was the king during the English Civil War?", options: ["Charles I", "Henry VIII", "James II"], answer: "Charles I" }
-        ],
-        Hard: [
-          { q: "When was the French Revolution?", options: ["1789", "1804", "1776"], answer: "1789" },
-          { q: "Who wrote the Communist Manifesto?", options: ["Karl Marx", "Napoleon", "Churchill"], answer: "Karl Marx" },
-          { q: "What caused the Cold War?", options: ["Ideological conflict", "Volcano", "Famine"], answer: "Ideological conflict" },
-          { q: "Who was Genghis Khan?", options: ["Mongol leader", "Chinese Emperor", "Roman general"], answer: "Mongol leader" },
-          { q: "When did the Roman Empire fall?", options: ["476 AD", "800 AD", "1066 AD"], answer: "476 AD" }
-        ]
-      }
-    };
+  Maths: {
+    Easy: [
+      { q: "What is 2 + 2?", options: ["4", "3", "5", "6"], answer: "4" },
+      { q: "What is 5 - 3?", options: ["2", "3", "1", "4"], answer: "2" },
+      { q: "What is 3 × 3?", options: ["9", "6", "3", "12"], answer: "9" },
+      { q: "What is 10 ÷ 2?", options: ["5", "10", "2", "20"], answer: "5" },
+      { q: "What is 7 + 1?", options: ["8", "7", "9", "10"], answer: "8" }
+    ],
+    Medium: [
+      { q: "What is 12 ÷ 4?", options: ["3", "4", "6", "2"], answer: "3" },
+      { q: "What is 4 × 4?", options: ["16", "8", "12", "4"], answer: "16" },
+      { q: "What is 6 + 7?", options: ["13", "12", "11", "14"], answer: "13" },
+      { q: "What is 15 - 9?", options: ["6", "5", "4", "7"], answer: "6" },
+      { q: "What is 9 × 2?", options: ["18", "9", "16", "12"], answer: "18" }
+    ],
+    Hard: [
+      { q: "What is 25 ÷ 5?", options: ["5", "4", "6", "3"], answer: "5" },
+      { q: "What is 12 + 15?", options: ["27", "25", "30", "20"], answer: "27" },
+      { q: "What is 7 × 3?", options: ["21", "18", "24", "19"], answer: "21" },
+      { q: "What is 20 - 4?", options: ["16", "15", "14", "17"], answer: "16" },
+      { q: "What is 36 ÷ 6?", options: ["6", "5", "7", "8"], answer: "6" }
+    ]
+  },
+    Science: {
+    Easy: [
+      { q: "What organ pumps blood in the body?", options: ["Lungs", "Heart", "Brain", "Liver"], answer: "Heart" },
+      { q: "What gas do we breathe in to live?", options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], answer: "Oxygen" },
+      { q: "What do plants need to make food?", options: ["Sunlight", "Salt", "Plastic", "Metal"], answer: "Sunlight" },
+      { q: "Which sense uses the nose?", options: ["Hearing", "Sight", "Taste", "Smell"], answer: "Smell" },
+      { q: "What do bees make?", options: ["Milk", "Honey", "Bread", "Wool"], answer: "Honey" }
+    ],
+    Medium: [
+      { q: "What do we call the bones in our body?", options: ["Muscles", "Skeleton", "Blood", "Skin"], answer: "Skeleton" },
+      { q: "Which planet is closest to the sun?", options: ["Earth", "Mercury", "Venus", "Mars"], answer: "Mercury" },
+      { q: "What is water made of?", options: ["H2O", "CO2", "O2", "N2"], answer: "H2O" },
+      { q: "What is the main source of energy for Earth?", options: ["The Moon", "The Sun", "Wind", "Waves"], answer: "The Sun" },
+      { q: "What part of the plant carries water?", options: ["Root", "Leaf", "Stem", "Flower"], answer: "Stem" }
+    ],
+    Hard: [
+      { q: "What is the process by which plants make food?", options: ["Respiration", "Photosynthesis", "Digestion", "Fermentation"], answer: "Photosynthesis" },
+      { q: "What is the center of an atom called?", options: ["Electron", "Proton", "Neutron", "Nucleus"], answer: "Nucleus" },
+      { q: "What force pulls objects towards Earth?", options: ["Magnetism", "Gravity", "Friction", "Electricity"], answer: "Gravity" },
+      { q: "What gas do plants give off?", options: ["Carbon dioxide", "Oxygen", "Hydrogen", "Nitrogen"], answer: "Oxygen" },
+      { q: "What do we call animals that eat only plants?", options: ["Carnivores", "Herbivores", "Omnivores", "Scavengers"], answer: "Herbivores" }
+    ]
+  },
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const subject = urlParams.get('subject') || "English";
-    const level = urlParams.get('level') || "Easy";
-
-    const quiz = questions[subject][level];
-    let current = 0;
-    let score = 0;
-
-    const gameTitle = document.getElementById("game-title");
-    const questionText = document.getElementById("question-text");
-    const questionCount = document.getElementById("question-count");
-    const optionsBox = document.getElementById("options");
-    const scoreDisplay = document.getElementById("score-display");
-
-    gameTitle.textContent = `${subject} - ${level}`;
-
-    function loadQuestion() {
-      const q = quiz[current];
-      questionText.textContent = q.q;
-      questionCount.textContent = `Question ${current + 1} of ${quiz.length}`;
-      optionsBox.innerHTML = "";
-      q.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.onclick = () => {
-          if (opt === q.answer) score += 10;
-          current++;
-          if (current < quiz.length) {
-            loadQuestion();
-          } else {
-            saveScore();
-            alert(`Game Over! Your score: ${score}`);
-            window.location.href = "leaderboard.html";
-          }
-        };
-        optionsBox.appendChild(btn);
-      });
-      scoreDisplay.textContent = `Score: ${score}`;
-    }
-
-    function saveScore() {
-      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
-      const name = prompt("Enter your name for the leaderboard:");
-      leaderboard.push({ name: name || "Anonymous", score, subject, level });
-      leaderboard.sort((a, b) => b.score - a.score);
-      localStorage.setItem("levelup-leaderboard", JSON.stringify(leaderboard.slice(0, 10)));
-    }
-
-    loadQuestion();
-  </script>
-  <script>
-    const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    if (localStorage.getItem('theme') === 'light') {
-      body.setAttribute('data-theme', 'light');
-      toggle.textContent = '🌙 Dark Mode';
-    }
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      document.querySelector('.fade-in').style.opacity = '1';
-      const cards = document.querySelectorAll('.fade-card');
-      cards.forEach((card, i) => {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 200 * i);
-      });
-    });
-  </script>
-  <a href="index.html" class="back-btn">← Back to Home</a>
-</body>
-</html>
+  History: {
+    Easy: [
+      { q: "Who was the first President of the United States?", options: ["Abraham Lincoln", "George Washington", "John Adams", "Thomas Jefferson"], answer: "George Washington" },
+      { q: "What did people use before cars?", options: ["Boats", "Planes", "Horses", "Bicycles"], answer: "Horses" },
+      { q: "Where did ancient Egyptians build pyramids?", options: ["Greece", "Rome", "Egypt", "China"], answer: "Egypt" },
+      { q: "What did knights wear for protection?", options: ["Dresses", "Armor", "Suits", "Shorts"], answer: "Armor" },
+      { q: "What was the name of the ship that brought the Pilgrims to America?", options: ["Titanic", "Mayflower", "Santa Maria", "Endeavour"], answer: "Mayflower" }
+    ],
+    Medium: [
+      { q: "What famous wall was built in China?", options: ["Berlin Wall", "Great Wall of China", "Hadrian’s Wall", "Wailing Wall"], answer: "Great Wall of China" },
+      { q: "Who was the queen of Ancient Egypt?", options: ["Cleopatra", "Elizabeth I", "Victoria", "Mary"], answer: "Cleopatra" },
+      { q: "What was the Stone Age known for?", options: ["Bronze tools", "Stone tools", "Iron tools", "Wood tools"], answer: "Stone tools" },
+      { q: "What is the study of past events called?", options: ["Biology", "Astronomy", "History", "Geography"], answer: "History" },
+      { q: "Who discovered America?", options: ["Christopher Columbus", "Marco Polo", "Julius Caesar", "Albert Einstein"], answer: "Christopher Columbus" }
+    ],
+    Hard: [
+      { q: "What ancient civilization built Machu Picchu?", options: ["Romans", "Incas", "Greeks", "Vikings"], answer: "Incas" },
+      { q: "Which battle ended the Napoleonic Wars?", options: ["Hastings", "Gettysburg", "Waterloo", "Trafalgar"], answer: "Waterloo" },
+      { q: "Who was the first man to step on the moon?", options: ["Yuri Gagarin", "Buzz Aldrin", "Neil Armstrong", "Michael Collins"], answer: "Neil Armstrong" },
+      { q: "Which war was fought between the North and South of the US?", options: ["World War I", "World War II", "US Civil War", "Vietnam War"], answer: "US Civil War" },
+      { q: "Who was known as the 'Iron Lady' of British politics?", options: ["Elizabeth II", "Margaret Thatcher", "Queen Victoria", "Theresa May"], answer: "Margaret Thatcher" }
+    ]
+  }
+};
+</script>
 
