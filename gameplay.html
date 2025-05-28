@@ -151,7 +151,7 @@ ok add that to my entire gameplay page. <!DOCTYPE html>
 
     const urlParams = new URLSearchParams(window.location.search);
     const subject = urlParams.get('subject') || "English";
-    const level = urlParams.get('level') || "Easy";
+    let currentLevel = localStorage.getItem(`level_${currentSubject}`) || "Easy";
 
     const quiz = questions[subject][level];
     let current = 0;
