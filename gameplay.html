@@ -1,445 +1,237 @@
-<!DOCTYPE html>
+ok add that to my entire gameplay page. <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LevelUp Gameplay</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <title>LevelUp - Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f0f8f8;
-      color: #328f81;
-      margin: 0;
-      padding: 0 20px;
-    }
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-      color: #3fb5a2;
+    .game-container {
+      max-width: 700px;
+      margin: auto;
       text-align: center;
-      margin-top: 1em;
-    }
-    #subject-select, #difficulty-select, #submit-btn, #next-btn {
-      font-size: 1rem;
-      margin: 10px;
-      padding: 8px 12px;
-      border-radius: 5px;
-      border: 1px solid #328f81;
-      background-color: white;
-      color: #328f81;
-      cursor: pointer;
-    }
-    #submit-btn:disabled, #next-btn:disabled {
-      background-color: #c6e3e0;
-      cursor: not-allowed;
-      border-color: #c6e3e0;
-    }
-    #question-container {
-      margin-top: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 20px;
-      border: 2px solid #328f81;
+      padding: 40px 20px;
+      background-color: #fff;
+      color: #1e2a47;
       border-radius: 10px;
-      background-color: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
-    .option {
+    #question-text {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    #options button {
       display: block;
-      margin: 10px 0;
-      padding: 8px;
-      border: 1px solid #328f81;
-      border-radius: 5px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .option:hover {
-      background-color: #d1f0ed;
-    }
-    .option.selected {
-      background-color: #3fb5a2;
+      width: 100%;
+      margin: 10px auto;
+      padding: 10px 15px;
+      font-size: 1rem;
+      background: #328f81;
       color: white;
-      border-color: #2c8b7e;
+      border: none;
+      border-radius: 8px;
+      transition: background 0.3s ease;
     }
-    #scoreboard {
-      margin-top: 40px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      background: #e6f3f2;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #3fb5a2;
+    #options button:hover {
+      background: #2c786f;
     }
-    #scoreboard h3 {
-      margin-top: 0;
-      text-align: center;
-    }
-    #message {
-      text-align: center;
+    #score-display {
+      margin-top: 30px;
       font-weight: bold;
-      margin-top: 20px;
-      color: #328f81;
     }
   </style>
 </head>
 <body>
-
-  <h1>LevelUp Educational Games</h1>
-
-  <div style="text-align:center;">
-    <label for="subject-select">Choose Subject:</label>
-    <select id="subject-select">
-      <option value="English">English</option>
-      <option value="Maths">Maths</option>
-      <option value="Science">Science</option>
-      <option value="History">History</option>
-    </select>
-
-    <label for="difficulty-select">Choose Difficulty:</label>
-    <select id="difficulty-select">
-      <option value="Easy" selected>Easy</option>
-      <option value="Medium" disabled>Medium</option>
-      <option value="Hard" disabled>Hard</option>
-    </select>
+  <div class="game-container fade-in">
+    <h2 id="game-title"></h2>
+    <p id="question-count"></p>
+    <div id="question-box">
+      <p id="question-text"></p>
+      <div id="options"></div>
+    </div>
+    <p id="score-display">Score: 0</p>
   </div>
 
-  <div id="question-container">
-    <h2 id="question-text">Please select a subject and difficulty to start.</h2>
-    <div id="options-container"></div>
-    <button id="submit-btn" disabled>Submit Answer</button>
-    <button id="next-btn" disabled>Next Question</button>
-  </div>
+  <script>
+    const questions = {
+      English: {
+        Easy: [
+          { q: "Which is an interrogative sentence?", options: ["She is a doctor.", "Where are you going?", "I love cats."], answer: "Where are you going?" },
+          { q: "Which is a declarative sentence?", options: ["What a beautiful flower!", "I enjoy reading.", "Close the door!"], answer: "I enjoy reading." },
+          { q: "Which one asks a question?", options: ["She likes tea.", "What time is it?", "Please be quiet."], answer: "What time is it?" },
+          { q: "Find the exclamatory sentence.", options: ["What a day!", "He works late.", "Is it raining?"], answer: "What a day!" },
+          { q: "Find the imperative sentence.", options: ["Go to your room!", "She is kind.", "Is that your dog?"], answer: "Go to your room!" }
+        ],
+        Medium: [
+          { q: "Identify the compound sentence.", options: ["I ran fast but missed the bus.", "Running fast.", "The fast bus."], answer: "I ran fast but missed the bus." },
+          { q: "Choose the passive voice sentence.", options: ["He kicked the ball.", "The ball was kicked.", "He was kicking."], answer: "The ball was kicked." },
+          { q: "Which is a complex sentence?", options: ["Although it rained, we played.", "It rained.", "Playtime was fun."], answer: "Although it rained, we played." },
+          { q: "Which word is an adjective?", options: ["Blue", "Run", "Swiftly"], answer: "Blue" },
+          { q: "Which is a proper noun?", options: ["London", "city", "bridge"], answer: "London" }
+        ],
+        Hard: [
+          { q: "Which is a metaphor?", options: ["Time is money.", "Like a lion.", "He runs fast."], answer: "Time is money." },
+          { q: "Which sentence is in the subjunctive mood?", options: ["If I were rich...", "He is rich.", "He was rich."], answer: "If I were rich..." },
+          { q: "Which shows irony?", options: ["The fire station burned down.", "She’s funny.", "He laughs."], answer: "The fire station burned down." },
+          { q: "Which is a gerund?", options: ["Running", "Run", "Ran"], answer: "Running" },
+          { q: "Which is an oxymoron?", options: ["Bittersweet", "Happy", "Large"], answer: "Bittersweet" }
+        ]
+      },
+      Maths: {
+        Easy: [
+          { q: "5 + 7 =", options: ["12", "13", "10"], answer: "12" },
+          { q: "4 × 2 =", options: ["6", "8", "10"], answer: "8" },
+          { q: "9 - 4 =", options: ["3", "5", "6"], answer: "5" },
+          { q: "10 ÷ 2 =", options: ["4", "5", "6"], answer: "5" },
+          { q: "3 + 6 =", options: ["9", "10", "8"], answer: "9" }
+        ],
+        Medium: [
+          { q: "12 ÷ 3 =", options: ["4", "5", "3"], answer: "4" },
+          { q: "7 × 6 =", options: ["42", "36", "48"], answer: "42" },
+          { q: "15 - 9 =", options: ["7", "6", "8"], answer: "6" },
+          { q: "What is 5²?", options: ["25", "10", "20"], answer: "25" },
+          { q: "Square root of 81?", options: ["9", "8", "7"], answer: "9" }
+        ],
+        Hard: [
+          { q: "Solve: 3x = 12", options: ["x = 4", "x = 6", "x = 3"], answer: "x = 4" },
+          { q: "Factor: x² - 9", options: ["(x+3)(x-3)", "x(x-9)", "x²-3"], answer: "(x+3)(x-3)" },
+          { q: "Solve: x² = 49", options: ["x=7 or -7", "x=6", "x=5"], answer: "x=7 or -7" },
+          { q: "Simplify: (2x)(3x)", options: ["6x²", "5x", "6x"], answer: "6x²" },
+          { q: "Solve: 2x - 3 = 7", options: ["x = 5", "x = 6", "x = 4"], answer: "x = 5" }
+        ]
+      },
+      Science: {
+        Easy: [
+          { q: "What organ pumps blood?", options: ["Lungs", "Heart", "Brain"], answer: "Heart" },
+          { q: "What do plants need to grow?", options: ["Sunlight", "Noise", "Darkness"], answer: "Sunlight" },
+          { q: "What gas do we breathe in?", options: ["Oxygen", "Carbon dioxide", "Nitrogen"], answer: "Oxygen" },
+          { q: "What do bees make?", options: ["Honey", "Milk", "Silk"], answer: "Honey" },
+          { q: "Which part of plant absorbs water?", options: ["Root", "Leaf", "Stem"], answer: "Root" }
+        ],
+        Medium: [
+          { q: "Where does photosynthesis occur?", options: ["Chloroplast", "Nucleus", "Cytoplasm"], answer: "Chloroplast" },
+          { q: "What is H2O?", options: ["Water", "Oxygen", "Salt"], answer: "Water" },
+          { q: "Which organ helps you breathe?", options: ["Lungs", "Liver", "Heart"], answer: "Lungs" },
+          { q: "What carries oxygen in the blood?", options: ["Red cells", "White cells", "Platelets"], answer: "Red cells" },
+          { q: "What force pulls objects down?", options: ["Gravity", "Friction", "Push"], answer: "Gravity" }
+        ],
+        Hard: [
+          { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" },
+          { q: "Which subatomic particle is negatively charged?", options: ["Electron", "Proton", "Neutron"], answer: "Electron" },
+          { q: "What is Newton's 2nd law?", options: ["F = ma", "E = mc²", "a² + b² = c²"], answer: "F = ma" },
+          { q: "Which gas is in highest % in air?", options: ["Nitrogen", "Oxygen", "CO2"], answer: "Nitrogen" },
+          { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Gd"], answer: "Au" }
+        ]
+      },
+      History: {
+        Easy: [
+          { q: "When did WW2 end?", options: ["1945", "1942", "1939"], answer: "1945" },
+          { q: "Who discovered America?", options: ["Columbus", "Newton", "Einstein"], answer: "Columbus" },
+          { q: "Where were the pyramids built?", options: ["Egypt", "India", "Greece"], answer: "Egypt" },
+          { q: "Who was Julius Caesar?", options: ["Roman leader", "Greek god", "French king"], answer: "Roman leader" },
+          { q: "What ship sank in 1912?", options: ["Titanic", "Mayflower", "Santa Maria"], answer: "Titanic" }
+        ],
+        Medium: [
+          { q: "Who was the first president of the USA?", options: ["George Washington", "Lincoln", "Adams"], answer: "George Washington" },
+          { q: "When did the Berlin Wall fall?", options: ["1989", "1975", "1999"], answer: "1989" },
+          { q: "What year did WW1 start?", options: ["1914", "1918", "1920"], answer: "1914" },
+          { q: "Where did the Renaissance begin?", options: ["Italy", "France", "Spain"], answer: "Italy" },
+          { q: "Who was the king during the English Civil War?", options: ["Charles I", "Henry VIII", "James II"], answer: "Charles I" }
+        ],
+        Hard: [
+          { q: "When was the French Revolution?", options: ["1789", "1804", "1776"], answer: "1789" },
+          { q: "Who wrote the Communist Manifesto?", options: ["Karl Marx", "Napoleon", "Churchill"], answer: "Karl Marx" },
+          { q: "What caused the Cold War?", options: ["Ideological conflict", "Volcano", "Famine"], answer: "Ideological conflict" },
+          { q: "Who was Genghis Khan?", options: ["Mongol leader", "Chinese Emperor", "Roman general"], answer: "Mongol leader" },
+          { q: "When did the Roman Empire fall?", options: ["476 AD", "800 AD", "1066 AD"], answer: "476 AD" }
+        ]
+      }
+    };
 
-  <div id="message"></div>
+    const urlParams = new URLSearchParams(window.location.search);
+    const subject = urlParams.get('subject') || "English";
+    const level = urlParams.get('level') || "Easy";
 
-  <div id="scoreboard">
-    <h3>Scores</h3>
-    <p id="score-english">English: 0</p>
-    <p id="score-maths">Maths: 0</p>
-    <p id="score-science">Science: 0</p>
-    <p id="score-history">History: 0</p>
-  </div>
-<script>
-  // Full questions data including all subjects and difficulties (your updated questions)
+    const quiz = questions[subject][level];
+    let current = 0;
+    let score = 0;
 
-  const questions = {
-    English: {
-      Easy: [
-        { q: "Which is an interrogative sentence?", options: ["She is a doctor.", "Where are you going?", "I love cats."], answer: "Where are you going?" },
-        { q: "Which is a declarative sentence?", options: ["What a beautiful flower!", "I enjoy reading.", "Close the door!"], answer: "I enjoy reading." },
-        { q: "Which one asks a question?", options: ["She likes tea.", "What time is it?", "Please be quiet."], answer: "What time is it?" },
-        { q: "Find the exclamatory sentence.", options: ["What a day!", "He works late.", "Is it raining?"], answer: "What a day!" },
-        { q: "Find the imperative sentence.", options: ["Go to your room!", "She is kind.", "Is that your dog?"], answer: "Go to your room!" }
-      ],
-      Medium: [
-        { q: "Identify the compound sentence.", options: ["I ran fast but missed the bus.", "Running fast.", "The fast bus."], answer: "I ran fast but missed the bus." },
-        { q: "Choose the passive voice sentence.", options: ["He kicked the ball.", "The ball was kicked.", "He was kicking."], answer: "The ball was kicked." },
-        { q: "Which is a complex sentence?", options: ["Although it rained, we played.", "It rained.", "Playtime was fun."], answer: "Although it rained, we played." },
-        { q: "Which word is an adjective?", options: ["Blue", "Run", "Swiftly"], answer: "Blue" },
-        { q: "Which is a proper noun?", options: ["London", "city", "bridge"], answer: "London" }
-      ],
-      Hard: [
-        { q: "Which is a metaphor?", options: ["Time is money.", "Like a lion.", "He runs fast."], answer: "Time is money." },
-        { q: "Which sentence is in the subjunctive mood?", options: ["If I were rich...", "He is rich.", "He was rich."], answer: "If I were rich..." },
-        { q: "Which shows irony?", options: ["The fire station burned down.", "She’s funny.", "He laughs."], answer: "The fire station burned down." },
-        { q: "Which is a gerund?", options: ["Running", "Run", "Ran"], answer: "Running" },
-        { q: "Which is an oxymoron?", options: ["Bittersweet", "Happy", "Large"], answer: "Bittersweet" }
-      ]
-    },
-    Maths: {
-      Easy: [
-        { q: "5 + 7 =", options: ["12", "13", "10"], answer: "12" },
-        { q: "4 × 2 =", options: ["6", "8", "10"], answer: "8" },
-        { q: "9 - 4 =", options: ["3", "5", "6"], answer: "5" },
-        { q: "10 ÷ 2 =", options: ["4", "5", "6"], answer: "5" },
-        { q: "3 + 6 =", options: ["9", "10", "8"], answer: "9" }
-      ],
-      Medium: [
-        { q: "12 ÷ 3 =", options: ["4", "5", "3"], answer: "4" },
-        { q: "7 × 6 =", options: ["42", "36", "48"], answer: "42" },
-        { q: "15 - 9 =", options: ["7", "6", "8"], answer: "6" },
-        { q: "What is 5²?", options: ["25", "10", "20"], answer: "25" },
-        { q: "Square root of 81?", options: ["9", "8", "7"], answer: "9" }
-      ],
-      Hard: [
-        { q: "Solve: 3x = 12", options: ["x = 4", "x = 6", "x = 3"], answer: "x = 4" },
-        { q: "Factor: x² - 9", options: ["(x+3)(x-3)", "x(x-9)", "x²-3"], answer: "(x+3)(x-3)" },
-        { q: "Solve: x² = 49", options: ["x=7 or -7", "x=6", "x=5"], answer: "x=7 or -7" },
-        { q: "Simplify: (2x)(3x)", options: ["6x²", "5x", "6x"], answer: "6x²" },
-        { q: "Solve: 2x - 3 = 7", options: ["x = 5", "x = 6", "x = 4"], answer: "x = 5" }
-      ]
-    },
-    Science: {
-      Easy: [
-        { q: "What organ pumps blood?", options: ["Lungs", "Heart", "Brain"], answer: "Heart" },
-        { q: "What do plants need to grow?", options: ["Sunlight", "Noise", "Darkness"], answer: "Sunlight" },
-        { q: "What gas do we breathe in?", options: ["Oxygen", "Carbon dioxide", "Nitrogen"], answer: "Oxygen" },
-        { q: "What do bees make?", options: ["Honey", "Milk", "Silk"], answer: "Honey" },
-        { q: "Which part of plant absorbs water?", options: ["Root", "Leaf", "Stem"], answer: "Root" }
-      ],
-      Medium: [
-        { q: "Where does photosynthesis occur?", options: ["Chloroplast", "Nucleus", "Cytoplasm"], answer: "Chloroplast" },
-        { q: "What is H2O?", options: ["Water", "Oxygen", "Salt"], answer: "Water" },
-        { q: "Which organ helps you breathe?", options: ["Lungs", "Liver", "Heart"], answer: "Lungs" },
-        { q: "What carries oxygen in the blood?", options: ["Red cells", "White cells", "Platelets"], answer: "Red cells" },
-        { q: "What force pulls objects down?", options: ["Gravity", "Friction", "Push"], answer: "Gravity" }
-      ],
-      Hard: [
-        { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" },
-        { q: "Which subatomic particle is negatively charged?", options: ["Electron", "Proton", "Neutron"], answer: "Electron" },
-        { q: "What is Newton's 2nd law?", options: ["F = ma", "E = mc²", "a² + b² = c²"], answer: "F = ma" },
-        { q: "Which gas is in highest % in air?", options: ["Nitrogen", "Oxygen", "CO2"], answer: "Nitrogen" },
-        { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Gd"], answer: "Au" }
-      ]
-    },
-    History: {
-      Easy: [
-        { q: "When did WW2 end?", options: ["1945", "1942", "1939"], answer: "1945" },
-        { q: "Who discovered America?", options: ["Columbus", "Newton", "Einstein"], answer: "Columbus" },
-        { q: "Where were the pyramids built?", options: ["Egypt", "India", "Greece"], answer: "Egypt" },
-        { q: "Who was Julius Caesar?", options: ["Roman leader", "Greek god", "French king"], answer: "Roman leader" },
-        { q: "What ship sank in 1912?", options: ["Titanic", "Mayflower", "Santa Maria"], answer: "Titanic" }
-      ],
-      Medium: [
-        { q: "Who was the first president of the USA?", options: ["George Washington", "Lincoln", "Adams"], answer: "George Washington" },
-        { q: "When did the Berlin Wall fall?", options: ["1989", "1975", "1999"], answer: "1989" },
-        { q: "What year did WW1 start?", options: ["1914", "1918", "1920"], answer: "1914" },
-        { q: "Where did the Renaissance begin?", options: ["Italy", "France", "Spain"], answer: "Italy" },
-        { q: "Who was the king during the American Revolution?", options: ["George III", "Louis XVI", "Napoleon"], answer: "George III" }
-      ],
-      Hard: [
-        { q: "What year did the Magna Carta get signed?", options: ["1215", "1315", "1415"], answer: "1215" },
-        { q: "Who was the British Prime Minister during WW2?", options: ["Winston Churchill", "Neville Chamberlain", "Margaret Thatcher"], answer: "Winston Churchill" },
-        { q: "Where was the Battle of Hastings fought?", options: ["England", "France", "Scotland"], answer: "England" },
-        { q: "Which empire was led by Genghis Khan?", options: ["Mongol Empire", "Roman Empire", "Ottoman Empire"], answer: "Mongol Empire" },
-        { q: "Which ancient city was buried by Mt. Vesuvius?", options: ["Pompeii", "Athens", "Carthage"], answer: "Pompeii" }
-      ]
-    }
-  };
+    const gameTitle = document.getElementById("game-title");
+    const questionText = document.getElementById("question-text");
+    const questionCount = document.getElementById("question-count");
+    const optionsBox = document.getElementById("options");
+    const scoreDisplay = document.getElementById("score-display");
 
-  // Scores tracking
-  let scores = {
-    English: 0,
-    Maths: 0,
-    Science: 0,
-    History: 0
-  };
+    gameTitle.textContent = `${subject} - ${level}`;
 
-  // Unlock tracking for difficulty per subject
-  // Easy always unlocked
-  let unlocked = {
-    English: { Easy: true, Medium: false, Hard: false },
-    Maths: { Easy: true, Medium: false, Hard: false },
-    Science: { Easy: true, Medium: false, Hard: false },
-    History: { Easy: true, Medium: false, Hard: false }
-  };
-
-  // Thresholds to unlock next difficulty (e.g. 3 correct to unlock Medium)
-  const unlockThreshold = 3;
-
-  // Current game state variables
-  let currentSubject = "English";
-  let currentDifficulty = "Easy";
-  let currentQuestionIndex = 0;
-  let currentQuestionsSet = [];
-  let userAnswer = null;
-
-  // DOM elements
-  const subjectSelect = document.getElementById("subject-select");
-  const difficultySelect = document.getElementById("difficulty-select");
-  const questionText = document.getElementById("question-text");
-  const optionsContainer = document.getElementById("options-container");
-  const submitBtn = document.getElementById("submit-btn");
-  const nextBtn = document.getElementById("next-btn");
-  const messageDiv = document.getElementById("message");
-
-  // Score elements
-  const scoreEnglish = document.getElementById("score-english");
-  const scoreMaths = document.getElementById("score-maths");
-  const scoreScience = document.getElementById("score-science");
-  const scoreHistory = document.getElementById("score-history");
-
-  // Initialize page
-  function init() {
-    // Setup event listeners
-    subjectSelect.addEventListener("change", onSubjectChange);
-    difficultySelect.addEventListener("change", onDifficultyChange);
-    submitBtn.addEventListener("click", onSubmit);
-    nextBtn.addEventListener("click", onNext);
-
-    // Start with English Easy loaded
-    loadQuestionSet();
-    renderDifficultyOptions();
-    displayQuestion();
-  }
-
-  // When subject changes
-  function onSubjectChange() {
-    currentSubject = subjectSelect.value;
-    currentDifficulty = "Easy";  // Reset difficulty to Easy on subject change
-    difficultySelect.value = currentDifficulty;
-    renderDifficultyOptions();
-    loadQuestionSet();
-    currentQuestionIndex = 0;
-    userAnswer = null;
-    clearMessage();
-    displayQuestion();
-    submitBtn.disabled = true;
-    nextBtn.disabled = true;
-  }
-
-  // When difficulty changes
-  function onDifficultyChange() {
-    const selectedDifficulty = difficultySelect.value;
-    // Only allow selection if unlocked
-    if (unlocked[currentSubject][selectedDifficulty]) {
-      currentDifficulty = selectedDifficulty;
-      loadQuestionSet();
-      currentQuestionIndex = 0;
-      userAnswer = null;
-      clearMessage();
-      displayQuestion();
-      submitBtn.disabled = true;
-      nextBtn.disabled = true;
-    } else {
-      // Revert selection if locked
-      difficultySelect.value = currentDifficulty;
-    }
-  }
-
-  // Load the questions set for current subject & difficulty
-  function loadQuestionSet() {
-    currentQuestionsSet = questions[currentSubject][currentDifficulty];
-  }
-
-  // Display the current question and options
-  function displayQuestion() {
-    const q = currentQuestionsSet[currentQuestionIndex];
-    questionText.textContent = q.q;
-    optionsContainer.innerHTML = "";
-
-    q.options.forEach(optionText => {
-      const option = document.createElement("div");
-      option.className = "option";
-      option.textContent = optionText;
-      option.addEventListener("click", () => {
-        selectAnswer(option);
+    function loadQuestion() {
+      const q = quiz[current];
+      questionText.textContent = q.q;
+      questionCount.textContent = `Question ${current + 1} of ${quiz.length}`;
+      optionsBox.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => {
+          if (opt === q.answer) score += 10;
+          current++;
+          if (current < quiz.length) {
+            loadQuestion();
+          } else {
+            saveScore();
+            alert(`Game Over! Your score: ${score}`);
+            window.location.href = "leaderboard.html";
+          }
+        };
+        optionsBox.appendChild(btn);
       });
-      optionsContainer.appendChild(option);
-    });
-  }
-
-  // Handle option click (select answer)
-  function selectAnswer(optionDiv) {
-    // Remove previous selections
-    const options = optionsContainer.querySelectorAll(".option");
-    options.forEach(opt => opt.classList.remove("selected"));
-    // Mark this as selected
-    optionDiv.classList.add("selected");
-    userAnswer = optionDiv.textContent;
-    submitBtn.disabled = false;
-    nextBtn.disabled = true;
-    clearMessage();
-  }
-
-  // Submit the selected answer
-  function onSubmit() {
-    const correctAnswer = currentQuestionsSet[currentQuestionIndex].answer;
-    if (userAnswer === correctAnswer) {
-      incrementScore(currentSubject);
-      messageDiv.textContent = "Correct! 🎉";
-    } else {
-      messageDiv.textContent = `Wrong! Correct answer: "${correctAnswer}"`;
+      scoreDisplay.textContent = `Score: ${score}`;
     }
-    submitBtn.disabled = true;
-    nextBtn.disabled = false;
-    disableOptions();
-    checkUnlockNextDifficulty();
-  }
 
-  // Disable options after submitting
-  function disableOptions() {
-    const options = optionsContainer.querySelectorAll(".option");
-    options.forEach(opt => {
-      opt.style.pointerEvents = "none";
-      if (opt.textContent === currentQuestionsSet[currentQuestionIndex].answer) {
-        opt.style.backgroundColor = "#3fb5a2";
-        opt.style.color = "white";
+    function saveScore() {
+      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+      const name = prompt("Enter your name for the leaderboard:");
+      leaderboard.push({ name: name || "Anonymous", score, subject, level });
+      leaderboard.sort((a, b) => b.score - a.score);
+      localStorage.setItem("levelup-leaderboard", JSON.stringify(leaderboard.slice(0, 10)));
+    }
+
+    loadQuestion();
+  </script>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+      body.setAttribute('data-theme', 'light');
+      toggle.textContent = '🌙 Dark Mode';
+    }
+
+    toggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.removeAttribute('data-theme');
+        toggle.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme', 'light');
       }
     });
-  }
 
-  // Next question
-  function onNext() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex >= currentQuestionsSet.length) {
-      messageDiv.textContent = "Quiz complete! Select another subject or difficulty.";
-      submitBtn.disabled = true;
-      nextBtn.disabled = true;
-      questionText.textContent = "Quiz finished! Choose a subject and difficulty to start again.";
-      optionsContainer.innerHTML = "";
-      userAnswer = null;
-    } else {
-      displayQuestion();
-      submitBtn.disabled = true;
-      nextBtn.disabled = true;
-      userAnswer = null;
-      clearMessage();
-    }
-  }
-
-  // Increment score and update display
-  function incrementScore(subject) {
-    scores[subject]++;
-    updateScoreboard();
-  }
-
-  // Update scoreboard UI
-  function updateScoreboard() {
-    scoreEnglish.textContent = `English: ${scores.English}`;
-    scoreMaths.textContent = `Maths: ${scores.Maths}`;
-    scoreScience.textContent = `Science: ${scores.Science}`;
-    scoreHistory.textContent = `History: ${scores.History}`;
-  }
-
-  // Check if player unlocked next difficulty for current subject
-  function checkUnlockNextDifficulty() {
-    const score = scores[currentSubject];
-    if (score >= unlockThreshold && !unlocked[currentSubject].Medium) {
-      unlocked[currentSubject].Medium = true;
-      messageDiv.textContent += " You unlocked Medium difficulty!";
-      renderDifficultyOptions();
-    }
-    if (score >= unlockThreshold * 2 && !unlocked[currentSubject].Hard) {
-      unlocked[currentSubject].Hard = true;
-      messageDiv.textContent += " You unlocked Hard difficulty!";
-      renderDifficultyOptions();
-    }
-  }
-
-  // Render difficulty options enabled/disabled based on unlocks
-  function renderDifficultyOptions() {
-    for (let option of difficultySelect.options) {
-      option.disabled = !unlocked[currentSubject][option.value];
-    }
-    // If current difficulty is locked somehow, fallback to Easy
-    if (!unlocked[currentSubject][currentDifficulty]) {
-      currentDifficulty = "Easy";
-      difficultySelect.value = "Easy";
-      loadQuestionSet();
-      currentQuestionIndex = 0;
-      userAnswer = null;
-    }
-  }
-
-  // Clear message
-  function clearMessage() {
-    messageDiv.textContent = "";
-  }
-  // Initialize the page and quiz
-  init();
-</script>
-
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.fade-in').style.opacity = '1';
+      const cards = document.querySelectorAll('.fade-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
+    });
+  </script>
+  <a href="index.html" class="back-btn">← Back to Home</a>
 </body>
 </html>
