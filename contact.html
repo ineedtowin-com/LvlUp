@@ -6,6 +6,32 @@
   <title>LevelUp - Contact Us</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    /* Theme toggle button styling similar to dashboard */
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3fb5a2;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      z-index: 1000;
+    }
+
+    /* Dark mode styles for contact page */
+    body[data-theme="dark"] {
+      background-color: #13293d;
+      color: white;
+    }
+    body[data-theme="dark"] #theme-toggle {
+      background-color: #1e3a5f;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <!-- Theme Toggle Button -->
