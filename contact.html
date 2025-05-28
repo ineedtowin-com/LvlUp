@@ -7,22 +7,19 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <!-- Inline script to apply saved theme instantly -->
+  <!-- Apply saved theme instantly -->
   <script>
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
   </script>
 </head>
 <body>
-  <!-- Theme Toggle and Language Switcher -->
-  <div class="header-controls">
-    <button id="theme-toggle" class="btn">Toggle Theme</button>
-    <select id="language-switcher" onchange="setLanguage(this.value)">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="ar">العربية</option>
-    </select>
-  </div>
+  <!-- Language Switcher -->
+  <select id="language-switcher" onchange="setLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="ar">العربية</option>
+  </select>
 
   <button onclick="window.location.href='index.html'" class="btn back-home-btn">Back to Home</button>
 
@@ -87,15 +84,6 @@
         console.error("Failed to load translations:", e);
       });
     }
-
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
   </script>
 </body>
 </html>
