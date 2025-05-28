@@ -2,19 +2,24 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LevelUp - Empowering Education</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-  <!-- Remove early theme set script to avoid conflicts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 </head>
 <body>
   <!-- Theme Toggle Button -->
-  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">🌙 Dark Mode</button>
+  <button
+    id="theme-toggle"
+    class="theme-toggle-btn"
+    aria-label="Toggle Theme"
+    aria-pressed="false"
+  >
+    🌙 Dark Mode
+  </button>
 
   <!-- Language Switcher -->
-  <select id="language-switcher" onchange="setLanguage(this.value)">
+  <select id="language-switcher" aria-label="Select Language">
     <option value="en">English</option>
     <option value="fr">Français</option>
     <option value="ar">العربية</option>
@@ -22,10 +27,16 @@
 
   <div class="fade-in">
     <header>
-      <img src="images/lvluptextlogo-removebg-preview-removebg-preview.png" alt="LevelUp Logo" class="logo-title" />
+      <img
+        src="images/lvluptextlogo-removebg-preview-removebg-preview.png"
+        alt="LevelUp Logo"
+        class="logo-title"
+      />
       <h1 id="title">Your Gateway to Equal, Quality Education</h1>
-      <p id="subheading" class="subheading">Bridging the gap through gamified learning and community-driven support.</p>
-      
+      <p id="subheading" class="subheading">
+        Bridging the gap through gamified learning and community-driven support.
+      </p>
+
       <!-- Buttons -->
       <div class="btn-container">
         <a href="contact.html" class="btn" id="contact-btn">Contact Us</a>
@@ -38,8 +49,8 @@
 
     <section class="site-description">
       <p id="description">
-        LevelUp is more than just a learning platform – it’s a movement to make quality education accessible to all. 
-        Whether you're a student, a tutor, or a parent, LevelUp brings the tools, resources, and community to help you succeed. 
+        LevelUp is more than just a learning platform – it’s a movement to make quality education accessible to all.
+        Whether you're a student, a tutor, or a parent, LevelUp brings the tools, resources, and community to help you succeed.
         Together, we can empower students everywhere to level up their future.
       </p>
     </section>
@@ -48,7 +59,7 @@
     <section class="hero-section">
       <h2 id="why-education">Why Education Equality Matters</h2>
       <p id="why-education-description">
-        Over 260 million children worldwide are out of school, and millions more face barriers to quality education. 
+        Over 260 million children worldwide are out of school, and millions more face barriers to quality education.
         LevelUp is here to change that. With personalized learning and community support, we’re creating opportunities for all.
       </p>
     </section>
@@ -58,15 +69,21 @@
       <div class="feature-grid">
         <div class="card fade-card">
           <h3 id="personalized-learning">Personalized Learning</h3>
-          <p id="personalized-learning-description">Smart quizzes and recommendations tailored to each student’s pace and needs.</p>
+          <p id="personalized-learning-description">
+            Smart quizzes and recommendations tailored to each student’s pace and needs.
+          </p>
         </div>
         <div class="card fade-card">
           <h3 id="multilingual-access">Multilingual Access</h3>
-          <p id="multilingual-access-description">Access content in multiple languages to break down language barriers and ensure education for all.</p>
+          <p id="multilingual-access-description">
+            Access content in multiple languages to break down language barriers and ensure education for all.
+          </p>
         </div>
         <div class="card fade-card">
           <h3 id="community-support">Community Support</h3>
-          <p id="community-support-description">Ask questions, get answers, and collaborate with peers and mentors.</p>
+          <p id="community-support-description">
+            Ask questions, get answers, and collaborate with peers and mentors.
+          </p>
         </div>
       </div>
     </section>
@@ -74,10 +91,18 @@
     <section class="charity">
       <h2 id="charity-title">Support Education for All</h2>
       <p id="charity-description">
-        LevelUp is committed to helping students from underprivileged backgrounds access quality education. We partner with local charities to support educational initiatives. Your donations help us fund scholarships, resources, and training programs to make a real difference in the lives of young learners.
+        LevelUp is committed to helping students from underprivileged backgrounds access quality education.
+        We partner with local charities to support educational initiatives. Your donations help us fund scholarships,
+        resources, and training programs to make a real difference in the lives of young learners.
       </p>
-      <a href="https://www.childrensaidnyc.org/" 
-         class="btn" id="donate-button" target="_blank" rel="noopener noreferrer">Donate Now</a>
+      <a
+        href="https://www.childrensaidnyc.org/"
+        class="btn"
+        id="donate-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Donate Now</a
+      >
     </section>
 
     <footer>
@@ -87,59 +112,71 @@
 
   <!-- JavaScript for Theme Toggle, Language Switching, and Animations -->
   <script>
-    const toggle = document.getElementById('theme-toggle');
+    const toggle = document.getElementById("theme-toggle");
+    const languageSwitcher = document.getElementById("language-switcher");
     const htmlEl = document.documentElement;
 
     function applyTheme(theme) {
-      htmlEl.setAttribute('data-theme', theme);
-      if (theme === 'light') {
+      htmlEl.setAttribute("data-theme", theme);
+      if (theme === "light") {
         toggle.textContent = "☀️ Light Mode";
+        toggle.setAttribute("aria-pressed", "true");
       } else {
         toggle.textContent = "🌙 Dark Mode";
+        toggle.setAttribute("aria-pressed", "false");
       }
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const savedTheme = localStorage.getItem("theme") || "dark";
-      applyTheme(savedTheme);
-      setLanguage('en');
-    });
-
-    toggle.addEventListener('click', () => {
-      const currentTheme = htmlEl.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      applyTheme(newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-
-    // Language translations
-    const translations = {
-      en: fetch('en.json').then(res => res.json()),
-      fr: fetch('fr.json').then(res => res.json()),
-      ar: fetch('ar.json').then(res => res.json())
-    };
-
     function setLanguage(lang) {
-      translations[lang].then(translationsData => {
+      localStorage.setItem("lang", lang);
+      translations[lang].then((translationsData) => {
         document.getElementById("title").textContent = translationsData.title;
         document.getElementById("subheading").textContent = translationsData.subheading;
         document.getElementById("description").textContent = translationsData.description;
         document.getElementById("why-education").textContent = translationsData["why-education"];
-        document.getElementById("why-education-description").textContent = translationsData["why-education-description"];
+        document.getElementById("why-education-description").textContent =
+          translationsData["why-education-description"];
         document.getElementById("key-features").textContent = translationsData["key-features"];
         document.getElementById("personalized-learning").textContent = translationsData["personalized-learning"];
-        document.getElementById("personalized-learning-description").textContent = translationsData["personalized-learning-description"];
+        document.getElementById("personalized-learning-description").textContent =
+          translationsData["personalized-learning-description"];
         document.getElementById("multilingual-access").textContent = translationsData["multilingual-access"];
-        document.getElementById("multilingual-access-description").textContent = translationsData["multilingual-access-description"];
+        document.getElementById("multilingual-access-description").textContent =
+          translationsData["multilingual-access-description"];
         document.getElementById("community-support").textContent = translationsData["community-support"];
-        document.getElementById("community-support-description").textContent = translationsData["community-support-description"];
+        document.getElementById("community-support-description").textContent =
+          translationsData["community-support-description"];
         document.getElementById("charity-title").textContent = translationsData["charity-title"];
         document.getElementById("charity-description").textContent = translationsData["charity-description"];
         document.getElementById("donate-button").textContent = translationsData["donate-button"];
       });
     }
+
+    const translations = {
+      en: fetch("en.json").then((res) => res.json()),
+      fr: fetch("fr.json").then((res) => res.json()),
+      ar: fetch("ar.json").then((res) => res.json()),
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      applyTheme(savedTheme);
+
+      const savedLang = localStorage.getItem("lang") || "en";
+      languageSwitcher.value = savedLang;
+      setLanguage(savedLang);
+    });
+
+    toggle.addEventListener("click", () => {
+      const currentTheme = htmlEl.getAttribute("data-theme");
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+      applyTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
+    });
+
+    languageSwitcher.addEventListener("change", (e) => {
+      setLanguage(e.target.value);
+    });
   </script>
-  <script src="theme.js"></script>
 </body>
 </html>
-
