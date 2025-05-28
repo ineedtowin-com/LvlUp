@@ -81,16 +81,6 @@
       });
     }
   </script>
-  <script>
-const themeToggle = document.getElementById('theme-toggle'); // or however you toggle it
-const currentTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', currentTheme);
-
-themeToggle.addEventListener('click', () => {
-  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-});
-</script>
 </body>
 </html>
+
