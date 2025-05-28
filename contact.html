@@ -7,14 +7,16 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <!-- Apply saved theme instantly -->
+  <!-- 1️⃣ Theme: set instantly from localStorage (no toggle here!) -->
   <script>
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
   </script>
 </head>
 <body>
-  <!-- Language Switcher -->
+  <!-- 2️⃣ Language Switcher -->
   <select id="language-switcher" onchange="setLanguage(this.value)">
     <option value="en">English</option>
     <option value="fr">Français</option>
@@ -58,13 +60,11 @@
       ar: fetch('arcontact.json').then(res => res.json())
     };
 
-    // Load default language
     window.addEventListener("DOMContentLoaded", () => {
       document.getElementById('language-switcher').value = 'en';
       setLanguage('en');
     });
 
-    // Language switcher
     function setLanguage(lang) {
       translations[lang].then(data => {
         document.getElementById("contact-title").textContent = data["contact-title"] || "[Missing]";
@@ -74,7 +74,6 @@
         document.getElementById("message-label").textContent = data["message-label"] || "[Missing]";
         document.getElementById("submit-button").textContent = data["submit-button"] || "[Missing]";
 
-        // Set text direction for Arabic
         if(lang === 'ar') {
           document.body.setAttribute('dir', 'rtl');
         } else {
@@ -87,4 +86,3 @@
   </script>
 </body>
 </html>
-
