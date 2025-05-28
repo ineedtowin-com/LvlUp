@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+fix <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -32,7 +32,6 @@
       border: none;
       border-radius: 8px;
       transition: background 0.3s ease;
-      cursor: pointer;
     }
     #options button:hover {
       background: #2c786f;
@@ -120,102 +119,120 @@
         Hard: [
           { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" },
           { q: "Which subatomic particle is negatively charged?", options: ["Electron", "Proton", "Neutron"], answer: "Electron" },
-          { q: "What is the center of an atom?", options: ["Nucleus", "Cytoplasm", "Mitochondria"], answer: "Nucleus" },
-          { q: "Which vitamin is produced in the skin?", options: ["Vitamin D", "Vitamin C", "Vitamin A"], answer: "Vitamin D" },
-          { q: "What does DNA stand for?", options: ["Deoxyribonucleic acid", "Dynamic nucleic acid", "Double nucleic acid"], answer: "Deoxyribonucleic acid" }
+          { q: "What is Newton's 2nd law?", options: ["F = ma", "E = mc²", "a² + b² = c²"], answer: "F = ma" },
+          { q: "Which gas is in highest % in air?", options: ["Nitrogen", "Oxygen", "CO2"], answer: "Nitrogen" },
+          { q: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Gd"], answer: "Au" }
         ]
       },
       History: {
         Easy: [
+          { q: "When did WW2 end?", options: ["1945", "1942", "1939"], answer: "1945" },
           { q: "Who discovered America?", options: ["Columbus", "Newton", "Einstein"], answer: "Columbus" },
-          { q: "Who was the first president of the USA?", options: ["Washington", "Lincoln", "Jefferson"], answer: "Washington" },
-          { q: "When did WWI begin?", options: ["1914", "1939", "1920"], answer: "1914" },
-          { q: "Who built the Pyramids?", options: ["Egyptians", "Romans", "Vikings"], answer: "Egyptians" },
-          { q: "Who wrote the Iliad?", options: ["Homer", "Shakespeare", "Tolstoy"], answer: "Homer" }
+          { q: "Where were the pyramids built?", options: ["Egypt", "India", "Greece"], answer: "Egypt" },
+          { q: "Who was Julius Caesar?", options: ["Roman leader", "Greek god", "French king"], answer: "Roman leader" },
+          { q: "What ship sank in 1912?", options: ["Titanic", "Mayflower", "Santa Maria"], answer: "Titanic" }
         ],
         Medium: [
-          { q: "When was the Magna Carta signed?", options: ["1215", "1315", "1115"], answer: "1215" },
-          { q: "Who was the Queen during the Spanish Armada?", options: ["Elizabeth I", "Victoria", "Mary I"], answer: "Elizabeth I" },
-          { q: "What empire did Julius Caesar belong to?", options: ["Roman", "Greek", "Persian"], answer: "Roman" },
-          { q: "Who discovered penicillin?", options: ["Alexander Fleming", "Darwin", "Tesla"], answer: "Alexander Fleming" },
-          { q: "When did WWII end?", options: ["1945", "1955", "1935"], answer: "1945" }
+          { q: "Who was the first president of the USA?", options: ["George Washington", "Lincoln", "Adams"], answer: "George Washington" },
+          { q: "When did the Berlin Wall fall?", options: ["1989", "1975", "1999"], answer: "1989" },
+          { q: "What year did WW1 start?", options: ["1914", "1918", "1920"], answer: "1914" },
+          { q: "Where did the Renaissance begin?", options: ["Italy", "France", "Spain"], answer: "Italy" },
+          { q: "Who was the king during the English Civil War?", options: ["Charles I", "Henry VIII", "James II"], answer: "Charles I" }
         ],
         Hard: [
-          { q: "Where was the Rosetta Stone found?", options: ["Egypt", "Greece", "Rome"], answer: "Egypt" },
-          { q: "Who was King during the English Civil War?", options: ["Charles I", "Henry VIII", "George III"], answer: "Charles I" },
-          { q: "What treaty ended WWI?", options: ["Versailles", "Paris", "Berlin"], answer: "Versailles" },
-          { q: "Who ruled Russia before Lenin?", options: ["Tsar Nicholas II", "Catherine the Great", "Ivan the Terrible"], answer: "Tsar Nicholas II" },
-          { q: "What year was the Berlin Wall built?", options: ["1961", "1950", "1971"], answer: "1961" }
+          { q: "When was the French Revolution?", options: ["1789", "1804", "1776"], answer: "1789" },
+          { q: "Who wrote the Communist Manifesto?", options: ["Karl Marx", "Napoleon", "Churchill"], answer: "Karl Marx" },
+          { q: "What caused the Cold War?", options: ["Ideological conflict", "Volcano", "Famine"], answer: "Ideological conflict" },
+          { q: "Who was Genghis Khan?", options: ["Mongol leader", "Chinese Emperor", "Roman general"], answer: "Mongol leader" },
+          { q: "When did the Roman Empire fall?", options: ["476 AD", "800 AD", "1066 AD"], answer: "476 AD" }
         ]
       }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
-    const subject = urlParams.get('subject') || 'English';
-    let level = 'Easy';
-    let currentQuestionIndex = 0;
+    const subject = urlParams.get('subject') || "English";
+    let currentLevel = localStorage.getItem(`level_${currentSubject}`) || "Easy";
+
+    const quiz = questions[subject][level];
+    let current = 0;
     let score = 0;
 
-    // Load level unlocks from localStorage
-    const unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || {};
-    if (!unlockedLevels[subject]) {
-      unlockedLevels[subject] = { Easy: true, Medium: false, Hard: false };
-    }
+    const gameTitle = document.getElementById("game-title");
+    const questionText = document.getElementById("question-text");
+    const questionCount = document.getElementById("question-count");
+    const optionsBox = document.getElementById("options");
+    const scoreDisplay = document.getElementById("score-display");
 
-    // Load the first unlocked level (always Easy at start)
-    if (unlockedLevels[subject].Easy) level = 'Easy';
-    else if (unlockedLevels[subject].Medium) level = 'Medium';
-    else if (unlockedLevels[subject].Hard) level = 'Hard';
+    gameTitle.textContent = `${subject} - ${level}`;
 
-    document.getElementById('game-title').textContent = `${subject} - ${level} Level`;
-    const questionCountEl = document.getElementById('question-count');
-    const questionBoxEl = document.getElementById('question-box');
-    const questionTextEl = document.getElementById('question-text');
-    const optionsEl = document.getElementById('options');
-    const scoreDisplayEl = document.getElementById('score-display');
-
-    const questionList = questions[subject][level];
-    showQuestion();
-
-    function showQuestion() {
-      if (currentQuestionIndex >= questionList.length) {
-        endGame();
-        return;
-      }
-      questionCountEl.textContent = `Question ${currentQuestionIndex + 1} of ${questionList.length}`;
-      const currentQuestion = questionList[currentQuestionIndex];
-      questionTextEl.textContent = currentQuestion.q;
-      optionsEl.innerHTML = '';
-      currentQuestion.options.forEach(opt => {
-        const btn = document.createElement('button');
+    function loadQuestion() {
+      const q = quiz[current];
+      questionText.textContent = q.q;
+      questionCount.textContent = `Question ${current + 1} of ${quiz.length}`;
+      optionsBox.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
         btn.textContent = opt;
-        btn.onclick = () => checkAnswer(opt);
-        optionsEl.appendChild(btn);
+        btn.onclick = () => {
+          if (opt === q.answer) score += 10;
+          current++;
+          if (current < quiz.length) {
+            loadQuestion();
+          } else {
+            saveScore();
+            alert(`Game Over! Your score: ${score}`);
+            window.location.href = "leaderboard.html";
+          }
+        };
+        optionsBox.appendChild(btn);
       });
+      scoreDisplay.textContent = `Score: ${score}`;
     }
 
-    function checkAnswer(selected) {
-      const correct = questionList[currentQuestionIndex].answer;
-      if (selected === correct) {
-        score++;
-      }
-      currentQuestionIndex++;
-      showQuestion();
-      scoreDisplayEl.textContent = `Score: ${score}`;
+    function saveScore() {
+      const leaderboard = JSON.parse(localStorage.getItem("levelup-leaderboard") || "[]");
+      const name = prompt("Enter your name for the leaderboard:");
+      leaderboard.push({ name: name || "Anonymous", score, subject, level });
+      leaderboard.sort((a, b) => b.score - a.score);
+      localStorage.setItem("levelup-leaderboard", JSON.stringify(leaderboard.slice(0, 10)));
     }
 
-    function endGame() {
-      alert(`You scored ${score}/${questionList.length}!`);
-      // Unlock next level if score is sufficient
-      if (score >= 3) {
-        if (level === 'Easy') unlockedLevels[subject].Medium = true;
-        else if (level === 'Medium') unlockedLevels[subject].Hard = true;
-      }
-      localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
-      // Redirect to leaderboard or subject page
-      window.location.href = 'leaderboard.html';
-    }
+    loadQuestion();
   </script>
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'light') {
+      body.setAttribute('data-theme', 'light');
+      toggle.textContent = '🌙 Dark Mode';
+    }
+
+    toggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        body.removeAttribute('data-theme');
+        toggle.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        toggle.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.querySelector('.fade-in').style.opacity = '1';
+      const cards = document.querySelectorAll('.fade-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
+    });
+  </script>
+  <a href="index.html" class="back-btn">← Back to Home</a>
 </body>
 </html>
 
