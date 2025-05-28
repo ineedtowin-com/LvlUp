@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LevelUp - Contact Us</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Inline script to apply saved theme instantly -->
+  <script>
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
 </head>
 <body>
   <!-- Theme Toggle and Language Switcher -->
@@ -57,10 +63,6 @@
 
     // Load default language
     window.addEventListener("DOMContentLoaded", () => {
-      // Apply saved theme
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      // Update toggle button text if needed (optional)
       document.getElementById('language-switcher').value = 'en';
       setLanguage('en');
     });
