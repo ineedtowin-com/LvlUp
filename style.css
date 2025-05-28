@@ -28,6 +28,7 @@ header {
   padding: 50px 0;
   text-align: center;
   animation: fadeIn 1.5s ease-in;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 body[data-theme="light"] header {
@@ -140,7 +141,7 @@ button,
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -152,8 +153,8 @@ button:hover,
 
 body[data-theme="light"] button,
 body[data-theme="light"] .back-btn {
-  background-color: #89adac; /* Updated background color */
-  color: white;
+  background-color: #89adac; /* lighter background in light mode */
+  color: #1e2a47; /* dark text in light mode */
 }
 
 body[data-theme="light"] button:hover,
@@ -170,6 +171,7 @@ body[data-theme="light"] .back-btn:hover {
   margin: 30px auto 50px;
   padding: 0 20px;
   line-height: 1.6;
+  transition: color 0.3s ease;
 }
 
 body[data-theme="light"] .site-description {
@@ -202,6 +204,7 @@ footer {
   padding: 20px;
   background: #222;
   color: white;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 body[data-theme="light"] footer {
@@ -258,12 +261,12 @@ body[data-theme="light"] footer {
   top: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: #1e2a47;
+  background-color: #1e2a47; /* dark theme bg */
   color: white;
   border-radius: 25px;
   cursor: pointer;
   border: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   z-index: 999;
 }
 
@@ -272,8 +275,12 @@ body[data-theme="light"] footer {
 }
 
 body[data-theme="light"] #theme-toggle {
-  background-color: #1e2a47;
-  color: white;
+  background-color: #89adac; /* lighter bg in light theme */
+  color: #1e2a47; /* dark text in light theme */
+}
+
+body[data-theme="light"] #theme-toggle:hover {
+  background-color: #6fd7c5;
 }
 
 /* Animations */
