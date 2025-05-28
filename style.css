@@ -24,15 +24,14 @@ h1, h2, h3 {
 /* Header */
 header {
   background: #0d1c36;
-  color: white;
+  color: #fff;
   padding: 50px 0;
   text-align: center;
   animation: fadeIn 1.5s ease-in;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 body[data-theme="light"] header {
-  background: white;
+  background: #fff;
   color: #1e2a47;
 }
 
@@ -48,7 +47,7 @@ header p {
 header .btn {
   display: inline-block;
   padding: 10px 20px;
-  background: white;
+  background: #fff;
   color: #1e2a47;
   border-radius: 25px;
   text-decoration: none;
@@ -61,16 +60,14 @@ header .btn:hover {
   background-color: #6fd7c5;
 }
 
-/* Logo Styling */
+/* Logo */
 .logo {
-  height: 250px; /* Increased size */
-  margin-bottom: 10px;
+  height: 250px;
+  margin: 0 auto 10px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Section layout */
+/* Sections */
 section {
   padding: 50px 20px;
   max-width: 1000px;
@@ -78,7 +75,7 @@ section {
   animation: fadeIn 1.5s ease-in;
 }
 
-/* Feature Cards */
+/* Cards */
 .feature-grid,
 .game-container {
   display: flex;
@@ -89,7 +86,7 @@ section {
 
 .card,
 .game-card {
-  background: white;
+  background: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -117,7 +114,7 @@ section {
 
 body[data-theme="light"] .card,
 body[data-theme="light"] .game-card {
-  background: white;
+  background: #fff;
 }
 
 body[data-theme="light"] .card h3,
@@ -135,13 +132,13 @@ button,
 .game-card button,
 .back-btn {
   background-color: #1e2a47;
-  color: white;
+  color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -153,8 +150,8 @@ button:hover,
 
 body[data-theme="light"] button,
 body[data-theme="light"] .back-btn {
-  background-color: #89adac; /* lighter background in light mode */
-  color: #1e2a47; /* dark text in light mode */
+  background-color: #89adac;
+  color: #fff;
 }
 
 body[data-theme="light"] button:hover,
@@ -171,14 +168,13 @@ body[data-theme="light"] .back-btn:hover {
   margin: 30px auto 50px;
   padding: 0 20px;
   line-height: 1.6;
-  transition: color 0.3s ease;
 }
 
 body[data-theme="light"] .site-description {
   color: #1e2a47;
 }
 
-/* Form Inputs */
+/* Form Styling */
 form, .tutoring-form {
   display: flex;
   flex-direction: column;
@@ -203,12 +199,11 @@ footer {
   text-align: center;
   padding: 20px;
   background: #222;
-  color: white;
-  transition: background 0.3s ease, color 0.3s ease;
+  color: #fff;
 }
 
 body[data-theme="light"] footer {
-  background-color: #e0e0e0;
+  background: #e0e0e0;
   color: #1e2a47;
 }
 
@@ -217,7 +212,7 @@ body[data-theme="light"] footer {
   padding: 50px 20px;
   max-width: 1000px;
   margin: auto;
-  background-color: #fff;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -228,26 +223,27 @@ body[data-theme="light"] footer {
   margin-top: 20px;
 }
 
-#leaderboard th, #leaderboard td {
+#leaderboard th,
+#leaderboard td {
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
 #leaderboard th {
-  background-color: #1e2a47;
-  color: white;
+  background: #1e2a47;
+  color: #fff;
 }
 
 #leaderboard tr:nth-child(even) {
-  background-color: #f4f4f4;
+  background: #f4f4f4;
 }
 
 #leaderboard tr:hover {
-  background-color: #e0e0e0;
+  background: #e0e0e0;
 }
 
-/* Back button */
+/* Back Button */
 .back-btn {
   display: inline-block;
   margin-top: 30px;
@@ -261,12 +257,12 @@ body[data-theme="light"] footer {
   top: 20px;
   right: 20px;
   padding: 10px 20px;
-  background-color: #1e2a47; /* dark theme bg */
-  color: white;
+  background: #1e2a47;
+  color: #fff;
   border-radius: 25px;
   cursor: pointer;
   border: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease;
   z-index: 999;
 }
 
@@ -275,12 +271,8 @@ body[data-theme="light"] footer {
 }
 
 body[data-theme="light"] #theme-toggle {
-  background-color: #89adac; /* lighter bg in light theme */
-  color: #1e2a47; /* dark text in light theme */
-}
-
-body[data-theme="light"] #theme-toggle:hover {
-  background-color: #6fd7c5;
+  background: #1e2a47;
+  color: #fff;
 }
 
 /* Animations */
