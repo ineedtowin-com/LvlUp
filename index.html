@@ -7,13 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <!-- Set theme early to avoid flash -->
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-  </script>
+  <!-- Remove early theme set script to avoid conflicts -->
 </head>
 <body>
   <!-- Theme Toggle Button -->
@@ -94,34 +88,28 @@
   <!-- JavaScript for Theme Toggle, Language Switching, and Animations -->
   <script>
     const toggle = document.getElementById('theme-toggle');
-    const htmlEl = document.documentElement; // <html> element
+    const htmlEl = document.documentElement;
 
-    // Load saved theme on first visit
-    window.addEventListener("DOMContentLoaded", () => {
-      const savedTheme = localStorage.getItem("theme") || "dark";
-      htmlEl.setAttribute("data-theme", savedTheme);
-
-      if (savedTheme === "light") {
+    function applyTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'light') {
         toggle.textContent = "☀️ Light Mode";
       } else {
         toggle.textContent = "🌙 Dark Mode";
       }
+    }
 
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      applyTheme(savedTheme);
       setLanguage('en');
     });
 
-    // Theme toggle behavior
     toggle.addEventListener('click', () => {
       const currentTheme = htmlEl.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        htmlEl.setAttribute('data-theme', 'dark');
-        toggle.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        htmlEl.setAttribute('data-theme', 'light');
-        toggle.textContent = '☀️ Light Mode';
-        localStorage.setItem('theme', 'light');
-      }
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
     });
 
     // Language translations
@@ -153,3 +141,4 @@
   </script>
 </body>
 </html>
+
