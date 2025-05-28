@@ -6,17 +6,12 @@
   <title>LevelUp - Contact Us</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-
-  <!-- 1️⃣ Theme: set instantly from localStorage (no toggle here!) -->
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-  </script>
 </head>
 <body>
-  <!-- 2️⃣ Language Switcher -->
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">🌙 Dark Mode</button>
+
+  <!-- Language Switcher -->
   <select id="language-switcher" onchange="setLanguage(this.value)">
     <option value="en">English</option>
     <option value="fr">Français</option>
@@ -84,6 +79,7 @@
       });
     }
   </script>
+
   <script src="theme.js"></script>
 </body>
 </html>
