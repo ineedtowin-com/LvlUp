@@ -6,6 +6,14 @@
   <title>LevelUp - Empowering Education</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Set theme early to avoid flash -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 <body>
   <!-- Theme Toggle Button -->
@@ -86,33 +94,31 @@
   <!-- JavaScript for Theme Toggle, Language Switching, and Animations -->
   <script>
     const toggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const languageSwitcher = document.getElementById('language-switcher');
+    const htmlEl = document.documentElement; // <html> element
 
     // Load saved theme on first visit
     window.addEventListener("DOMContentLoaded", () => {
       const savedTheme = localStorage.getItem("theme") || "dark";
+      htmlEl.setAttribute("data-theme", savedTheme);
+
       if (savedTheme === "light") {
-        body.setAttribute("data-theme", "light");
         toggle.textContent = "☀️ Light Mode";
       } else {
-        body.setAttribute("data-theme", "dark");
         toggle.textContent = "🌙 Dark Mode";
       }
 
-      // Language default to English
       setLanguage('en');
     });
 
     // Theme toggle behavior
     toggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
+      const currentTheme = htmlEl.getAttribute('data-theme');
       if (currentTheme === 'light') {
-        body.setAttribute('data-theme', 'dark');
+        htmlEl.setAttribute('data-theme', 'dark');
         toggle.textContent = '🌙 Dark Mode';
         localStorage.setItem('theme', 'dark');
       } else {
-        body.setAttribute('data-theme', 'light');
+        htmlEl.setAttribute('data-theme', 'light');
         toggle.textContent = '☀️ Light Mode';
         localStorage.setItem('theme', 'light');
       }
